@@ -17,6 +17,6 @@ describe('Product validator', () => {
             price: 12
         };
 
-        let result = expect(productValidator.validateProduct(product)).to.be.null;
+        let result = expect(productValidator.validateProduct(product)).to.be.true;
     });
 });
