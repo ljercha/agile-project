@@ -38,15 +38,7 @@ app.listen(3000, () => {
 // Routing
 
 app.get('/', (eq: Request, res: Response) => {
-    res.render('pizza', {
-        title: 'New Pizza Time',
-    });
+    res.redirect('/products');
 });
 
-require('./controller/authController')(app);
-
-const authMiddleware = require('./middleware/auth');
-app.use(authMiddleware);
-
 require('./controller/productController')(app);
-require('./controller/orderController')(app);
