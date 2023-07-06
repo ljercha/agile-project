@@ -1,5 +1,15 @@
 version: '1'
 services:
+  web-app:
+    container_name: web-app
+    hostname: web-app
+    environment:
+      - API_URL=products-api
+    ports:
+      - "3000:3000"
+    image: pizza-web-app
+    depends_on:
+      - api
   api:
     container_name: products-api
     hostname: products-api
@@ -11,10 +21,8 @@ services:
     ports:
       - "8080:8080"
     image: api-products
-# Below code is required to use a local containerised db
     depends_on:
       - db
-
   db:
     image: mysql
     container_name: MYSQLDB

@@ -5,7 +5,11 @@ const express = require('express');
 const path = require('path');
 const nunjucks = require('nunjucks');
 const session = require('express-session');
+
+require('dotenv').config();
+
 const app: Application = express();
+
 
 const appViews = path.join(__dirname, '/views');
 

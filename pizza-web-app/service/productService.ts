@@ -2,9 +2,11 @@ import { Product } from "../model/product";
 const productValidator = require('./productValidator');
 const axios = require('axios');
 
+const apiUrl = `http://${process.env.API_URL}:8080`;
+
 module.exports.getProducts = async function (): Promise<Product[]> {
     try {
-        const response = await axios.get('http://localhost:8080/api/products');
+        const response = await axios.get(`${apiUrl}/api/products`);
 
         return response.data;
     }
@@ -21,7 +23,7 @@ module.exports.createProduct = async function (product: Product): Promise<number
         }
         
     try {
-        const response = await axios.post('http://localhost:8080/api/products', product);
+        const response = await axios.post(`${apiUrl}/api/products`, product);
 
         return response.data;
     }
@@ -32,7 +34,7 @@ module.exports.createProduct = async function (product: Product): Promise<number
 
 module.exports.getProductById = async function (id: number): Promise<Product> {
     try {
-        const response = await axios.get(`http://localhost:8080/api/products/${id}`);
+        const response = await axios.get(`${apiUrl}/api/products/${id}`);
 
         return response.data;
     }

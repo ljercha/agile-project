@@ -1,18 +1,13 @@
 FROM node:14.21.3-bullseye
 
+COPY . .
+
 RUN npm install
 RUN npm run prestart
-
-WORKDIR /dist
-
-COPY . /code
 
 ARG API_URL
 
 ENV API_URL ${API_URL}
-
-RUN npm install
-RUN npm run prestart
 
 EXPOSE 8080
 
