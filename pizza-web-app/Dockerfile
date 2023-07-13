@@ -1,10 +1,10 @@
-FROM node:14.21.3-bullseye
+FROM node:18.16-bullseye
 
 WORKDIR /app
 
 COPY . /app
 
-RUN npm install --production
+RUN npm install
 RUN npm run prestart
 
 ARG API_URL

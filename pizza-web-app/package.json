@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "prestart": "npm run lint && cp -R views dist",
-    "lint": "npx tsc",
+    "lint": "tsc",
     "start": "node dist/app.js",
     "test": "ts-mocha -p tsconfig.json service/**/*.test.ts"
   },
