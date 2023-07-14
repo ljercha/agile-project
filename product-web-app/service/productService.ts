@@ -2,7 +2,7 @@ import { Product } from "../model/product";
 const productValidator = require('./productValidator');
 const axios = require('axios');
 
-const apiUrl = `http://${process.env.API_URL}:8080`;
+const apiUrl = `http://${process.env.API_URL}`;
 
 module.exports.getProducts = async function (): Promise<Product[]> {
     try {

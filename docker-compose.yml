@@ -1,18 +1,18 @@
 version: '1'
 services:
-  web-app:
-    container_name: web-app
-    hostname: web-app
+  product-app:
+    container_name: product-web-app
+    hostname: product-app
     environment:
-      - API_URL=products-api
+      - API_URL=product-api:8080
     ports:
       - "3000:3000"
-    image: pizza-web-app
+    image: product-web-app
     depends_on:
       - api
   api:
-    container_name: products-api
-    hostname: products-api
+    container_name: product-api
+    hostname: product-api
     environment:
       - DB_USERNAME=$DB_USERNAME
       - DB_PASSWORD=$DB_PASSWORD
@@ -20,7 +20,7 @@ services:
       - DB_NAME=$DB_NAME
     ports:
       - "8080:8080"
-    image: api-products
+    image: product-api
     depends_on:
       - db
   db:
@@ -28,7 +28,7 @@ services:
     container_name: MYSQLDB
     hostname: mysqldb
     volumes:
-      - ./scripts:/tmp/scripts
+      - ./product-backend/scripts:/tmp/scripts
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password --init-file="/tmp/scripts/1_init.sql"
