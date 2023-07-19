@@ -65,7 +65,7 @@ mvn test
 #### Integration tests
 ```bash
 cd product/backend
-mvn integration-test
+mvn verify
 ```
 
 #### E2E/UI Tests
