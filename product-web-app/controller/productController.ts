@@ -1,16 +1,13 @@
 import { Application, Request, Response } from "express";
-import { Product } from "../model/product";
+import { Product } from "../model/product.js";
+import { getProducts, getProductById, createProduct } from "../service/productService.js";
 
-const productService = require('../service/productService');
-const productValidator = require('../service/productValidator');
-
-
-module.exports = function (app: Application) {
+export function productController(app: Application) {
     app.get('/products', async (req: Request, res: Response) => {
-        let data = [];
+        let data: Product[] = [];
 
         try {
-            data = await productService.getProducts();
+            data = await getProducts();
         } catch (e) {
             console.error(e);
         }
@@ -19,10 +16,10 @@ module.exports = function (app: Application) {
     })
 
     app.get('/products/:id', async (req: Request, res: Response) => {
-        let data = [];
+        let data = {};
 
         try {
-            data = await productService.getProductById(req.params.id);
+            data = await getProductById(Number.parseInt(req.params.id));
         } catch (e) {
             console.error(e);
         }
@@ -40,7 +37,7 @@ module.exports = function (app: Application) {
         let id: number;        
 
         try {
-            id = await productService.createProduct(data);
+            id = await createProduct(data);
             res.redirect(`/products/${id}`);
         } catch (e: any) {
             console.error(e);
@@ -84,7 +81,7 @@ module.exports = function (app: Application) {
         let id: number;        
 
         try {
-            id = await productService.createProduct(data);
+            id = await createProduct(data as Product);
             req.session.product = undefined;
             res.redirect(`/products/${id}`);
         } catch (e: any) {

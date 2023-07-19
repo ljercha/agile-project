@@ -1,10 +1,10 @@
-import { Product } from "../model/product";
-const productValidator = require('./productValidator');
-const axios = require('axios');
+import axios from "axios";
+import { Product } from "../model/product.js";
+import { validateProduct } from "./productValidator.js";
 
 const apiUrl = `http://${process.env.API_URL}`;
 
-module.exports.getProducts = async function (): Promise<Product[]> {
+export  async function getProducts(): Promise<Product[]> {
     try {
         const response = await axios.get(`${apiUrl}/api/products`);
 
@@ -15,8 +15,8 @@ module.exports.getProducts = async function (): Promise<Product[]> {
     }
 }
 
-module.exports.createProduct = async function (product: Product): Promise<number> {
-    const validateError = productValidator.validateProduct(product);
+export async function createProduct (product: Product): Promise<number> {
+    const validateError = validateProduct(product);
         if (validateError) {
             console.log(`VALIDATION ERROR: ${validateError}`);
             throw new Error(validateError);
@@ -32,7 +32,7 @@ module.exports.createProduct = async function (product: Product): Promise<number
     }
 }
 
-module.exports.getProductById = async function (id: number): Promise<Product> {
+export async function getProductById(id: number): Promise<Product> {
     try {
         const response = await axios.get(`${apiUrl}/api/products/${id}`);
 

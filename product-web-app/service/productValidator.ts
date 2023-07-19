@@ -1,6 +1,6 @@
-import { Product } from "../model/product";
+import { Product } from "../model/product.js";
 
-module.exports.validateProduct = function(product: Product) {
+export function validateProduct(product: Product) {
     if (product.name.length > 50) {
         return 'Name greater than 50 characters'
     };

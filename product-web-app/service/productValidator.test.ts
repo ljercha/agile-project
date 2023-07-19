@@ -1,12 +1,12 @@
-import { Product } from "../model/product";
+import { Product } from "../model/product.js";
 import { expect } from 'chai';
-const productValidator = require('./productValidator');
+import { validateProduct } from "./productValidator.js";
 
 describe('Product validator', () => {
     it('expect too long length message', () => {
         let product: Partial<Product> = {name: 'aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a '};
 
-        let result = expect(productValidator.validateProduct(product as Product)).to.be.equal('Name greater than 50 characters');
+        let result = expect(validateProduct(product as Product)).to.be.equal('Name greater than 50 characters');
     });
 
     it('expect no errrors', () => {
@@ -17,6 +17,6 @@ describe('Product validator', () => {
             price: 12
         };
 
-        let result = expect(productValidator.validateProduct(product)).to.be.null;
+        let result = expect(validateProduct(product)).to.be.null;
     });
 });
