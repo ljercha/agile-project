@@ -2,6 +2,7 @@ version: '1'
 services:
   product-app:
     container_name: product-web-app
+    build: https://raw.githubusercontent.com/ljercha/agile-project/main/product-web-app/Dockerfile
     hostname: product-app
     environment:
       - API_URL=product-api:8080
@@ -12,6 +13,7 @@ services:
       - api
   api:
     container_name: product-api
+    build: https://raw.githubusercontent.com/ljercha/agile-project/main/product-backend/Dockerfile
     hostname: product-api
     environment:
       - DB_USERNAME=$DB_USERNAME
