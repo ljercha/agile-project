@@ -1,4 +1,4 @@
-version: '1'
+version: '3.3'
 services:
   product-app:
     container_name: product-web-app
