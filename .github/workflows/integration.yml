@@ -9,6 +9,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  DB_HOST: "mysqldb"
+  DB_NAME: "Project"
+  DB_USERNAME: "ci-user"
+  DB_PASSWORD: "temp"
+  WEB_APP_URL: "http://localhost:3000"
+  
 jobs:
   build:
 
@@ -25,12 +32,6 @@ jobs:
       uses: isbang/compose-action@v1.4.1
       with:
         compose-file: "./docker-compose.yml"
-        # env:
-        #   DB_HOST: "mysqldb"
-        #   DB_NAME: "Project"
-        #   DB_USERNAME: "ci-user"
-        #   DB_PASSWORD: "temp"
-        #   WEB_APP_URL: "http://localhost:3000"
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
