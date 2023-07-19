@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 
 @ExtendWith(MockitoExtension.class)
 public class
-ProductIntegrationTest {
+ProductIntegrationIT {
 
     @Mock
     private ProductRequest product;
