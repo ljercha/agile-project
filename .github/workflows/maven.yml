@@ -30,6 +30,6 @@ jobs:
     - name: Build with Maven
       run: mvn install -DskipTests
       working-directory: './product-backend'
-      - name: Unit tests
+    - name: Unit tests
       run: mvn test
       working-directory: './product-backend'
