@@ -89,4 +89,4 @@ export default (app: Application) => {
       res.render('add-product-confirmation', req.session.product);
     }
   });
-}
+};

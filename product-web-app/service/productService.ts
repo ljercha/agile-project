@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Product from '../model/product.js';
 import { validateProduct } from './productValidator.js';
+import Product from '../model/product.js';
 
 const apiUrl = `http://${process.env.API_URL}`;
 
@@ -17,7 +17,6 @@ export async function getProducts(): Promise<Product[]> {
 export async function createProduct(product: Product): Promise<number> {
   const validateError = validateProduct(product);
   if (validateError) {
-    const a = '';
     console.log(`VALIDATION ERROR: ${validateError}`);
     throw new Error(validateError);
   }
