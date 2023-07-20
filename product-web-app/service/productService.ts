@@ -17,6 +17,7 @@ export async function getProducts(): Promise<Product[]> {
 export async function createProduct(product: Product): Promise<number> {
   const validateError = validateProduct(product);
   if (validateError) {
+    const a = '';
     console.log(`VALIDATION ERROR: ${validateError}`);
     throw new Error(validateError);
   }
