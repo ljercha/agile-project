@@ -33,3 +33,6 @@ jobs:
     - name: Unit tests
       run: mvn test
       working-directory: './product-backend'
+    - name: Checkstyle
+      run: mvn checkstyle:checkstyle
+      working-directory: './product-backend'
