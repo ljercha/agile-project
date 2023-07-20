@@ -1,6 +1,6 @@
-export interface Product {
-    productId: number;
-    name: string;
-    description: string;
-    price: number;
+export default interface Product {
+  productId: number;
+  name: string;
+  description: string;
+  price: number;
 }
