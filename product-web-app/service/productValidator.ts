@@ -1,4 +1,4 @@
-import Product from '../model/product';
+import Product from "../model/product.js";
 
 export function validateProduct(product: Product) {
   if (product.name.length > 50) {

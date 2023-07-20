@@ -2,7 +2,7 @@ import { Application, Request, Response } from 'express';
 import { getProducts, getProductById, createProduct } from '../service/productService.js';
 import Product from '../model/product.js';
 
-export default function (app: Application) {
+export default (app: Application) => {
   app.get('/products', async (req: Request, res: Response) => {
     let data: Product[] = [];
 

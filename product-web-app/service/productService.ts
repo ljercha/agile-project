@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Product } from '../model/product.js';
+import Product from '../model/product.js';
 import { validateProduct } from './productValidator.js';
 
 const apiUrl = `http://${process.env.API_URL}`;
