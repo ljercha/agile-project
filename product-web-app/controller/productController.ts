@@ -1,93 +1,92 @@
-import { Application, Request, Response } from "express";
-import { Product } from "../model/product.js";
-import { getProducts, getProductById, createProduct } from "../service/productService.js";
+import { Application, Request, Response } from 'express';
+import { getProducts, getProductById, createProduct } from '../service/productService.js';
+import Product from '../model/product.js';
 
-export function productController(app: Application) {
-    app.get('/products', async (req: Request, res: Response) => {
-        let data: Product[] = [];
+export default (app: Application) => {
+  app.get('/products', async (req: Request, res: Response) => {
+    let data: Product[] = [];
 
-        try {
-            data = await getProducts();
-        } catch (e) {
-            console.error(e);
-        }
+    try {
+      data = await getProducts();
+    } catch (e) {
+      console.error(e);
+    }
 
-        res.render('list-products', { products: data });
-    })
+    res.render('list-products', { products: data });
+  });
 
-    app.get('/products/:id', async (req: Request, res: Response) => {
-        let data = {};
+  app.get('/products/:id', async (req: Request, res: Response) => {
+    let data = {};
 
-        try {
-            data = await getProductById(Number.parseInt(req.params.id));
-        } catch (e) {
-            console.error(e);
-        }
+    try {
+      data = await getProductById(Number.parseInt(req.params.id, 10));
+    } catch (e) {
+      console.error(e);
+    }
 
-        res.render('view-product', { product: data });
-    });
+    res.render('view-product', { product: data });
+  });
 
-    app.get('/add-product', async (req: Request, res: Response) => {
-        res.render('add-product');
-    });
+  app.get('/add-product', async (req: Request, res: Response) => {
+    res.render('add-product');
+  });
 
+  app.post('/add-product', async (req: Request, res: Response) => {
+    const data: Product = req.body;
+    let id: number;
 
-    app.post('/add-product', async (req: Request, res: Response) => {
-        let data: Product = req.body;
-        let id: number;        
+    try {
+      id = await createProduct(data);
+      res.redirect(`/products/${id}`);
+    } catch (e: any) {
+      console.error(e);
+      res.locals.errormessage = e.message;
+      res.render('add-product', req.body);
+    }
+  });
 
-        try {
-            id = await createProduct(data);
-            res.redirect(`/products/${id}`);
-        } catch (e: any) {
-            console.error(e);
-            res.locals.errormessage = e.message;
-            res.render('add-product', req.body);
-        }
-    });
+  app.get('/add-product-name', async (req: Request, res: Response) => {
+    if (!req.session.product) {
+      req.session.product = {};
+    }
+    res.render('add-product-name');
+  });
+  app.post('/add-product-name', async (req: Request, res: Response) => {
+    req.session.product!.name = req.body.name;
+    res.redirect('/add-product-description');
+  });
 
-    app.get('/add-product-name', async (req: Request, res: Response) => {
-        if (!req.session.product) {
-            req.session.product = {};
-        }
-        res.render('add-product-name');
-    });
-    app.post('/add-product-name', async (req: Request, res: Response) => {
-        req.session.product!.name = req.body.name;
-        res.redirect('/add-product-description');
-    });
+  app.get('/add-product-description', async (req: Request, res: Response) => {
+    res.render('add-product-description');
+  });
+  app.post('/add-product-description', async (req: Request, res: Response) => {
+    req.session.product!.description = req.body.description;
+    res.redirect('/add-product-price');
+  });
 
-    app.get('/add-product-description', async (req: Request, res: Response) => {
-        res.render('add-product-description');
-    });
-    app.post('/add-product-description', async (req: Request, res: Response) => {
-        req.session.product!.description = req.body.description;
-        res.redirect('/add-product-price');
-    });
+  app.get('/add-product-price', async (req: Request, res: Response) => {
+    res.render('add-product-price');
+  });
+  app.post('/add-product-price', async (req: Request, res: Response) => {
+    req.session.product!.price = req.body.price;
+    res.redirect('/add-product-confirmation');
+  });
 
-    app.get('/add-product-price', async (req: Request, res: Response) => {
-        res.render('add-product-price');
-    });
-    app.post('/add-product-price', async (req: Request, res: Response) => {
-        req.session.product!.price = req.body.price;
-        res.redirect('/add-product-confirmation');
-    });
+  app.get('/add-product-confirmation', async (req: Request, res: Response) => {
+    res.render('add-product-confirmation', req.session.product);
+  });
+  app.post('/add-product-confirmation', async (req: Request, res: Response) => {
+    const data: Partial<Product> | undefined = req.session.product;
+    let id: number;
 
-    app.get('/add-product-confirmation', async (req: Request, res: Response) => {
-        res.render('add-product-confirmation', req.session.product);
-    });
-    app.post('/add-product-confirmation', async (req: Request, res: Response) => {
-        let data: Partial<Product> | undefined = req.session.product;
-        let id: number;        
-
-        try {
-            id = await createProduct(data as Product);
-            req.session.product = undefined;
-            res.redirect(`/products/${id}`);
-        } catch (e: any) {
-            console.error(e);
-            res.locals.errormessage = e.message;
-            res.render('add-product-confirmation', req.session.product);
-        }
-    });
-}
+    try {
+      id = await createProduct(data as Product);
+      req.session.product = undefined;
+      res.redirect(`/products/${id}`);
+    } catch (e: any) {
+      console.error(e);
+      res.locals.errormessage = e.message;
+      res.render('add-product-confirmation', req.session.product);
+    }
+  });
+};
