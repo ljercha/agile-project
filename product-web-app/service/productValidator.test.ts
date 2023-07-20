@@ -5,7 +5,9 @@ import Product from '../model/product.js';
 
 describe('Product validator', () => {
   it('expect too long length message', () => {
-    const product: Partial<Product> = { name: 'aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a ' };
+    const product: Partial<Product> = {
+      name: 'aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a aa aaa a a a a a a a ',
+    };
 
     expect(validateProduct(product as Product)).to.be.equal('Name greater than 50 characters');
   });
