@@ -1,8 +1,10 @@
-FROM node:18.16-bullseye
+FROM node:18-alpine
 
 WORKDIR /app
 
 COPY . /app
+
+COPY ../tsconfig.json tsconfig.json
 
 RUN npm install
 RUN npm run prestart
