@@ -1,17 +1,18 @@
 FROM node:18-alpine
 
+ARG API_URL
+ENV API_URL ${API_URL}
+
+# Faked root tsconfig.json
+COPY tsconfig-docker.json tsconfig.json
+
 WORKDIR /app
 
 COPY . /app
 
-COPY ../tsconfig.json tsconfig.json
-
 RUN npm install
 RUN npm run prestart
 
-ARG API_URL
-
-ENV API_URL ${API_URL}
 
 EXPOSE 8080
 
