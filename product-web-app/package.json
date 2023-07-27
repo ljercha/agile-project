@@ -7,7 +7,7 @@
   "scripts": {
     "prestart": "npm run compile && cp -R views dist",
     "compile": "tsc",
-    "lint": "npx eslint . --fix  --ext .ts && prettier --ignore-path .gitignore --write \"**/*.+(ts)\"",
+    "lint": "npx eslint . --fix  --ext .ts && prettier --write \"**/*.+(ts)\"",
     "start": "node dist/app.js",
     "test": "ts-mocha"
   },
