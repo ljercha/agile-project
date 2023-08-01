@@ -5,8 +5,8 @@ import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
 
-import Product from './model/product.js';
-import productController from './controller/productController.js';
+// import Product from './model/product.js';
+// import productController from './controller/productController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -42,9 +42,9 @@ app.listen(3000, () => {
 });
 
 // Routing
+//
+// app.get('/', (eq: Request, res: Response) => {
+//   res.redirect('/products');
+// });
 
-app.get('/', (eq: Request, res: Response) => {
-  res.redirect('/products');
-});
-
-productController(app);
+// productController(app);
