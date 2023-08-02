@@ -8,7 +8,7 @@
     "prestart": "npm run compile && cp -R views dist",
     "compile": "tsc",
     "lint": "npx eslint . --fix  --ext .ts && prettier --write \"**/*.+(ts)\"",
-    "start": "node dist/app.js",
+    "start": "npx tsc && cp -R views dist && node dist/app.js",
     "test": "ts-mocha"
   },
   "dependencies": {
@@ -33,7 +33,7 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "mocha": "10.2.0",
-    "prettier":"3.0.0",
+    "prettier": "3.0.0",
     "ts-mocha": "10.0.0",
     "ts-node": "10.9.1",
     "typescript": "^5.1.6"

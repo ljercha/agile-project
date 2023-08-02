@@ -5,8 +5,8 @@ import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
 
-// import Product from './model/product.js';
-// import productController from './controller/productController.js';
+import authController from './controller/authController.js';
+import { authMiddleware } from './middleware/auth.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -25,11 +25,10 @@ nunjucks.configure(appViews, nunjucksConfig);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 60000 } }));
+app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 6000000 } }));
 
 declare module 'express-session' {
   interface SessionData {
-    product: Partial<Product>;
     token: string;
   }
 }
@@ -41,10 +40,14 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
-// Routing
-//
-// app.get('/', (eq: Request, res: Response) => {
-//   res.redirect('/products');
-// });
+app.get('/', async (req: Request, res: Response) => {
+  if (!req.session.token || req.session.token.length === 0) {
+    res.redirect('auth/login');
+  } else {
+    res.render('index', { title: 'Main page' });
+  }
+});
 
-// productController(app);
+authController(app);
+
+app.use(authMiddleware);
