@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Przekierowanie do PDF zależne od roli</title>
+</head>
+<body>
+    <h1>Wybierz zawód, aby zobaczyć plik PDF:</h1>
+    <ul>
+        <li><a href="#" onclick="redirectToPDF('tester')">Zawód dla testera</a></li>
+        <li><a href="#" onclick="redirectToPDF('softwareEnginner')">Zawód dla programisty</a></li>
+    </ul>
+
+    <script>
+        function redirectToPDF(role) {
+            var pdfLink;
+
+            switch (role) {
+                case "admin":
+                    pdfLink = "sciezka/do/pliku_admin.pdf";
+                    break;
+                case "softwareEnginner":
+                    pdfLink = "sciezka/do/pliku_user.pdf";
+                    break;
+                default:
+                    pdfLink = "";
+            }
+
+            if (pdfLink) {
+                window.location.href = pdfLink;
+            } else {
+                alert("Brak dostępu do pliku PDF");
+            }
+        }
+    </script>
+</body>
+</html>
