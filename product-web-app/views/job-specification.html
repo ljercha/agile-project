@@ -1,36 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Przekierowanie do PDF zależne od roli</title>
+    <title>PDF Redirection Example</title>
 </head>
 <body>
-    <h1>Wybierz zawód, aby zobaczyć plik PDF:</h1>
-    <ul>
-        <li><a href="#" onclick="redirectToPDF('tester')">Zawód dla testera</a></li>
-        <li><a href="#" onclick="redirectToPDF('softwareEnginner')">Zawód dla programisty</a></li>
-    </ul>
+    <h1>Role-Based PDF Redirection</h1>
+    <form onsubmit="return redirectToPDF()">
+        <label for="summary">Summary:</label><br>
+        <textarea id="summary" name="summary" rows="5" cols="50" maxlength="1000"></textarea><br>
+
+        <label for="link">Link:</label><br>
+        <input type="text" id="link" name="link" maxlength="500"><br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select><br>
+
+        <input type="submit" value="Submit">
+    </form>
 
     <script>
-        function redirectToPDF(role) {
-            var pdfLink;
+        function redirectToPDF() {
+            var userRole = document.getElementById("role").value;
+            var summary = document.getElementById("summary").value;
+            var link = document.getElementById("link").value;
 
-            switch (role) {
+            if (summary.length > 1000) {
+                alert("Summary should not exceed 1000 characters.");
+                return false;
+            }
+
+            if (link.length > 500) {
+                alert("Link should not exceed 500 characters.");
+                return false;
+            }
+
+            switch (userRole) {
                 case "admin":
-                    pdfLink = "sciezka/do/pliku_admin.pdf";
+                    window.location.href = "https://kainossoftwareltd.sharepoint.com/:x:/r/engineering/_layouts/15/Doc.aspx?sourcedoc=%7BD677DA41-7C3C-451D-B65B-DD644D916674%7D&file=Engineering%20Capability%20Skills%20Matrix.xlsx&action=default&mobileredirect=true";
                     break;
-                case "softwareEnginner":
-                    pdfLink = "sciezka/do/pliku_user.pdf";
+                case "user":
+                    window.location.href = "https://example.com/pdf-link-user.pdf";
                     break;
                 default:
-                    pdfLink = "";
+                    window.location.href = "https://example.com/default-page.html";
+                    break;
             }
 
-            if (pdfLink) {
-                window.location.href = pdfLink;
-            } else {
-                alert("Brak dostępu do pliku PDF");
-            }
+            return false; 
         }
+        redirectToPDF()
     </script>
+    
 </body>
 </html>
