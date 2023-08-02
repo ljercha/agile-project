@@ -1,2 +1,4 @@
-package org.kainos.ea.client;public class FailedToGetProjectsException {
+package org.kainos.ea.client;
+
+public class FailedToGetProjectsException {
 }
