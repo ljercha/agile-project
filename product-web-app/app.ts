@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application} from 'express';
 import * as url from 'url';
 import 'dotenv/config';
 import session from 'express-session';
