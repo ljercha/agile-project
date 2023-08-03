@@ -6,6 +6,7 @@ import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.kainos.ea.resources.AdminController;
 
 public class DropwizardWebServiceApplication extends Application<DropwizardWebServiceConfiguration> {
 
@@ -32,6 +33,8 @@ public class DropwizardWebServiceApplication extends Application<DropwizardWebSe
     public void run(final DropwizardWebServiceConfiguration configuration,
                     final Environment environment) {
         // TODO: implement application
+        environment.jersey().register(new AdminController());
+
 
     }
 

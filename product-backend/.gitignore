@@ -46,6 +46,7 @@ out/
 *.iml
 *.ipr
 *.iws
+db.properties
 
 ##############################
 ## Eclipse

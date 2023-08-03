@@ -1,5 +1,5 @@
 {
-  "name": "TEAMB",
+  "name": "teamb",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -8,7 +8,7 @@
     "prestart": "npm run compile && cp -R views dist",
     "compile": "tsc",
     "lint": "npx eslint . --fix  --ext .ts && prettier --write \"**/*.+(ts)\"",
-    "start": "node dist/app.js",
+    "start": "npx tsc && cp -R views dist && node dist/app.js",
     "test": "ts-mocha"
   },
   "dependencies": {

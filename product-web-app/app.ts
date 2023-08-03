@@ -5,8 +5,8 @@ import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
 
-// import Product from './model/product.js';
-// import productController from './controller/productController.js';
+import { Band } from './model/band.js';
+import bandController from './controller/bandController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -29,8 +29,7 @@ app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 60000 } }));
 
 declare module 'express-session' {
   interface SessionData {
-    product: Partial<Product>;
-    token: string;
+    band: Partial<Band>;
   }
 }
 
@@ -47,4 +46,4 @@ app.listen(3000, () => {
 //   res.redirect('/products');
 // });
 
-// productController(app);
+bandController(app);
