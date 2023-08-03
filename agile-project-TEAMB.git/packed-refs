@@ -1,0 +1,8 @@
+# pack-refs with: peeled fully-peeled sorted 
+e6f535b3c3ac8ade3b09ee2193f492720a32efa9 refs/heads/dev
+9b576f7ccfbf37e08b8c25fd788878ea70647173 refs/heads/feat/CreateNewBand
+0295c837d3425aa374921185a81bfc23db706793 refs/heads/feature/create-register-page
+273514a251413f485068802b50aaf901e9c1322e refs/heads/main
+9b576f7ccfbf37e08b8c25fd788878ea70647173 refs/pull/1/head
+1a38f64180c9e492f24e63272018210f13a3d043 refs/pull/2/head
+e6f535b3c3ac8ade3b09ee2193f492720a32efa9 refs/pull/3/head
