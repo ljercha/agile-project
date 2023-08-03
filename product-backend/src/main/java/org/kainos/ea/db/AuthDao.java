@@ -2,12 +2,11 @@ package org.kainos.ea.db;
 
 import org.kainos.ea.cli.RequestEmployee;
 import org.kainos.ea.utils.PasswordHasher;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 
 
-public class EmployeeDao extends DatabaseConnector {
+public class AuthDao extends DatabaseConnector {
 
     public int createNewEmployee(RequestEmployee employee) throws SQLException {
         Connection conn = getConnection();

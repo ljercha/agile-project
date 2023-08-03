@@ -2,15 +2,11 @@ import Employee from '../model/register.js';
 
 export default function registerValidator(input: Employee) {
   // Minimum password length (you can adjust this as needed)
-  const { email, password } = input;
+  const { email, password, role } = input;
   const minLength: number = 8;
 
   if (/\s/.test(email)) {
     throw Error('Email cannot contain whitespace.');
-  }
-
-  if (/@/.test(email)) {
-    throw Error('Email name cannot contains "@"');
   }
 
   if (password.length < minLength) {
@@ -38,5 +34,9 @@ export default function registerValidator(input: Employee) {
     throw Error('Password cannot contain whitespace.');
   }
 
-  return true; // Return null i
+  if (!(role === 'Admin' || role === 'Employee')) {
+    throw Error('You must choose your role from the form.');
+  }
+
+  return null;
 }

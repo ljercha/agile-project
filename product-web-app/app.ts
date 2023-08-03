@@ -37,6 +37,7 @@ app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
 app.listen(3000, () => {
+  // eslint-disable-next-line no-console
   console.log('Server listening on port 3000');
 });
 
