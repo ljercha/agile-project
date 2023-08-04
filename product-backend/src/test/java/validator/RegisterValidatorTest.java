@@ -2,6 +2,7 @@ package validator;
 
 import org.junit.jupiter.api.Test;
 import org.kainos.ea.cli.RequestUser;
+import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
 import org.kainos.ea.validator.RegisterValidator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +12,7 @@ public class RegisterValidatorTest {
     RegisterValidator registerValidator = new RegisterValidator();
 
     @Test
-    public void isValidUser_shouldReturnTrue_whenValidDataProvided() throws Exception {
+    public void isValidUser_shouldReturnTrue_whenValidDataProvided() throws FaliedToCreateUserWrongInputException {
         RequestUser user = new RequestUser(
                 "test@kainos.com",
                 "Test1234!",
@@ -29,7 +30,7 @@ public class RegisterValidatorTest {
                 "Admin"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 
@@ -41,7 +42,7 @@ public class RegisterValidatorTest {
                 "Admin"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 
@@ -53,7 +54,7 @@ public class RegisterValidatorTest {
                 "Admin"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 
@@ -65,7 +66,7 @@ public class RegisterValidatorTest {
                 "Admin"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 
@@ -77,7 +78,7 @@ public class RegisterValidatorTest {
                 "Admin"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 
@@ -89,7 +90,7 @@ public class RegisterValidatorTest {
                 "Hacker"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 
@@ -101,7 +102,7 @@ public class RegisterValidatorTest {
                 "Admin"
         );
 
-        assertThrows(Exception.class,
+        assertThrows(FaliedToCreateUserWrongInputException.class,
                 () -> registerValidator.validate(user));
     }
 }
