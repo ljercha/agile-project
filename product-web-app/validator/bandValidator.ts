@@ -1,22 +1,20 @@
-interface Employee {
-    fname: string;
-    lname: string;
-    salary: number;
-    bankNo: string;
-    nin: string;
+interface Band {
+    name: string;
+    level: string;
+    responsibilities: string;
   }
   
   export function validateBand(band: Band): string | null {
-    if (isNaN(band.salary)) {
-      return "Salary must be a number";
+    if (band.name.length < 1) {
+      return "name must be at least 1 characters";
     }
   
-    if (band.salary < 20000) {
-      return "Salary must be at least £20,000";
+    if (band.level.length < 1) {
+      return "level must be at least 1 character";
     }
   
-    if (band.bankNo.length < 8) {
-      return "Bank number must be at least 8 characters";
+    if (band.responsibilities.length < 1) {
+      return "Responsibilities must be at least 1 character";
     }
   
   
