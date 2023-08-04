@@ -1,5 +1,5 @@
 -- US001
-insert into JobRoles(jobRoleTitle) values 
+insert into JobRoles(job_role_title) values 
     ('Engineering'), 
     ('Engineering, Strategy and Planning'), 
     ('Architecture'), 
