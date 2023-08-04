@@ -3,14 +3,20 @@ package org.kainos.ea.api;
 import org.kainos.ea.cli.Admin;
 import org.kainos.ea.client.FailedToCreateBandException;
 import org.kainos.ea.db.AdminDao;
+import org.kainos.ea.db.DatabaseConnector;
 
 import java.sql.SQLException;
-import java.util.List;
+
 
 public class AdminService {
-    private AdminDao adminDao = new AdminDao();
+    private AdminDao adminDao;
+    public DatabaseConnector databaseConnector;
+    public AdminService(AdminDao adminDao, DatabaseConnector databaseConnector) {
+        this.adminDao = adminDao;
+        this.databaseConnector = databaseConnector;
+    }
 
-    public int createBand(Admin admin) throws FailedToCreateBandException {
+    public int createBand(Admin admin) throws FailedToCreateBandException, SQLException {
         try {
             int id = adminDao.createBand(admin);
 

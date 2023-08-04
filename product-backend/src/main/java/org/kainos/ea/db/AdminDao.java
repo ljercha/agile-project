@@ -3,8 +3,6 @@ package org.kainos.ea.db;
 import org.kainos.ea.cli.Admin;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
