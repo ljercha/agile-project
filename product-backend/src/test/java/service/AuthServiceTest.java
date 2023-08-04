@@ -40,35 +40,3 @@ public class AuthServiceTest {
         assertEquals(result, expectedResult);
     }
 }
-
-//public class AuthServiceTest {
-//    AuthService authService = new AuthService();
-//    AuthDao mockAuthDao = Mockito.mock(AuthDao.class);
-//    DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
-//    RequestEmployee employee = new RequestEmployee(
-//            "test@kainos.com",
-//            "Test1234!",
-//            "Employee"
-//    );
-//    Connection conn;
-//
-//    @Test
-//    public void testCreateNewEmployee() throws SQLException, FailedToCreateNewEmployeeException, FaliedToCreateEmployeeWrongInputException {
-//        // Arrang
-//
-//
-//        Mockito.when(databaseConnector.getConnection()).thenReturn(conn);
-//
-//        // Set up a mock return value for the createNewEmployee method
-//        Mockito.when(mockAuthDao.createNewEmployee(employee)).thenReturn(1);
-//
-//        authService.authDao = mockAuthDao;
-//
-//        // Act
-//        int result = authService.createNewEmployee(employee);
-//
-//        // Assert
-//        assertEquals(1, result);
-//        // Additional assertions if needed
-//    }
-//}

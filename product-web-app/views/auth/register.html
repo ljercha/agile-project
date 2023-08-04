@@ -9,6 +9,21 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+      div.password-input-container {
+        position: relative;
+      }
+
+      span.toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <header class="bg-dark text-light">
@@ -28,7 +43,7 @@
           {% endif %}
           <form action="/auth/register" method="post">
             <div class="form-group">
-              <label for="email">Email:</label>
+              <label for="email" class="font-weight-bold">Email:</label>
               <div class="row align-items-center">
                 <div class="col-8 pr-0">
                   <input
@@ -45,16 +60,25 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="form-control"
-                value="{{password}}"
-                placeholder="Type your password"
-                required
-              />
+              <label for="password" class="font-weight-bold">Password:</label>
+              <div class="row">
+                <div class="col-8 pr-0">
+                  <div class="password-input-container">
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-control"
+                      value="{{password}}"
+                      placeholder="Type your password"
+                      required
+                    />
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                      <i class="fas fa-eye" id="eye-icon"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <div class="d-flex flex-row justify-content-start">
@@ -83,5 +107,21 @@
         </div>
       </section>
     </main>
+    <script>
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.classList.remove('fa-eye');
+          eyeIcon.classList.add('fa-eye-slash');
+        } else {
+          passwordInput.type = 'password';
+          eyeIcon.classList.remove('fa-eye-slash');
+          eyeIcon.classList.add('fa-eye');
+        }
+      }
+    </script>
   </body>
 </html>
