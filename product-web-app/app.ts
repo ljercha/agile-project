@@ -1,9 +1,10 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application} from 'express';
 import * as url from 'url';
 import 'dotenv/config';
 import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
+
 
 import authController from './controller/authController.js';
 import { authMiddleware } from './middleware/auth.js';
