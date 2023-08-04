@@ -6,9 +6,14 @@ public class RegisterValidator {
         // Minimum password length (you can adjust this as needed)
         private static final int minLength = 8;
 
-        public static void validate (RequestEmployee input) throws Exception {
+        public static boolean validate (RequestEmployee input) throws Exception {
             String email = input.getEmail();
             String password = input.getPassword();
+            String role = input.getRole();
+
+            if (!role.equals("Admin") && !role.equals("Employee")) {
+                throw new Exception("Correct role should be specified.");
+            }
 
             if (email.contains(" ")) {
                 throw new Exception("Email cannot contain whitespace.");
@@ -38,6 +43,8 @@ public class RegisterValidator {
             if (password.contains(" ")) {
                 throw new Exception("Password cannot contain whitespace.");
             }
+
+            return true;
         }
     }
 

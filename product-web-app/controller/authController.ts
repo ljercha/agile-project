@@ -3,23 +3,6 @@ import Employee from '../model/register.js';
 import { register } from '../service/AuthService.js';
 
 export default function authController(app: Application) {
-  //   app.get('/login', async (req: Request, res: Response) => {
-  //     res.render('auth/login');
-  //   });
-
-  //   app.post('/login', async (req: Request, res: Response) => {
-  //     let data: Login = req.body;
-
-  //     try {
-  //       req.session.token = await authService.login(data);
-  //       res.redirect('/');
-  //     } catch (error) {
-  //       console.error(error);
-  //       res.locals.errormessage = error.message;
-  //       res.render('auth/login', req.body);
-  //     }
-  //   });
-
   app.get('/auth/register', async (req: Request, res: Response) => {
     res.render('auth/register');
   });

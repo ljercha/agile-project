@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.kainos.ea.api.AuthService;
 import org.kainos.ea.cli.RequestEmployee;
-import org.kainos.ea.client.DatabaseConnectionException;
 import org.kainos.ea.client.FailedToCreateNewEmployeeException;
 import org.kainos.ea.client.FaliedToCreateEmployeeWrongInputException;
 import org.kainos.ea.db.AuthDao;
