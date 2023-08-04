@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express';
-import Employee from '../model/register.js';
-import { register } from '../service/AuthService.js';
+import User from '../model/register.js';
+import AuthService from '../service/AuthService.js';
 
 export default function authController(app: Application) {
   app.get('/auth/register', async (req: Request, res: Response) => {
@@ -8,11 +8,12 @@ export default function authController(app: Application) {
   });
 
   app.post('/auth/register', async (req: Request, res: Response) => {
-    const data: Employee = req.body;
+    const data: User = req.body;
     data.email += '@kainos.com';
 
     try {
-      await register(data);
+      const authService = new AuthService();
+      await authService.register(data);
       res.redirect('auth/login');
     } catch (error) {
       res.locals.errormessage = error instanceof Error ? error.message : String(error);

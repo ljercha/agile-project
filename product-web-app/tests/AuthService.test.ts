@@ -3,38 +3,40 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';
 import dotenv from 'dotenv';
-import { register } from '../service/AuthService.js';
-import Employee from '../model/register.js';
+import AuthService from '../service/AuthService.js';
+import User from '../model/register.js';
 
 dotenv.config();
 
 const { expect } = chai;
 const BASE_URL = process.env.API_URL;
 
-const employee: Employee = {
+const authService = new AuthService();
+
+const user: User = {
   email: 'test@kainos.com',
   password: 'Test123!',
   role: 'Employee',
 };
 
 describe('AuthService', () => {
-  describe('registerEmployee', () => {
+  describe('registerUser', () => {
     it('should return id', async () => {
       const mock = new MockAdapter(axios);
-      const employeeId = 1;
+      const userId = 1;
 
-      mock.onPost(`${BASE_URL}/auth/register`, employee).reply(201, employeeId);
+      mock.onPost(`${BASE_URL}/auth/register`, user).reply(201, userId);
 
-      const response = await register(employee);
-      expect(response).to.equal(employeeId);
+      const response = await authService.register(user);
+      expect(response).to.equal(userId);
     });
 
     it('should return error 400 when pass invalid data', async () => {
       const mock = new MockAdapter(axios);
-      mock.onPost(`${BASE_URL}/auth/register`, employee).reply(400);
+      mock.onPost(`${BASE_URL}/auth/register`, user).reply(400);
 
       try {
-        await register(employee);
+        await authService.register(user);
       } catch (error) {
         const errorMessage: string = error instanceof Error ? error.message : String(error);
         expect(errorMessage).to.equal('Registration failed! Please try again.');

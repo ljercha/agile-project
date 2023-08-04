@@ -1,12 +1,18 @@
 package org.kainos.ea.cli;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class RequestEmployee {
+public class User {
+    private int id;
     private String email;
     private String password;
     private String role;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -32,14 +38,13 @@ public class RequestEmployee {
         this.role = role;
     }
 
-
-    @JsonCreator
-    public RequestEmployee(
-            @JsonProperty("email") String email,
-            @JsonProperty("password") String password,
-            @JsonProperty("role") String role) {
+    public User(int id, String email, String password, String role) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
     }
+
+
+
 }

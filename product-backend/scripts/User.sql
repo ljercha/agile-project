@@ -1,4 +1,4 @@
-CREATE TABLE `Employee` (
+CREATE TABLE `User` (
 Id TINYINT AUTO_INCREMENT PRIMARY KEY,
 Email varchar(64) NOT NULL UNIQUE,
 Password varchar(64) NOT NULL,

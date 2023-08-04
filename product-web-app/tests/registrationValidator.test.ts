@@ -1,6 +1,6 @@
 import chai from 'chai';
 import registrationValidator from '../validator/registrationValidator.js';
-import Employee from '../model/register.js';
+import User from '../model/register.js';
 
 const { expect } = chai;
 let errorMessage = '';
@@ -8,24 +8,24 @@ let errorMessage = '';
 describe('registrationValidator', () => {
   describe('validateEmployee', () => {
     it('should return null when no errors', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'Test123!',
         role: 'Employee',
       };
 
-      expect(registrationValidator(employee)).to.be.null;
+      expect(registrationValidator(user)).to.be.null;
     });
 
     it('should return error when password has no uppercase', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'test123!',
         role: 'Employee',
       };
 
       try {
-        registrationValidator(employee);
+        registrationValidator(user);
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : String(error);
       } finally {
@@ -34,14 +34,14 @@ describe('registrationValidator', () => {
     });
 
     it('should return error when password has no lowercase', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'TEST123!',
         role: 'Employee',
       };
 
       try {
-        registrationValidator(employee);
+        registrationValidator(user);
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : String(error);
       } finally {
@@ -50,14 +50,14 @@ describe('registrationValidator', () => {
     });
 
     it('should return error when password has no special character', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'Test1234',
         role: 'Employee',
       };
 
       try {
-        registrationValidator(employee);
+        registrationValidator(user);
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : String(error);
       } finally {
@@ -66,14 +66,14 @@ describe('registrationValidator', () => {
     });
 
     it('should return error when password contain whitespace.', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'Test 1234!',
         role: 'Employee',
       };
 
       try {
-        registrationValidator(employee);
+        registrationValidator(user);
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : String(error);
       } finally {
@@ -82,14 +82,14 @@ describe('registrationValidator', () => {
     });
 
     it('should return error when password shorter than 8 characters', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'Test12!',
         role: 'Employee',
       };
 
       try {
-        registrationValidator(employee);
+        registrationValidator(user);
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : String(error);
       } finally {
@@ -98,14 +98,14 @@ describe('registrationValidator', () => {
     });
 
     it('should return error when role is not provided', () => {
-      const employee: Employee = {
+      const user: User = {
         email: 'test@kainos.com',
         password: 'Test123!',
         role: 'Hacker',
       };
 
       try {
-        registrationValidator(employee);
+        registrationValidator(user);
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : String(error);
       } finally {

@@ -1,47 +1,43 @@
 package org.kainos.ea.validator;
 
-import org.kainos.ea.cli.RequestEmployee;
+import org.kainos.ea.cli.RequestUser;
+import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
 
 public class RegisterValidator {
         // Minimum password length (you can adjust this as needed)
         private static final int minLength = 8;
 
-        public static boolean validate (RequestEmployee input) throws Exception {
+        public static boolean validate (RequestUser input) throws FaliedToCreateUserWrongInputException {
             String email = input.getEmail();
             String password = input.getPassword();
             String role = input.getRole();
 
             if (!role.equals("Admin") && !role.equals("Employee")) {
-                throw new Exception("Correct role should be specified.");
+                throw new FaliedToCreateUserWrongInputException("Correct role should be specified.");
             }
 
             if (email.contains(" ")) {
-                throw new Exception("Email cannot contain whitespace.");
+                throw new FaliedToCreateUserWrongInputException("Email cannot contain whitespace.");
             }
 
             if (password.length() < minLength) {
-                // Check if the password meets the minimum length requirement
-                throw new Exception("Password must be at least " + minLength + " characters long.");
+                throw new FaliedToCreateUserWrongInputException("Password must be at least " + minLength + " characters long.");
             }
 
-            // Check if the password contains at least one lowercase letter
             if (!password.matches(".*[a-z].*")) {
-                throw new Exception("Password must contain at least one lowercase letter.");
+                throw new FaliedToCreateUserWrongInputException("Password must contain at least one lowercase letter.");
             }
 
-            // Check if the password contains at least one uppercase letter
             if (!password.matches(".*[A-Z].*")) {
-                throw new Exception("Password must contain at least one uppercase letter.");
+                throw new FaliedToCreateUserWrongInputException("Password must contain at least one uppercase letter.");
             }
 
-            // Check if the password contains at least one special character
             if (!password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
-                throw new Exception("Password must contain at least one special character.");
+                throw new FaliedToCreateUserWrongInputException("Password must contain at least one special character.");
             }
 
-            // Check if the password has no whitespace
             if (password.contains(" ")) {
-                throw new Exception("Password cannot contain whitespace.");
+                throw new FaliedToCreateUserWrongInputException("Password cannot contain whitespace.");
             }
 
             return true;

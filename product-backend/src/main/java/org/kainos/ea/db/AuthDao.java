@@ -1,6 +1,6 @@
 package org.kainos.ea.db;
 
-import org.kainos.ea.cli.RequestEmployee;
+import org.kainos.ea.cli.RequestUser;
 import org.kainos.ea.utils.PasswordHasher;
 
 import java.sql.*;
@@ -8,16 +8,16 @@ import java.sql.*;
 
 public class AuthDao extends DatabaseConnector {
 
-    public int createNewEmployee(RequestEmployee employee) throws SQLException {
+    public int createNewUser(RequestUser user) throws SQLException {
         Connection conn = getConnection();
 
-        String query = "INSERT INTO `Employee` " +
+        String query = "INSERT INTO `User` " +
                 "(Email, Password, Role) VALUES (?, ?, ?)";
 
         PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, employee.getEmail());
-        statement.setString(2, PasswordHasher.hashPassword(employee.getPassword()));
-        statement.setString(3, employee.getRole());
+        statement.setString(1, user.getEmail());
+        statement.setString(2, PasswordHasher.hashPassword(user.getPassword()));
+        statement.setString(3, user.getRole());
 
         statement.executeUpdate();
         ResultSet result = statement.getGeneratedKeys();
