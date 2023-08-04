@@ -4,6 +4,6 @@ use TeamA_{{USERNAME}};
 
 -- US001
 create table JobRoles (
-	jobRoleId INT primary key AUTO_INCREMENT,
-    jobRoleTitle varchar(100)
+    job_role_id INT primary key AUTO_INCREMENT,
+    job_role_title varchar(100)
 );
