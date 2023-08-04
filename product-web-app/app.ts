@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application} from 'express';
 import * as url from 'url';
 import 'dotenv/config';
 import session from 'express-session';
@@ -39,11 +39,5 @@ app.use('/public', express.static(path.join(dirname, 'public')));
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
-
-// Routing
-//
-// app.get('/', (eq: Request, res: Response) => {
-//   res.redirect('/products');
-// });
 
 bandController(app);
