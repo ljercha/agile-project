@@ -1,13 +1,13 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import User from '../model/register.js';
-import registerValidator from '../validator/registrationValidator.js';
+import registerValidator from '../validator/registrationValidator.s';
 
 dotenv.config();
 
 const BASE_URL = process.env.API_URL;
 
-export default class AuthService {
+class AuthService {
   // eslint-disable-next-line class-methods-use-this
   async register(user: User): Promise<number> {
     registerValidator(user);
@@ -20,3 +20,5 @@ export default class AuthService {
     }
   }
 }
+
+export default AuthService;

@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 import * as url from 'url';
 import 'dotenv/config';
 import session from 'express-session';
@@ -41,7 +41,7 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/', async (req, res) => {
   if (!req.session.token || req.session.token.length === 0) {
     res.redirect('auth/login');
   } else {
