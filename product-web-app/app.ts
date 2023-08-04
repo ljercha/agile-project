@@ -1,11 +1,11 @@
-import express, { Application} from 'express';
+import express, { Application } from 'express';
 import * as url from 'url';
 import 'dotenv/config';
 import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
 
-import { Band } from './model/band.js';
+import Band from './model/band.js';
 import bandController from './controller/bandController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -37,6 +37,7 @@ app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
 app.listen(3000, () => {
+  // eslint-disable-next-line no-console
   console.log('Server listening on port 3000');
 });
 

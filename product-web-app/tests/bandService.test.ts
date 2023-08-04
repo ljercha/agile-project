@@ -1,62 +1,47 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';
-import dotenv from 'dotenv';
-import { addBand } from '../service/bandService.js';
+import addBand from '../service/bandService.js';
 
 const band = {
+  name: 'Kamil',
 
-    name: "Kamil",
-  
-    level: "Mocha",
-  
-    responsibilities: "Chai",
-  
-  };
+  level: 'Mocha',
 
-  const { expect } = chai;
-  const BASE_URL = process.env.API_URL;
+  responsibilities: 'Chai',
+};
 
-describe("bandService", function () {
-    describe("addBand", function () {
-        it("should return error 500 when could not create employee", async () => {
+const { expect } = chai;
+const BASE_URL = process.env.API_URL;
 
-            var mock = new MockAdapter(axios);
-      
-            mock.onPost(`${BASE_URL}/admin/band`, band).reply(500);
-            
-      
-            try {
-      
-              await addBand(band);
-      
-            } catch (error) {
-              const errorMessage: string = error instanceof Error ? error.message : String(error);
+describe('bandService', () => {
+  describe('addBand', () => {
+    it('should return error 500 when could not create employee', async () => {
+      const mock = new MockAdapter(axios);
 
-              expect(errorMessage).to.equal("Could not create band");
-      
-            }
-      
-          });
+      mock.onPost(`${BASE_URL}/admin/band`, band).reply(500);
 
-        it("should return error 400 when pass invalid data", async () => {
+      try {
+        await addBand(band);
+      } catch (error) {
+        const errorMessage: string = error instanceof Error ? error.message : String(error);
 
-        var mock = new MockAdapter(axios);
-    
-        mock.onPost(`${BASE_URL}/admin/band`, band).reply(400);
-    
-    
+        expect(errorMessage).to.equal('Could not create band');
+      }
+    });
 
-        try {
-    
-            await addBand(band);
-    
-        } catch (error) {
-          const errorMessage: string = error instanceof Error ? error.message : String(error);
+    it('should return error 400 when pass invalid data', async () => {
+      const mock = new MockAdapter(axios);
 
-            expect(errorMessage).to.equal("Could not create band");
-    
-        }
-    
-        });
-    })});
+      mock.onPost(`${BASE_URL}/admin/band`, band).reply(400);
+
+      try {
+        await addBand(band);
+      } catch (error) {
+        const errorMessage: string = error instanceof Error ? error.message : String(error);
+
+        expect(errorMessage).to.equal('Could not create band');
+      }
+    });
+  });
+});
