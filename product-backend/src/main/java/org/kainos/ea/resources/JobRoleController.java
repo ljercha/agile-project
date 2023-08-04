@@ -2,6 +2,7 @@ package org.kainos.ea.resources;
 import io.swagger.annotations.Api;
 import org.kainos.ea.api.JobRoleService;
 import org.kainos.ea.client.FailedToGetJobRolesException;
+import org.kainos.ea.db.JobRoleDao;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,10 +10,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Api("Employees API")
+@Api("API")
 @Path("/api")
 public class JobRoleController {
-    private JobRoleService employeeService = new JobRoleService();
+    private JobRoleDao jobRoleDao = new JobRoleDao();
+    private JobRoleService employeeService = new JobRoleService(jobRoleDao);
 
     @GET
     @Path("/job-roles")

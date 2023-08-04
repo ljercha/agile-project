@@ -9,6 +9,9 @@ export default class JobRolesController {
         const jobRoleService = new JobRoleService();
         try {
             let jobRoles: JobRole[] = await jobRoleService.getAllJobRoles();
+            // if (jobRoles.length=0) {
+            //     res.status(200).send('Error JobRolesController');
+            // }
             res.render('job-roles', {jobRoles: jobRoles})
         } catch(e) {
             console.log(e);

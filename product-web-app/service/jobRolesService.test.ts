@@ -16,26 +16,29 @@ describe('JobRoleService', function () {
         it('should return all job roles from response', async () => {
             var mock = new MockAdapter(axios);
             const data = [jobRole]
-            mock.onGet(jobRolesService['API_URL'] + '/job-roles').reply(200, data)
+            mock.onGet(jobRolesService['API_URL'] + '/api/job-roles').reply(200, data)
             var results = await jobRolesService.getAllJobRoles();
-            // console.log('________________________________________')
-            // console.log('jobRole value is: ', jobRole)
-            // console.log('result: ', results[0])
             expect(results[0]).to.deep.equal(jobRole)
         })
         
         it('should throw exception when 500 error returned from axios', async () => {
             var mock = new MockAdapter(axios);
-            mock.onGet(jobRolesService['API_URL'] + 'job-roles').reply(500);
+            mock.onGet(jobRolesService['API_URL'] + '/api/job-roles').reply(500);
             let error: any;
             try {
                 await jobRolesService.getAllJobRoles()
             } catch (e: unknown) {
                  error = e as AxiosError;
             }
-
             expect(error.message).to.equal('Error jobRoleService')
         })
     
+        it('should return empty list/array when such is received', async () => {
+            var mock = new MockAdapter(axios);
+            const data: any[] = [];
+            mock.onGet(jobRolesService['API_URL'] + '/api/job-roles').reply(200, data)
+            var results = await jobRolesService.getAllJobRoles();
+            expect(results).to.deep.equal([])
+        })
     })
 })
