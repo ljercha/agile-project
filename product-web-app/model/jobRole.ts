@@ -1,4 +1,4 @@
 export interface JobRole {
-    jobRoleId: number;
-    roleTitle: string;
-    }
+  jobRoleId: number;
+  roleTitle: string;
+}

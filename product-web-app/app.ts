@@ -1,9 +1,8 @@
-import express from 'express';
-import { Application } from "express";
 import * as url from 'url';
+import path from 'path';
+import express from 'express';
 import 'dotenv/config';
 import session from 'express-session';
-import path from 'path';
 import nunjucks from 'nunjucks';
 import JobRolesController from './controller/JobRolesController.js';
 
@@ -13,7 +12,6 @@ const app = express();
 
 const appViews = path.join(dirname, '/views/');
 
-
 const nunjucksConfig = {
   autoescape: true,
   noCache: true,
@@ -22,9 +20,9 @@ const nunjucksConfig = {
 
 nunjucks.configure(appViews, nunjucksConfig);
 
-app.set('view engine', 'html')
+app.set('view engine', 'html');
 
-app.use('/public', express.static(path.join(dirname, '/public')))
+app.use('/public', express.static(path.join(dirname, '/public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +38,8 @@ declare module 'express-session' {
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
-const jobRolesController = new JobRolesController(app);
+const jobRolesController = new JobRolesController();
+jobRolesController.init(app);
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
