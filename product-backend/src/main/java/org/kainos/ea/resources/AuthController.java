@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
-@Api("Engineering Academy Dropwizard Product API")
+@Api("Kainos new user`s API")
 @Path("/api")
 public class AuthController {
     private static final String CREATE = "/auth/register";

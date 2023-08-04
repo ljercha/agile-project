@@ -12,7 +12,7 @@ public class AuthDao extends DatabaseConnector {
         Connection conn = getConnection();
 
         String query = "INSERT INTO `User` " +
-                "(Email, Password, Role) VALUES (?, ?, ?)";
+                "(email, password, role) VALUES (?, ?, ?)";
 
         PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, user.getEmail());

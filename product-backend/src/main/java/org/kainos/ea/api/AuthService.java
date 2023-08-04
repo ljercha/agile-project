@@ -24,12 +24,10 @@ public class AuthService {
 
         try {
             RegisterValidator.validate(input);
-        } catch (Exception e) {
-            logger.severe(e.getMessage());
-            throw new FaliedToCreateUserWrongInputException("Failed to create user: " + e.getMessage());        }
-
-        try {
             return authDao.createNewUser(input);
+        } catch (FaliedToCreateUserWrongInputException e) {
+            logger.severe(e.getMessage());
+            throw new FaliedToCreateUserWrongInputException("Failed to create user: " + e.getMessage());
         } catch (SQLException e) {
             logger.severe(e.getMessage());
             throw new FailedToCreateNewUserException();

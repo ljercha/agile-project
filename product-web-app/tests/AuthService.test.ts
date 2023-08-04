@@ -21,7 +21,7 @@ const user: User = {
 
 describe('AuthService', () => {
   describe('registerUser', () => {
-    it('should return id', async () => {
+    it('should return id when passing correct input data', async () => {
       const mock = new MockAdapter(axios);
       const userId = 1;
 
