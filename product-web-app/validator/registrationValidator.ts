@@ -1,6 +1,6 @@
-import Employee from '../model/register.js';
+import User from '../model/register.js';
 
-export default function registerValidator(input: Employee) {
+export default function registerValidator(input: User) {
   const { email, password, role } = input;
   const minLength: number = 8;
 

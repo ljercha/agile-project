@@ -38,6 +38,7 @@ public class AuthServiceTest {
 
         int result = authService.createNewUser(user);
 
+        assertEquals(RegisterValidator.validate(user), true);
         assertEquals(result, expectedResult);
     }
 }

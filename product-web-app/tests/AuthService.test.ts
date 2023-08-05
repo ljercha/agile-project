@@ -2,11 +2,8 @@ import axios from 'axios';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';
-import dotenv from 'dotenv';
 import AuthService from '../service/AuthService.js';
 import User from '../model/register.js';
-
-dotenv.config();
 
 const { expect } = chai;
 const BASE_URL = process.env.API_URL;
