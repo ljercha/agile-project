@@ -1,19 +1,18 @@
-import { Application, Request, Response } from 'express';
+import { Application } from 'express';
 import User from '../model/register.js';
-import AuthService from '../service/AuthService.js';
+import { register } from '../service/AuthService.js';
 
-export default function authController(app: Application) {
-  app.get('/auth/register', async (req: Request, res: Response) => {
+function authController(app: Application) {
+  app.get('/auth/register', async (req, res) => {
     res.render('auth/register');
   });
 
-  app.post('/auth/register', async (req: Request, res: Response) => {
+  app.post('/auth/register', async (req, res) => {
     const data: User = req.body;
     data.email += '@kainos.com';
 
     try {
-      const authService = new AuthService();
-      await authService.register(data);
+      await register(data);
       res.redirect('auth/login');
     } catch (error) {
       res.locals.errormessage = error instanceof Error ? error.message : String(error);
@@ -24,3 +23,5 @@ export default function authController(app: Application) {
     }
   });
 }
+
+export default authController;
