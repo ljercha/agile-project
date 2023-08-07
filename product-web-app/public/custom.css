@@ -1,68 +1,18 @@
-/* body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  background-color: #f8d145;
-  padding: 10px;
+body {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-h1 {
-  margin: 0;
+main.content {
+  flex: 1;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-}
-
-nav li {
-  margin: 0 10px;
-}
-
-nav a {
-  color: #000;
-  text-decoration: none;
-}
-
-main {
+footer.footer {
+  background-color: #f8f9fa;
   padding: 20px;
-}
-
-section {
-  margin-bottom: 50px;
-}
-
-section h2 {
-  margin-top: 0;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
   text-align: center;
 }
-
-button {
-  background-color: #f8d145;
-  border: none;
-  padding: 5px 10px;
-  color: #000;
-  border-radius: 5px;
-} */
 
 div.password-input-container {
   position: relative;
@@ -74,4 +24,27 @@ span.toggle-password {
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+button.btn-custom-primary {
+  background-color: #343a40;
+  border-color: #343a40;
+  color: white;
+}
+
+button.btn-custom-primary:hover,
+button.btn-custom-primary:focus {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+a[href='login'] {
+  color: #343a40;
+}
+
+a[href='login']:hover,
+a[href='login']:focus {
+  color: #007bff;
+  text-decoration: none;
 }

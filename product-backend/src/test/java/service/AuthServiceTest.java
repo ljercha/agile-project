@@ -7,7 +7,6 @@ import org.kainos.ea.cli.RequestUser;
 import org.kainos.ea.client.FailedToCreateNewUserException;
 import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
 import org.kainos.ea.db.AuthDao;
-import org.kainos.ea.db.DatabaseConnector;
 import org.kainos.ea.validator.RegisterValidator;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AuthServiceTest {
     AuthDao authDaoMock = Mockito.mock(AuthDao.class);
     RegisterValidator registerValidatorMock = Mockito.mock(RegisterValidator.class);
-//    DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
     AuthService authService = new AuthService(authDaoMock);
     Connection conn;
 

@@ -16,8 +16,16 @@ public class RegisterValidator {
                 throw new FaliedToCreateUserWrongInputException("Correct role should be specified.");
             }
 
+            if (email.trim().length() == 0 ) {
+                throw new FaliedToCreateUserWrongInputException("Email must be provided.");
+            }
+
             if (email.contains(" ")) {
                 throw new FaliedToCreateUserWrongInputException("Email cannot contain whitespace.");
+            }
+
+            if (!email.endsWith("@kainos.com")) {
+                throw new FaliedToCreateUserWrongInputException("Email has wrong domain.");
             }
 
             if (password.length() < minLength) {
