@@ -1,15 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';
-import * as dotenv from 'dotenv';
 import AuthService from '../service/authService.js';
 import User from '../model/register.js';
 
-dotenv.config();
-
 const { expect } = chai;
-// add dotenv
-const BASE_URL = process.env.API_URL;
 
 const authService = new AuthService();
 
