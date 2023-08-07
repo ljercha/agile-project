@@ -8,6 +8,7 @@ import User from '../model/register.js';
 dotenv.config();
 
 const { expect } = chai;
+// add dotenv
 const BASE_URL = process.env.API_URL;
 
 const authService = new AuthService();
@@ -32,7 +33,7 @@ describe('AuthService', () => {
 
     it('should return error 400 when pass invalid data', async () => {
       const mock = new MockAdapter(axios);
-      mock.onPost(`${BASE_URL}/auth/register`, user).reply(400);
+      mock.onPost('http://localhost:8080/api/auth/register', user).reply(400);
 
       try {
         await authService.register(user);
