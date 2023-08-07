@@ -5,6 +5,7 @@ import JobRoleService from '../service/jobRolesService.js';
 
 const { expect } = chai;
 const jobRolesService = new JobRoleService();
+(jobRolesService as any).API_URL = 'http://localhost:8080';
 
 const jobRole = {
   jobRoleId: 1,
