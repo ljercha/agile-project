@@ -1,8 +1,8 @@
-import express, { Application } from 'express';
 import * as url from 'url';
+import path from 'path';
+import express, { Application } from 'express';
 import 'dotenv/config';
 import session from 'express-session';
-import path from 'path';
 import nunjucks from 'nunjucks';
 
 import authController from './controller/authController.js';

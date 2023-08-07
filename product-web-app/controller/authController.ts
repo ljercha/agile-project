@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import User from '../model/register.js';
-import { register } from '../service/AuthService.js';
+import AuthService from '../service/AuthService.js';
 
 function authController(app: Application) {
   app.get('/auth/register', async (req, res) => {
@@ -12,7 +12,8 @@ function authController(app: Application) {
     data.email += '@kainos.com';
 
     try {
-      await register(data);
+      const authService = new AuthService();
+      await authService.register(data);
       res.redirect('auth/login');
     } catch (error) {
       res.locals.errormessage = error instanceof Error ? error.message : String(error);
