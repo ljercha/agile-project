@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';
-import AuthService from '../service/AuthService.js';
+import AuthService from '../service/authService.js';
 import User from '../model/register.js';
 
 const { expect } = chai;

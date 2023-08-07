@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import User from '../model/register.js';
-import AuthService from '../service/AuthService.js';
+import AuthService from '../service/authService.js';
 
 function authController(app: Application) {
   app.get('/auth/register', async (req, res) => {

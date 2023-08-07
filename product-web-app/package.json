@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "prestart": "npm run compile && cp -R views dist",
+    "prestart": "npm run compile && cp -R views dist && cp -R public dist",
     "compile": "tsc",
     "lint": "npx eslint . --fix  --ext .ts && prettier --write \"**/*.+(ts)\"",
     "start": "npm run prestart && node dist/app.js",
