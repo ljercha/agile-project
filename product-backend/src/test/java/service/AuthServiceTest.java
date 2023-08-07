@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AuthServiceTest {
     AuthDao authDaoMock = Mockito.mock(AuthDao.class);
     RegisterValidator registerValidatorMock = Mockito.mock(RegisterValidator.class);
-    DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
+//    DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
     AuthService authService = new AuthService(authDaoMock);
     Connection conn;
 
@@ -38,7 +38,12 @@ public class AuthServiceTest {
 
         int result = authService.createNewUser(user);
 
+        int daoResult = authDaoMock.createNewUser(user);
+
+        assertEquals(daoResult, expectedResult);
+
         assertEquals(RegisterValidator.validate(user), true);
+
         assertEquals(result, expectedResult);
     }
 }
