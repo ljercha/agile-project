@@ -13,15 +13,14 @@ import javax.ws.rs.core.Response;
 @Api("API")
 @Path("/api")
 public class JobRoleController {
-    private JobRoleDao jobRoleDao = new JobRoleDao();
-    private JobRoleService employeeService = new JobRoleService(jobRoleDao);
+    private JobRoleService jobRoleService = new JobRoleService(new JobRoleDao());
 
     @GET
     @Path("/job-roles")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllEmployees() {
+    public Response getAllJobRoles() {
         try {
-            return Response.ok(employeeService.getAllJobRoles()).build();
+            return Response.ok(jobRoleService.getAllJobRoles()).build();
         } catch (FailedToGetJobRolesException e) {
             System.err.println(e.getMessage());
             return Response.serverError().build();
