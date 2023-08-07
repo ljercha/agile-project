@@ -19,14 +19,15 @@
     "nunjucks": "3.2.4"
   },
   "devDependencies": {
+    "@types/axios-mock-adapter": "1.10.0",
     "@types/chai": "4.3.5",
     "@types/expect": "^24.3.0",
     "@types/express": "4.17.17",
     "@types/express-session": "1.17.7",
-    "@types/axios-mock-adapter": "1.10.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "14.14.31",
     "@types/nunjucks": "3.2.2",
+    "axios-mock-adapter": "^1.21.5",
     "chai": "4.3.7",
     "eslint": "^8.45.0",
     "eslint-config-airbnb-base": "^15.0.0",
