@@ -1,8 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';
+import * as dotenv from 'dotenv';
 import AuthService from '../service/authService.js';
 import User from '../model/register.js';
+
+dotenv.config();
 
 const { expect } = chai;
 const BASE_URL = process.env.API_URL;
@@ -21,7 +24,7 @@ describe('AuthService', () => {
       const mock = new MockAdapter(axios);
       const userId = 1;
 
-      mock.onPost(`${BASE_URL}/auth/register`, user).reply(201, userId);
+      mock.onPost(`${BASE_URL}/auth/register`, user).reply(200, userId);
 
       const response = await authService.register(user);
       expect(response).to.equal(userId);
