@@ -8,6 +8,8 @@ const { expect } = chai;
 
 const authService = new AuthService();
 
+(authService as any).API_URL = 'http://localhost:8080/api';
+
 const user: User = {
   email: 'test@kainos.com',
   password: 'Test123!',
