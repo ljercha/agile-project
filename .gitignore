@@ -27,3 +27,5 @@ Temporary Items
 .apdisk
 
 agile-project-TEAMB.git
+# Node.js ignores
+node_modules/
