@@ -16,14 +16,14 @@ describe('JobRoleService', () => {
     it('should return all job roles from response', async () => {
       const mock = new MockAdapter(axios);
       const data = [jobRole];
-      mock.onGet(`${process.env.API_URL}/api/job-roles`).reply(200, data);
+      mock.onGet('http://localhost:8080/api/job-roles').reply(200, data);
       const results = await jobRolesService.getAllJobRoles();
       expect(results[0]).to.deep.equal(jobRole);
     });
 
     it('should throw exception when 500 error returned from axios', async () => {
       const mock = new MockAdapter(axios);
-      mock.onGet(`${process.env.API_URL}/api/job-roles`).reply(500);
+      mock.onGet('http://localhost:8080/api/job-roles').reply(500);
       let error: any;
       try {
         await jobRolesService.getAllJobRoles();
@@ -36,7 +36,7 @@ describe('JobRoleService', () => {
     it('should return empty list/array when such is received', async () => {
       const mock = new MockAdapter(axios);
       const data: any[] = [];
-      mock.onGet(`${process.env.API_URL}/api/job-roles`).reply(200, data);
+      mock.onGet('http://localhost:8080/api/job-roles').reply(200, data);
       const results = await jobRolesService.getAllJobRoles();
       expect(results).to.deep.equal([]);
     });
