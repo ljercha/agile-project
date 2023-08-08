@@ -9,6 +9,7 @@ import org.kainos.ea.cli.RequestUser;
 import org.kainos.ea.client.FailedToCreateNewUserException;
 import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
 import org.kainos.ea.db.AuthDao;
+import org.kainos.ea.validator.RegisterValidator;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 @Path("/api")
 public class AuthController {
     private static final String CREATE = "/auth/register";
-    private final AuthService authService = new AuthService(new AuthDao());
+    private final AuthService authService = new AuthService(new AuthDao(), new RegisterValidator());
     Logger logger = Logger.getLogger(this.getClass().getName());
 
 

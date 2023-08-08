@@ -12,18 +12,20 @@ import java.sql.SQLException;
 
 public class AuthService {
 
-    public AuthService(AuthDao authDao) {
+    public AuthService(AuthDao authDao, RegisterValidator registerValidator) {
         this.authDao = authDao;
+        this.registerValidator = registerValidator;
     }
 
-    private AuthDao authDao;
+    private final AuthDao authDao;
+    private RegisterValidator registerValidator;
 
     public int createNewUser(RequestUser input) throws FailedToCreateNewUserException,
             FaliedToCreateUserWrongInputException {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         try {
-            RegisterValidator.validate(input);
+            registerValidator.validate(input);
             return authDao.createNewUser(input);
         } catch (FaliedToCreateUserWrongInputException e) {
             logger.severe(e.getMessage());
