@@ -10,7 +10,7 @@ import org.kainos.ea.cli.Admin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AdminIntegrationTest {
+public class AdminIT {
     @Test
     public void postBand_shouldReturn201() {
         Admin admin = new Admin(

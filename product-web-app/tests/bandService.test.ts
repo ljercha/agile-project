@@ -54,7 +54,7 @@ describe('bandService', () => {
         const response = await bandService.addBand(band);
         expect(response).to.equal(200);
       } catch (error) {
-        null;
+        null
       }
     });
   });

@@ -7,11 +7,11 @@ interface Band {
 export default class BandValidator {
   validateBand(band: Band): string | null {
     if (band.name.length < 1) {
-      return 'name must be at least 1 characters';
+      return 'Name must be at least 1 characters';
     }
 
     if (band.level < 1 || band.level > 9) {
-      return 'level can be only 0-9';
+      return 'Level can be only 0-9';
     }
 
     if (band.responsibilities.length < 1) {

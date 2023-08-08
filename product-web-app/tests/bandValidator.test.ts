@@ -23,7 +23,7 @@ describe('bandValidator', () => {
         responsibilities: 'Chai',
       };
 
-      expect(validator.validateBand(band)).to.equal('name must be at least 1 characters');
+      expect(validator.validateBand(band)).to.equal('Name must be at least 1 characters');
     });
 
     it('should return error when level is not in range 0-9', () => {
@@ -33,7 +33,7 @@ describe('bandValidator', () => {
         responsibilities: 'Chai',
       };
 
-      expect(validator.validateBand(band)).to.equal('level can be only 0-9');
+      expect(validator.validateBand(band)).to.equal('Level can be only 0-9');
     });
   });
 });

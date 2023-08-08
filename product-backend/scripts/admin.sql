@@ -12,11 +12,6 @@ BEGIN
         responsibilities varchar(255) NOT NULL
     );
 
-	INSERT INTO Band (name, level, responsibilities) VALUES
-	('Andrzej Duda', 'Head of Cloud Practice', 'something'),
-    ('Mariusz Rumunowicz', 'Head of Cloud Practice', 'something'),
-    ('Marian Pazdzioch', 'Head of Cloud Practice', 'something');
-
     GET DIAGNOSTICS @rows = ROW_COUNT;
     IF @row = 0 THEN
         ROLLBACK;

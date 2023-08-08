@@ -3,9 +3,8 @@ package org.kainos.ea.db;
 import org.kainos.ea.cli.Admin;
 
 import java.sql.*;
-import java.util.OptionalInt;
 
-public class AdminDao {
+public class BandDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
 
     public int createBand(Admin admin) throws SQLException {

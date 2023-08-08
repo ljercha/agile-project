@@ -8,11 +8,11 @@ export default class BandController {
     app.post('/admin/add-band', this.addBand);
   }
 
-  renderAddBandPage = async (req: Request, res: Response) => {
+  async renderAddBandPage(req: Request, res: Response){
     res.render('add-band');
   };
 
-  addBand = async (req: Request, res: Response) => {
+  async addBand(req: Request, res: Response){
     const data: Band = req.body;
     const bandService = new BandService();
 
