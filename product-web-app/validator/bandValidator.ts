@@ -1,23 +1,23 @@
 interface Band {
   name: string;
-  level: string;
+  level: number;
   responsibilities: string;
 }
 
-function validateBand(band: Band): string | null {
-  if (band.name.length < 1) {
-    return 'name must be at least 1 characters';
-  }
+export default class BandValidator {
+  validateBand(band: Band): string | null {
+    if (band.name.length < 1) {
+      return 'name must be at least 1 characters';
+    }
 
-  if (band.level.length < 1) {
-    return 'level must be at least 1 character';
-  }
+    if (band.level < 1 || band.level > 9) {
+      return 'level can be only 0-9';
+    }
 
-  if (band.responsibilities.length < 1) {
-    return 'Responsibilities must be at least 1 character';
-  }
+    if (band.responsibilities.length < 1) {
+      return 'Responsibilities must be at least 1 character';
+    }
 
-  return null;
+    return null;
+  }
 }
-
-export default validateBand;

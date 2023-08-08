@@ -27,7 +27,7 @@ public class AdminIntegrationTest {
     public void postBand_shouldReturn200() {
         Admin admin = new Admin(
                 "tomek",
-                "Integration",
+                1,
                 "Test"
         );
 
@@ -35,6 +35,6 @@ public class AdminIntegrationTest {
                 .request()
                 .post(Entity.entity(admin, MediaType.APPLICATION_JSON_TYPE));
 
-        Assertions.assertEquals(response.getStatus(), 200);
+        Assertions.assertEquals(response.getStatus(), 201);
     }
 }

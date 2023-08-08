@@ -4,9 +4,7 @@ import 'dotenv/config';
 import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
-
-import Band from './model/band.js';
-import bandController from './controller/bandController.js';
+import BandController from './controller/bandController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -27,18 +25,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 60000 } }));
 
-declare module 'express-session' {
-  interface SessionData {
-    band: Partial<Band>;
-  }
-}
-
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
+
+const bandController = new BandController();
+bandController.initializeRoutes(app);
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
   console.log('Server listening on port 3000');
 });
-
-bandController(app);

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Admin {
 
     private String name;
-    private String level;
+    private int level;
     private String responsibilities;
 
     @JsonCreator
     public Admin(
             @JsonProperty("name") String name,
-            @JsonProperty("level") String level,
+            @JsonProperty("level") int level,
             @JsonProperty("responsibilities") String responsibilities) {
         this.name = name;
         this.level = level;
@@ -27,11 +27,11 @@ public class Admin {
         this.name = name;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

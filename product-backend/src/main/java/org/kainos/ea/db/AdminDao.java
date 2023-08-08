@@ -3,6 +3,7 @@ package org.kainos.ea.db;
 import org.kainos.ea.cli.Admin;
 
 import java.sql.*;
+import java.util.OptionalInt;
 
 public class AdminDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
@@ -16,7 +17,7 @@ public class AdminDao {
         PreparedStatement st = c.prepareStatement(insertStatement, Statement.RETURN_GENERATED_KEYS);
 
         st.setString(1, admin.getName());
-        st.setString(2, admin.getLevel());
+        st.setInt(2, admin.getLevel());
         st.setString(3, admin.getResponsibilities());
 
 
@@ -29,5 +30,4 @@ public class AdminDao {
         }
         return -1;
     }
-
 }

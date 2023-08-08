@@ -1,4 +1,3 @@
-db.properties
 .env
 ##############################
 ## Java
@@ -46,8 +45,7 @@ out/
 *.iml
 *.ipr
 *.iws
-db.properties
-
+.idea/uiDesigner.xml
 ##############################
 ## Eclipse
 ##############################

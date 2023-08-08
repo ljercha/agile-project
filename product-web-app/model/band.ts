@@ -1,7 +1,7 @@
 export default class Band {
   name?: string;
 
-  level?: string;
+  level?: number;
 
   responsibilities?: string;
 }

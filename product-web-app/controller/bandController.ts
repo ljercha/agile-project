@@ -1,22 +1,26 @@
 import { Application, Request, Response } from 'express';
-import addBand from '../service/bandService.js';
 import Band from '../model/band.js';
+import BandService from '../service/bandService.js';
 
-export default function bandController(app: Application) {
-  app.get('/admin/add-band', async (req: Request, res: Response) => {
+export default class BandController {
+  initializeRoutes(app: Application) {
+    app.get('/admin/add-band', this.renderAddBandPage);
+    app.post('/admin/add-band', this.addBand);
+  }
+
+  renderAddBandPage = async (req: Request, res: Response) => {
     res.render('add-band');
-  });
+  };
 
-  app.post('/admin/add-band', async (req: Request, res: Response) => {
+  addBand = async (req: Request, res: Response) => {
     const data: Band = req.body;
+    const bandService = new BandService();
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const response = await addBand(data);
+      await bandService.addBand(data);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
+      res.locals.errormessage = 'Failed to add band';
     }
     res.render('add-band');
-  });
+  };
 }

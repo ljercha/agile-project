@@ -26,7 +26,7 @@ public class AdminService {
             return id;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            throw new FailedToCreateBandException();
+            throw new SQLException();
         }
 
     }

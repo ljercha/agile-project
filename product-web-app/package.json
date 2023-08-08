@@ -8,7 +8,7 @@
     "prestart": "npm run compile && cp -R views dist",
     "compile": "tsc",
     "lint": "npx eslint . --fix  --ext .ts && prettier --write \"**/*.+(ts)\"",
-    "start": "npx tsc && cp -R views dist && node dist/app.js",
+    "start": "node dist/app.js",
     "test": "ts-mocha"
   },
   "dependencies": {

@@ -1,28 +1,39 @@
 import chai from 'chai';
-import validateBand from '../validator/bandValidator.js';
+import BandValidator from '../validator/bandValidator.js';
 
 const { expect } = chai;
+const validator = new BandValidator();
 
 describe('bandValidator', () => {
   describe('validateBand', () => {
     it('should return null when no errors', () => {
       const band = {
         name: 'tomek',
-        level: 'Mocha',
+        level: 1,
         responsibilities: 'Chai',
       };
 
-      expect(validateBand(band)).to.be.null;
+      expect(validator.validateBand(band)).to.be.null;
     });
 
     it('should return error when name is less than 1 char', () => {
       const band = {
         name: '',
-        level: 'Mocha',
+        level: 1,
         responsibilities: 'Chai',
       };
 
-      expect(validateBand(band)).to.equal('name must be at least 1 characters');
+      expect(validator.validateBand(band)).to.equal('name must be at least 1 characters');
+    });
+
+    it('should return error when level is not in range 0-9', () => {
+      const band = {
+        name: 'tomek',
+        level: 10,
+        responsibilities: 'Chai',
+      };
+
+      expect(validator.validateBand(band)).to.equal('level can be only 0-9');
     });
   });
 });
