@@ -11,7 +11,6 @@ const jobSpecificationService = new JobSpecificationService();
 
 const spec = {
 
-    roleId: 1,
     summary: 'Detailed description for developer role.',
     description: 'tester_test',
     specificationLink: 'http://sharepoint.com/developer-spec'
@@ -22,21 +21,22 @@ describe('JobSpecificationService', () => {
     it('should return the job spec  from response', async () => {
       const mock = new MockAdapter(axios);
       const roleId = 1;
-      mock.onGet('URL+/api/job-specification/'+1).reply(200, roleId);
+      mock.onGet(`/api/job-specification/${roleId}`).reply(200, roleId);
       const results = await jobSpecificationService.getJobSpecification(1);
-      expect(response).to.deep.equal(roleId);
+      expect(results).to.deep.equal(roleId);
     });
 
     it('should throw exception when 500 error returned from axios', async () => {
       const mock = new MockAdapter(axios);
-      mock.onGet('http://localhost:8080/api/job-specification/'+1).reply(500);
+      const roleId = 200;
+      mock.onGet(`/api/job-specification/${roleId}`).reply(500);
       let error: any;
       try {
-        await jobSpecificationService.getJobSpecification(1);
+        await jobSpecificationService.getJobSpecification(200);
       } catch (e: unknown) {
         error = e as AxiosError;
       }
-      expect(error.message).to.equal('Error jobServiceError');
-    });  
+      expect(error.message).to.equal('cant get job specification');
+    }); 
   });
 });
