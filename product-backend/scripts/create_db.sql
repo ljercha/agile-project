@@ -8,3 +8,12 @@ create table JobRoles (
     job_role_title varchar(100)
 );
 
+
+--US024 registration system
+create table `User` (
+id TINYINT AUTO_INCREMENT PRIMARY KEY,
+email varchar(64) NOT NULL UNIQUE,
+password varchar(64) NOT NULL,
+role varchar(64) NOT NULL
+);
+
