@@ -1,40 +1,44 @@
 package integration;
 
-import org.kainos.ea.DropwizardWebServiceApplication;
-import org.kainos.ea.DropwizardWebServiceConfiguration;
-import org.kainos.ea.cli.Admin;
-import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
-import io.dropwizard.testing.junit5.DropwizardAppExtension;
-import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
-import org.kainos.ea.validator.AdminValidator;
-
-import org.junit.jupiter.api.Assertions;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import org.kainos.ea.cli.Admin;
 
-@ExtendWith(DropwizardExtensionsSupport.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AdminIntegrationTest {
-    static final DropwizardAppExtension<DropwizardWebServiceConfiguration> APP = new DropwizardAppExtension<>(
-            DropwizardWebServiceApplication.class, null,
-            new ResourceConfigurationSourceProvider()
-    );
-
     @Test
-    public void postBand_shouldReturn200() {
+    public void postBand_shouldReturn201() {
         Admin admin = new Admin(
-                "tomek",
+                "kamil",
                 1,
                 "Test"
         );
 
-        Response response = APP.client().target("http://localhost:8080/api/admin/band")
-                .request()
-                .post(Entity.entity(admin, MediaType.APPLICATION_JSON_TYPE));
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(admin)
+                .post("http://localhost:8080/api/admin/band");
 
-        Assertions.assertEquals(response.getStatus(), 201);
+        assertEquals(201, response.getStatusCode());
+    }
+    @Test
+    public void postBand_shouldReturn500() {
+        Admin admin = new Admin(
+                "kamil",
+                1,
+                "Test"
+        );
+
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(admin)
+                .post("http://localhost:8080/api/admin/band");
+
+        assertEquals(500, response.getStatusCode());
     }
 }
