@@ -8,10 +8,10 @@ export default class BandService {
     this.BASE_URL = process.env.API_URL || '';
   }
 
-  async addBand(band: Band): Promise<Band> {
+  async addBand(band: Band): Promise<Number> {
     try {
       const response = await axios.post(`${this.BASE_URL}/admin/band`, band);
-      return response.data;
+      return response.status;
     } catch (e) {
       throw new Error('Could not create band');
     }

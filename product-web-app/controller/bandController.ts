@@ -8,11 +8,11 @@ export default class BandController {
     app.post('/admin/add-band', this.addBand);
   }
 
-  async renderAddBandPage(req: Request, res: Response){
+  async renderAddBandPage(req: Request, res: Response) {
     res.render('add-band');
-  };
+  }
 
-  async addBand(req: Request, res: Response){
+  async addBand(req: Request, res: Response) {
     const data: Band = req.body;
     const bandService = new BandService();
 
@@ -22,5 +22,5 @@ export default class BandController {
       res.locals.errormessage = 'Failed to add band';
     }
     res.render('add-band');
-  };
+  }
 }

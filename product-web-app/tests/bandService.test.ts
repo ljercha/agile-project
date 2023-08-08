@@ -12,15 +12,15 @@ const band = {
 };
 
 const { expect } = chai;
-const BASE_URL = process.env.API_URL;
 const bandService = new BandService();
+(bandService as any).BASE_URL = 'http://mock.pl';
 
 describe('bandService', () => {
   describe('addBand', () => {
     it('should return error 500 when could not create band', async () => {
       const mock = new MockAdapter(axios);
 
-      mock.onPost(`${BASE_URL}/admin/band`, band).reply(500);
+      mock.onPost('http://mock.pl/admin/band', band).reply(500);
 
       try {
         await bandService.addBand(band);
@@ -34,7 +34,7 @@ describe('bandService', () => {
     it('should return error 400 when pass invalid data', async () => {
       const mock = new MockAdapter(axios);
 
-      mock.onPost(`${BASE_URL}/admin/band`, band).reply(400);
+      mock.onPost('http://mock.pl/admin/band', band).reply(400);
 
       try {
         await bandService.addBand(band);
@@ -45,17 +45,13 @@ describe('bandService', () => {
       }
     });
 
-    it('should return 200 when pass valid data', async () => {
+    it('should return 201 when pass valid data', async () => {
       const mock = new MockAdapter(axios);
 
-      mock.onPost(`${BASE_URL}/admin/band`, band).reply(200);
+      mock.onPost('http://mock.pl/admin/band', band).reply(201);
 
-      try {
-        const response = await bandService.addBand(band);
-        expect(response).to.equal(200);
-      } catch (error) {
-        null
-      }
+      const response = await bandService.addBand(band);
+      expect(response).to.equal(201);
     });
   });
 });
