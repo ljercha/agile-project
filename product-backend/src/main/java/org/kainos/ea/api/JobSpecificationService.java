@@ -10,6 +10,15 @@ import org.kainos.ea.resources.JobSpecificationController;
 import org.kainos.ea.exception.DatabaseConnectionException;
 public class JobSpecificationService {
     JobSpecificationDao jobSpecificationDao = new JobSpecificationDao();
+    public DatabaseConnector databaseConnector;
+
+
+
+    public JobSpecificationService(JobSpecificationDao jobSpecificationDao, DatabaseConnector databaseConnector) {
+        this.jobSpecificationDao = jobSpecificationDao;
+        this.databaseConnector=databaseConnector;
+
+    }
 
 
     public JobSpecification getJobSpecification(int role_id) throws SQLException, DatabaseConnectionException, RoleNotExistException {

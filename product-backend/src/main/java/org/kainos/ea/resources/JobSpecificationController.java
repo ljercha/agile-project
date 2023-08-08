@@ -3,6 +3,8 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.kainos.ea.api.JobSpecificationService;
 
 
+import org.kainos.ea.db.DatabaseConnector;
+import org.kainos.ea.db.JobSpecificationDao;
 import org.kainos.ea.exception.DatabaseConnectionException;
 
 import io.swagger.annotations.*;
@@ -14,9 +16,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.sql.SQLException;
+@Api("Kainos new user`s API")
 @Path("/api")
 public class JobSpecificationController {
-    private JobSpecificationService jobSpecificationService = new JobSpecificationService();
+private final JobSpecificationService jobSpecificationService = new JobSpecificationService(new JobSpecificationDao(),new DatabaseConnector());
 
     @GET
     @Path("/job-specification/{id}")
