@@ -6,6 +6,7 @@ import org.kainos.ea.db.BandDao;
 
 
 import java.sql.SQLException;
+import java.util.OptionalInt;
 
 
 public class AdminService {
@@ -16,12 +17,9 @@ public class AdminService {
 
     public int createBand(Admin admin) throws FailedToCreateBandException, SQLException {
         try {
-            int id = bandDao.createBand(admin);
+            OptionalInt id = bandDao.createBand(admin);
 
-            if(id == -1) {
-                throw new FailedToCreateBandException();
-            }
-            return id;
+            return id.orElseThrow(() -> new FailedToCreateBandException());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             throw new SQLException();

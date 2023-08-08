@@ -3,11 +3,12 @@ package org.kainos.ea.db;
 import org.kainos.ea.cli.Admin;
 
 import java.sql.*;
+import java.util.OptionalInt;
 
 public class BandDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
 
-    public int createBand(Admin admin) throws SQLException {
+    public OptionalInt createBand(Admin admin) throws SQLException {
         Connection c = databaseConnector.getConnection();
 
 
@@ -25,8 +26,8 @@ public class BandDao {
         ResultSet rs = st.getGeneratedKeys();
 
         if (rs.next()) {
-            return rs.getInt(1);
+            return OptionalInt.of(rs.getInt(1));
         }
-        return -1;
+        return OptionalInt.empty();
     }
 }
