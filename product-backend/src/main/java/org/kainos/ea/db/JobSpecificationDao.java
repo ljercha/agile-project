@@ -15,14 +15,14 @@ public class JobSpecificationDao {
 
     public JobSpecification getJobSpecification(Connection c, int role_id) throws SQLException, RoleNotExistException {
         Statement st = c.createStatement();
-        ResultSet rs = st.executeQuery("SELECT roleId, specification, summary, specificationLink FROM job_role Where id =" +role_id );
+        ResultSet rs = st.executeQuery("SELECT role_Id, summary, description, sharepoint_link FROM Specifications Where id =" +role_id );
         JobSpecification jobSpecification = null;
         while (rs.next()) {
             jobSpecification = new JobSpecification(
-                    rs.getInt("roleId"),
-                    rs.getString("specification"),
+                    rs.getInt("role_Id"),
                     rs.getString("summary"),
-                    rs.getString("specificationLink"));
+                    rs.getString("description"),
+                    rs.getString("sharepoint_link"));
         }
         if(jobSpecification == null){
             throw new RoleNotExistException("Select record that is not empty");
