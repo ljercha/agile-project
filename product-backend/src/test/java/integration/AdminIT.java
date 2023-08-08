@@ -4,21 +4,45 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+
+import static javax.print.attribute.standard.MediaSizeName.A;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.kainos.ea.cli.Admin;
 
+import java.io.IOException;
+import java.util.Random;
+
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AdminIT {
+
+    public class RandomStrGenerator {
+
+        public String generateRandomString() {
+            Random rand = new Random();
+            String str = rand.ints(48, 123)
+                    .filter(num -> (num < 58 || num > 64) && (num < 91 || num > 96))
+                    .limit(15)
+                    .mapToObj(c -> (char) c)
+                    .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                    .toString();
+
+            return str;
+        }
+    }
+    RandomStrGenerator randomStrGenerator = new RandomStrGenerator();
+    String randomString = randomStrGenerator.generateRandomString();
+    String data = randomString;
+
     @Test
     public void postBand_shouldReturn201() {
         Admin admin = new Admin(
-                "kamil",
+                data,
                 1,
                 "Test"
         );
-
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(admin)
@@ -29,16 +53,19 @@ public class AdminIT {
     @Test
     public void postBand_shouldReturn500() {
         Admin admin = new Admin(
-                "kamil",
+                data,
                 1,
                 "Test"
         );
+         RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(admin)
+                .post("http://localhost:8080/api/admin/band");
 
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(admin)
                 .post("http://localhost:8080/api/admin/band");
-
         assertEquals(500, response.getStatusCode());
     }
 }
