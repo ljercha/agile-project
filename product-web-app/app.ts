@@ -6,7 +6,6 @@ import session from 'express-session';
 import nunjucks from 'nunjucks';
 
 import authController from './controller/authController.js';
-import { authMiddleware } from './middleware/auth.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -41,14 +40,12 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
-app.get('/', async (req, res) => {
-  if (!req.session.token || req.session.token.length === 0) {
-    res.redirect('auth/login');
-  } else {
-    res.render('index', { title: 'Main page' });
-  }
-});
+// app.get('/', async (req, res) => {
+//   if (!req.session.token || req.session.token.length === 0) {
+//     res.redirect('auth/login');
+//   } else {
+//     res.render('index', { title: 'Main page' });
+//   }
+// });
 
 authController(app);
-
-app.use(authMiddleware);
