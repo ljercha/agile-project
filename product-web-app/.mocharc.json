@@ -1,6 +1,6 @@
 {
     "loader": "ts-node/esm",
     "spec": [
-        "service/**/*.test.ts"
+        "tests/*.test.ts"
     ]
 }

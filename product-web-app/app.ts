@@ -1,14 +1,16 @@
-import express, { Application, Request, Response } from 'express';
 import * as url from 'url';
+import express, { Application, Request, Response } from 'express';
 import 'dotenv/config';
 import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
-
+import axios from 'axios';
+import JobSpecificationController from './controller/JobSpecificationController.js';
 // import Product from './model/product.js';
 // import productController from './controller/productController.js';
-
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+axios.defaults.baseURL = process.env.API_URL;
 
 const app: Application = express();
 
@@ -32,9 +34,10 @@ declare module 'express-session' {
     token: string;
   }
 }
-
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
+
+new JobSpecificationController().init(app);
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');

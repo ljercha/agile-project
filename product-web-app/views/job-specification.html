@@ -1,58 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PDF Redirection Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSpec</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Role-Based PDF Redirection</h1>
-    <form onsubmit="return redirectToPDF()">
-        <label for="summary">Summary:</label><br>
-        <textarea id="summary" name="summary" rows="5" cols="50" maxlength="1000"></textarea><br>
-
-        <label for="link">Link:</label><br>
-        <input type="text" id="link" name="link" maxlength="500"><br>
-
-        <label for="role">Role:</label>
-        <select id="role" name="role">
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-        </select><br>
-
-        <input type="submit" value="Submit">
-    </form>
-
-    <script>
-        function redirectToPDF() {
-            var userRole = document.getElementById("role").value;
-            var summary = document.getElementById("summary").value;
-            var link = document.getElementById("link").value;
-
-            if (summary.length > 1000) {
-                alert("Summary should not exceed 1000 characters.");
-                return false;
-            }
-
-            if (link.length > 500) {
-                alert("Link should not exceed 500 characters.");
-                return false;
-            }
-
-            switch (userRole) {
-                case "admin":
-                    window.location.href = "https://kainossoftwareltd.sharepoint.com/:x:/r/engineering/_layouts/15/Doc.aspx?sourcedoc=%7BD677DA41-7C3C-451D-B65B-DD644D916674%7D&file=Engineering%20Capability%20Skills%20Matrix.xlsx&action=default&mobileredirect=true";
-                    break;
-                case "user":
-                    window.location.href = "https://example.com/pdf-link-user.pdf";
-                    break;
-                default:
-                    window.location.href = "https://example.com/default-page.html";
-                    break;
-            }
-
-            return false; 
-        }
-        redirectToPDF()
-    </script>
-    
+    <header class="bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>redirect job-spec</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container mt-4">
+        <section id="jobSpec" class="mt-4" maxlength="500">
+            <h2>Summary</h2>
+            {% if jobSpecification %}
+            <tbody>
+                <tr><td>{{jobSpecification.id}}</td>
+                    <td>{{jobSpecification.roleId}}</td>
+                    <td>{{jobSpecification.summary}}</td>
+                    <td>{{jobSpecification.description}}</td>
+                    <td>{{jobSpecification.specificationLink}}</td>
+                </tr>
+            </tbody>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                There are no job-specs
+            </div>
+        {% endif %}
+            
+               
+        </section>
+    </main>
 </body>
 </html>
