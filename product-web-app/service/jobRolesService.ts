@@ -10,7 +10,7 @@ export default class JobRoleService {
 
   async getAllJobRoles(): Promise<JobRole[]> {
     try {
-      const response = await axios.get(`${this.API_URL}/api/job-roles`);
+      const response = await axios.get(`${this.API_URL}/job-roles`);
       return response.data;
     } catch (e) {
       throw new Error('Error jobRoleService');
