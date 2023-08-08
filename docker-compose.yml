@@ -16,7 +16,7 @@ services:
     environment:
       - DB_USERNAME=$DB_USERNAME
       - DB_PASSWORD=$DB_PASSWORD
-      - DB_HOST=$DB_HOST
+      - DB_HOST=mysqldb
       - DB_NAME=$DB_NAME
     ports:
       - "8080:8080"
@@ -27,10 +27,8 @@ services:
     image: mysql
     container_name: MYSQLDB
     hostname: mysqldb
-    volumes:
-      - ./product-backend/scripts:/tmp/scripts
     ports:
       - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password --init-file="/tmp/scripts/1_init.sql"
+    command: --default-authentication-plugin=mysql_native_password 
     environment:
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
