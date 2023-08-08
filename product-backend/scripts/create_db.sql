@@ -10,7 +10,7 @@ create table JobRoles (
 
 
 --US024 registration system
-create table `User` (
+CREATE TABLE IF NOT EXISTS `User` (
 id TINYINT AUTO_INCREMENT PRIMARY KEY,
 email varchar(64) NOT NULL UNIQUE,
 password varchar(64) NOT NULL,
