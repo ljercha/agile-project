@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS TeamA_{{USERNAME}};
-CREATE DATABASE TeamA_{{USERNAME}};
-use TeamA_{{USERNAME}};
+DROP DATABASE IF EXISTS TeamA_OleksandrG;
+CREATE DATABASE TeamA_OleksandrG;
+use TeamA_OleksandrG;
 
 -- US001
 create table IF NOT EXISTS JobRoles (
