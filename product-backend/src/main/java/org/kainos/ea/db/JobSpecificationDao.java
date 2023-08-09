@@ -14,6 +14,7 @@ public class JobSpecificationDao {
     public Optional<JobSpecification> getJobSpecification(Connection c, int role_id) throws SQLException, RoleNotExistException {
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery("SELECT role_Id, summary, description, sharepoint_link FROM Specifications Where id =" + role_id);
+
         JobSpecification jobSpecification = null;
         if (rs.next()) {
             return Optional.of(new JobSpecification(
