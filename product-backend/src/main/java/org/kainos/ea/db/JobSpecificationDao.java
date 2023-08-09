@@ -9,25 +9,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class JobSpecificationDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
 
-    public JobSpecification getJobSpecification(Connection c, int role_id) throws SQLException, RoleNotExistException {
+    public Optional<JobSpecification> getJobSpecification(Connection c, int role_id) throws SQLException, RoleNotExistException {
         Statement st = c.createStatement();
-        ResultSet rs = st.executeQuery("SELECT role_Id, summary, description, sharepoint_link FROM Specifications Where id =" +role_id );
+        ResultSet rs = st.executeQuery("SELECT role_Id, summary, description, sharepoint_link FROM Specifications Where id =" + role_id);
         JobSpecification jobSpecification = null;
-        while (rs.next()) {
-            jobSpecification = new JobSpecification(
+        if (rs.next()) {
+            return Optional.of(new JobSpecification(
                     rs.getInt("role_Id"),
                     rs.getString("summary"),
                     rs.getString("description"),
-                    rs.getString("sharepoint_link"));
+                    rs.getString("sharepoint_link")));
         }
-        if(jobSpecification == null){
-            throw new RoleNotExistException("Select record that is not empty");
-        } else return jobSpecification;
-
+        return Optional.empty();
     }
-
 }
