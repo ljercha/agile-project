@@ -6,8 +6,12 @@ import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+
+import org.kainos.ea.resources.AuthController;
+
 import org.kainos.ea.resources.JobRoleController;
 import org.kainos.ea.resources.JobSpecificationController;
+
 
 
 
@@ -37,9 +41,11 @@ public class DropwizardWebServiceApplication extends Application<DropwizardWebSe
                     final Environment environment) {
 
         environment.jersey().register(new JobSpecificationController());
+  
+        environment.jersey().register(new AuthController());
+
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new JobRoleController());
 
     }
-
 }
