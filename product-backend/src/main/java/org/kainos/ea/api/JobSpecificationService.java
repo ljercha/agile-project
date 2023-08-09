@@ -10,7 +10,6 @@ import org.kainos.ea.resources.JobSpecificationController;
 import org.kainos.ea.exception.DatabaseConnectionException;
 public class JobSpecificationService {
     JobSpecificationDao jobSpecificationDao = new JobSpecificationDao();
-    public DatabaseConnector databaseConnector;
 
 
 
