@@ -1,6 +1,6 @@
 import * as url from 'url';
 import path from 'path';
-import express, { Application } from 'express';
+import express from 'express';
 import 'dotenv/config';
 import session from 'express-session';
 import nunjucks from 'nunjucks';
@@ -9,9 +9,9 @@ import JobSpecificationController from './controller/JobSpecificationController.
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
+const app = express();
+
 axios.defaults.baseURL = process.env.API_URL;
-
-
 
 const appViews = path.join(dirname, '/views/');
 
@@ -40,7 +40,6 @@ declare module 'express-session' {
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 new JobSpecificationController().init(app);
-
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
