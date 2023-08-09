@@ -2,19 +2,10 @@ import axios, { AxiosError } from 'axios';
 import chai from 'chai';
 import MockAdapter from 'axios-mock-adapter';
 import JobSpecificationService from '../service/JobSpecificationService.js';
-import { response } from 'express';
-
 
 const { expect } = chai;
 const jobSpecificationService = new JobSpecificationService();
 (jobSpecificationService as any).API_URL = 'http://localhost:8080';
-
-const spec = {
-
-    summary: 'Detailed description for developer role.',
-    description: 'tester_test',
-    specificationLink: 'http://sharepoint.com/developer-spec'
-};
 
 describe('JobSpecificationService', () => {
   describe('getJobSpecification', () => {
@@ -37,6 +28,6 @@ describe('JobSpecificationService', () => {
         error = e as AxiosError;
       }
       expect(error.message).to.equal('cant get job specification');
-    }); 
+    });
   });
 });

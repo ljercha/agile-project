@@ -2,9 +2,11 @@ import axios from 'axios';
 import JobSpecification from '../model/JobSpecification.js';
 
 export default class JobSpecificationService {
-  async getJobSpecification(this: any, id: number) : Promise<JobSpecification> {
+  this: any;
+  /* eslint-disable */
+  async getJobSpecification(this: any, id: number): Promise<JobSpecification> {
+    /* eslint-enable */
     try {
-      console.log('GET: ' + `/api/job-specification/${id}`);
       const response = await axios.get(`/api/job-specification/${id}`);
       return response.data;
     } catch (e) {

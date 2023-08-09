@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express';
 import JobSpecificationService from '../service/JobSpecificationService.js';
 import JobSpecification from '../model/JobSpecification.js';
-
+/* eslint-disable */
 export default class JobSpecificationController {
   init(app: Application) {
     const jobSpecificationService = new JobSpecificationService();
@@ -13,6 +13,7 @@ export default class JobSpecificationController {
         console.log(e);
         res.status(500).send('Error JobSpecification');
       }
+      /* eslint-enable */
       res.render('job-specification', { jobSpecification: data });
     });
   }

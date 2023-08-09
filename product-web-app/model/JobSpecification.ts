@@ -3,5 +3,5 @@ export default interface JobSpecification {
   roleId: number;
   summary: string;
   description: string;
-  specificationLink: string; 
+  specificationLink: string;
 }
