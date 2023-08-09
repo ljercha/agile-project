@@ -1,6 +1,6 @@
 package org.kainos.ea.db;
 
-import org.kainos.ea.cli.Admin;
+import org.kainos.ea.cli.Band;
 
 import java.sql.*;
 import java.util.OptionalInt;
@@ -8,7 +8,7 @@ import java.util.OptionalInt;
 public class BandDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
 
-    public OptionalInt createBand(Admin admin) throws SQLException {
+    public OptionalInt createBand(Band band) throws SQLException {
         Connection c = databaseConnector.getConnection();
 
 
@@ -16,9 +16,9 @@ public class BandDao {
 
         PreparedStatement st = c.prepareStatement(insertStatement, Statement.RETURN_GENERATED_KEYS);
 
-        st.setString(1, admin.getName());
-        st.setInt(2, admin.getLevel());
-        st.setString(3, admin.getResponsibilities());
+        st.setString(1, band.getName());
+        st.setInt(2, band.getLevel());
+        st.setString(3, band.getResponsibilities());
 
 
         st.executeUpdate();

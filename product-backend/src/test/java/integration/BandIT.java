@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.kainos.ea.cli.Admin;
+import org.kainos.ea.cli.Band;
 
 import java.util.Random;
 
@@ -36,33 +36,33 @@ public class BandIT {
 
     @Test
     public void postBand_shouldReturn201() {
-        Admin admin = new Admin(
+        Band band = new Band(
                 data,
                 1,
                 "Test"
         );
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(admin)
+                .body(band)
                 .post("http://localhost:8080/api/admin/band");
 
         assertEquals(201, response.getStatusCode());
     }
     @Test
     public void postBand_shouldReturn500() {
-        Admin admin = new Admin(
+        Band band = new Band(
                 data,
                 1,
                 "Test"
         );
          RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(admin)
+                .body(band)
                 .post("http://localhost:8080/api/admin/band");
 
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(admin)
+                .body(band)
                 .post("http://localhost:8080/api/admin/band");
         assertEquals(500, response.getStatusCode());
     }

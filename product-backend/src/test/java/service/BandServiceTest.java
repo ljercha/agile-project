@@ -1,12 +1,12 @@
 package service;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.kainos.ea.cli.Band;
 import org.kainos.ea.client.FailedToCreateBandException;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.kainos.ea.db.BandDao;
 import org.kainos.ea.api.BandService;
-import org.kainos.ea.cli.Admin;
 import org.kainos.ea.db.DatabaseConnector;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ public class BandServiceTest {
 
     BandService bandService = new BandService(bandDao);
 
-    Admin admin = new Admin(
+    Band band = new Band(
             "tomekk",
             2,
             "Bloggs"
@@ -34,25 +34,25 @@ public class BandServiceTest {
     @Test
     void createBand_shouldReturnId_whenDaoReturnsId() throws SQLException, FailedToCreateBandException {
         int expectedResult = 1;
-        Mockito.when(bandDao.createBand(admin)).thenReturn(OptionalInt.of(expectedResult));
+        Mockito.when(bandDao.createBand(band)).thenReturn(OptionalInt.of(expectedResult));
 
-        int result = bandService.createBand(admin);
+        int result = bandService.createBand(band);
 
         assertEquals(result, expectedResult);
     }
 
     @Test
     void createBand_shouldReturnError_whenDaoReturnsFail() throws SQLException, FailedToCreateBandException {
-        Mockito.when(bandDao.createBand(admin)).thenReturn(OptionalInt.empty());
+        Mockito.when(bandDao.createBand(band)).thenReturn(OptionalInt.empty());
 
         assertThrows(FailedToCreateBandException.class,
-                () -> bandService.createBand(admin));
+                () -> bandService.createBand(band));
     }
     @Test
     void createBand_shouldThrowSqlException_whenDaoThrowsSqlException() throws SQLException {
-        Mockito.when(bandDao.createBand(admin)).thenThrow(SQLException.class);
+        Mockito.when(bandDao.createBand(band)).thenThrow(SQLException.class);
 
-        assertThrows(SQLException.class, () -> bandService.createBand(admin));
+        assertThrows(SQLException.class, () -> bandService.createBand(band));
     }
 }
 

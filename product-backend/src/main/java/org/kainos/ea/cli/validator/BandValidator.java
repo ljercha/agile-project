@@ -1,11 +1,11 @@
 package org.kainos.ea.cli.validator;
 
-import org.kainos.ea.cli.Admin;
+import org.kainos.ea.cli.Band;
 import org.kainos.ea.exception.NameTooShortException;
 
 public class BandValidator {
-    public boolean isValidBand(Admin admin) throws NameTooShortException{
-        if (admin.getName().length() > 1) {
+    public boolean isValidBand(Band band) throws NameTooShortException{
+        if (band.getName().length() > 1) {
             throw new NameTooShortException();
         }
 

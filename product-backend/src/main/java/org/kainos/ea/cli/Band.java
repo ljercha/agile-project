@@ -3,14 +3,14 @@ package org.kainos.ea.cli;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Admin {
+public class Band {
 
     private String name;
     private int level;
     private String responsibilities;
 
     @JsonCreator
-    public Admin(
+    public Band(
             @JsonProperty("name") String name,
             @JsonProperty("level") int level,
             @JsonProperty("responsibilities") String responsibilities) {

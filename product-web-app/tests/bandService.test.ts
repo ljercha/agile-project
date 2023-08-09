@@ -20,7 +20,7 @@ describe('bandService', () => {
     it('should return error 500 when could not create band', async () => {
       const mock = new MockAdapter(axios);
 
-      mock.onPost('http://mock.pl/admin/band', band).reply(500);
+      mock.onPost('http://mock.pl/band/band', band).reply(500);
 
       try {
         await bandService.addBand(band);
@@ -34,7 +34,7 @@ describe('bandService', () => {
     it('should return error 400 when pass invalid data', async () => {
       const mock = new MockAdapter(axios);
 
-      mock.onPost('http://mock.pl/admin/band', band).reply(400);
+      mock.onPost('http://mock.pl/band/band', band).reply(400);
 
       try {
         await bandService.addBand(band);
@@ -48,7 +48,7 @@ describe('bandService', () => {
     it('should return 201 when pass valid data', async () => {
       const mock = new MockAdapter(axios);
 
-      mock.onPost('http://mock.pl/admin/band', band).reply(201);
+      mock.onPost('http://mock.pl/band/band', band).reply(201);
 
       const response = await bandService.addBand(band);
       expect(response).to.equal(201);

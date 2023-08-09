@@ -1,6 +1,6 @@
 package org.kainos.ea.api;
 
-import org.kainos.ea.cli.Admin;
+import org.kainos.ea.cli.Band;
 import org.kainos.ea.client.FailedToCreateBandException;
 import org.kainos.ea.db.BandDao;
 
@@ -15,9 +15,9 @@ public class BandService {
         this.bandDao = bandDao;
     }
 
-    public int createBand(Admin admin) throws FailedToCreateBandException, SQLException {
+    public int createBand(Band band) throws FailedToCreateBandException, SQLException {
         try {
-            OptionalInt id = bandDao.createBand(admin);
+            OptionalInt id = bandDao.createBand(band);
 
             return id.orElseThrow(() -> new FailedToCreateBandException());
         } catch (SQLException e) {
