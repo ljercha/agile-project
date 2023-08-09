@@ -33,7 +33,7 @@ public class JobSpecificationServiceTest {
         int roleId = 1;
         JobSpecification specification_list = new JobSpecification(1,"test","test","test");
 
-        Mockito.when(jobSpecificationDao.getJobSpecification(conn, roleId)).thenReturn(Optional.of(specification_list));
+        Mockito.when(jobSpecificationDao.getJobSpecification(roleId)).thenReturn(Optional.of(specification_list));
         Optional<JobSpecification> specification = Optional.ofNullable(jobSpecificationService.getJobSpecification(roleId));
         assertEquals(specification, specification_list);
 
@@ -41,7 +41,7 @@ public class JobSpecificationServiceTest {
     @Test
     void getJobSpecification_shouldThrowException_whenDaoThrowsException() throws SQLException, DatabaseConnectionException, IOException, RoleNotExistException {
         int roleId = 1;
-        Mockito.when(jobSpecificationDao.getJobSpecification(conn, roleId)).thenThrow(SQLException.class);
+        Mockito.when(jobSpecificationDao.getJobSpecification(roleId)).thenThrow(SQLException.class);
         assertThrows(SQLException.class, () -> jobSpecificationService.getJobSpecification(roleId));
 
     }
@@ -49,7 +49,7 @@ public class JobSpecificationServiceTest {
     @Test
     void getJobSpecification_shouldThrowUserDoesNotExistException_whenDaoReturnsNull() throws SQLException, DatabaseConnectionException, IOException, RoleNotExistException {
         int roleId = -1;
-        Mockito.when(jobSpecificationDao.getJobSpecification(conn, roleId)).thenThrow(RoleNotExistException.class);
+        Mockito.when(jobSpecificationDao.getJobSpecification(roleId)).thenThrow(RoleNotExistException.class);
         assertThrows(RoleNotExistException.class, () -> jobSpecificationService.getJobSpecification(roleId));
 
     }
