@@ -60,7 +60,7 @@ public class AuthController {
     public Response login (Login login){
         try {
             String jwtToken = authService.login(login);
-            NewCookie jwtCookie = new NewCookie("jwtToken", jwtToken);
+            NewCookie jwtCookie = new NewCookie("access_token", jwtToken);
             return Response.ok("JWT token").cookie(jwtCookie).build();
 
         } catch (FailedToLoginException e) {
