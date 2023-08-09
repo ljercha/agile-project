@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,8 +36,8 @@ public class JobSpecificationServiceTest {
         int roleId = 1;
         JobSpecification specification_list = new JobSpecification(1,"test","test","test");
 
-        Mockito.when(jobSpecificationDao.getJobSpecification(conn, roleId)).thenReturn(specification_list);
-        JobSpecification specification = jobSpecificationService.getJobSpecification(roleId);
+        Mockito.when(jobSpecificationDao.getJobSpecification(conn, roleId)).thenReturn(Optional.of(specification_list));
+        Optional<JobSpecification> specification = jobSpecificationService.getJobSpecification(roleId);
         assertEquals(specification, specification_list);
 
     }
