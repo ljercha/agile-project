@@ -20,7 +20,7 @@ public class JobSpecificationService {
     }
 
 
-    public JobSpecification getJobSpecification(int role_id) throws SQLException, DatabaseConnectionException, RoleNotExistException {
+    public JobSpecification getJobSpecification(int roleId) throws SQLException, DatabaseConnectionException, RoleNotExistException {
         return jobSpecificationDao.getJobSpecification(DatabaseConnector.getConnection(), role_id);
     }
 
