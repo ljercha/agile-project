@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS TeamA_{{USERNAME}};
+DROP DATABASE TeamA_{{USERNAME}};
 CREATE DATABASE TeamA_{{USERNAME}};
 use TeamA_{{USERNAME}};
 
--- US001
+-- US001 view job roles
 create table IF NOT EXISTS JobRoles (
     job_role_id INT primary key AUTO_INCREMENT,
     job_role_title varchar(100)

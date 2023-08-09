@@ -59,3 +59,12 @@ package-lock.json
 
 scripts/create_db_exe.sql
 scripts/create_data_exe.sql
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+agile-project-TEAMB.git
