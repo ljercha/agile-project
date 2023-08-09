@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Api("API")
+@Api("Job Roles API")
 @Path("/api")
 public class JobRoleController {
     private JobRoleService jobRoleService = new JobRoleService(new JobRoleDao());
