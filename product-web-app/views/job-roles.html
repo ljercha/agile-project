@@ -22,7 +22,6 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">id</th>
                         <th scope="col">title</th>
                     </tr>
                 </thead>
@@ -30,7 +29,6 @@
                 <tbody>
                 {% for jobRole in jobRoles %}
                 <tr>
-                    <td>{{ jobRole.jobRoleId }}</td>
                     <td>{{ jobRole.roleTitle }}</td>
                 </tr>    
                 {% endfor %}
