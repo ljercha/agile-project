@@ -1,17 +1,11 @@
-
-=======
-import express, { Application} from 'express';
-
 import * as url from 'url';
 import express, { Application, Request, Response } from 'express';
 import 'dotenv/config';
 import session from 'express-session';
 import path from 'path';
 import nunjucks from 'nunjucks';
-
 import axios from 'axios';
 import JobSpecificationController from './controller/JobSpecificationController.js';
-
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 axios.defaults.baseURL = process.env.API_URL;
@@ -46,3 +40,4 @@ new JobSpecificationController().init(app);
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
+
