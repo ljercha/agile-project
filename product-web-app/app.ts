@@ -11,9 +11,9 @@ const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 axios.defaults.baseURL = process.env.API_URL;
 
-const app: Application = express();
 
-const appViews = path.join(dirname, '/views');
+
+const appViews = path.join(dirname, '/views/');
 
 const nunjucksConfig = {
   autoescape: true,
@@ -22,6 +22,10 @@ const nunjucksConfig = {
 };
 
 nunjucks.configure(appViews, nunjucksConfig);
+
+app.set('view engine', 'html');
+
+app.use('/public', express.static(path.join(dirname, '/public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,9 +39,10 @@ declare module 'express-session' {
 }
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
-
 new JobSpecificationController().init(app);
 
+
 app.listen(3000, () => {
+  // eslint-disable-next-line no-console
   console.log('Server listening on port 3000');
 });

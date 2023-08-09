@@ -8,6 +8,8 @@ import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.kainos.ea.resources.JobSpecificationController;
 
+
+
 public class DropwizardWebServiceApplication extends Application<DropwizardWebServiceConfiguration> {
 
     public static void main(final String[] args) throws Exception {
@@ -32,8 +34,10 @@ public class DropwizardWebServiceApplication extends Application<DropwizardWebSe
     @Override
     public void run(final DropwizardWebServiceConfiguration configuration,
                     final Environment environment) {
-        environment.jersey().register(new JobSpecificationController());
 
+        environment.jersey().register(new JobSpecificationController());
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new JobRoleController());
 
     }
 
