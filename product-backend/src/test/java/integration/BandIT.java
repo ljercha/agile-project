@@ -5,18 +5,16 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-import static javax.print.attribute.standard.MediaSizeName.A;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.kainos.ea.cli.Admin;
 
-import java.io.IOException;
 import java.util.Random;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AdminIT {
+public class BandIT {
 
     public class RandomStrGenerator {
 

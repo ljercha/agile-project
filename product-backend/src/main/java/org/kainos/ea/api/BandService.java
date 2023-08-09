@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.OptionalInt;
 
 
-public class AdminService {
+public class BandService {
     private BandDao bandDao;
-    public AdminService(BandDao bandDao) {
+    public BandService(BandDao bandDao) {
         this.bandDao = bandDao;
     }
 

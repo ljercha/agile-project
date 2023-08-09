@@ -1,7 +1,7 @@
 package org.kainos.ea.resources;
 
 import io.swagger.annotations.Api;
-import org.kainos.ea.api.AdminService;
+import org.kainos.ea.api.BandService;
 import org.kainos.ea.cli.Admin;
 import org.kainos.ea.client.FailedToCreateBandException;
 import org.kainos.ea.db.BandDao;
@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @Path("/api")
 public class BandController {
 
-    private AdminService adminService = new AdminService(new BandDao());
+    private BandService bandService = new BandService(new BandDao());
 
 
 
@@ -28,7 +28,7 @@ public class BandController {
     public Response createBand(Admin admin) throws NameTooShortException, SQLException, FailedToCreateBandException {
 
         try {
-            int BandId = adminService.createBand(admin);
+            int BandId = bandService.createBand(admin);
             URI location = UriBuilder.fromPath("/admin/band/" + BandId).build();
 
             return Response.created(location).build();

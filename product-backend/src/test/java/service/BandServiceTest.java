@@ -5,7 +5,7 @@ import org.kainos.ea.client.FailedToCreateBandException;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.kainos.ea.db.BandDao;
-import org.kainos.ea.api.AdminService;
+import org.kainos.ea.api.BandService;
 import org.kainos.ea.cli.Admin;
 import org.kainos.ea.db.DatabaseConnector;
 import org.junit.jupiter.api.Test;
@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 
-public class AdminServiceTest {
+public class BandServiceTest {
     BandDao bandDao = Mockito.mock(BandDao.class);
     DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
     Connection conn = Mockito.mock(Connection.class);
 
-    AdminService adminService = new AdminService(bandDao);
+    BandService bandService = new BandService(bandDao);
 
     Admin admin = new Admin(
             "tomekk",
@@ -36,7 +36,7 @@ public class AdminServiceTest {
         int expectedResult = 1;
         Mockito.when(bandDao.createBand(admin)).thenReturn(OptionalInt.of(expectedResult));
 
-        int result = adminService.createBand(admin);
+        int result = bandService.createBand(admin);
 
         assertEquals(result, expectedResult);
     }
@@ -46,13 +46,13 @@ public class AdminServiceTest {
         Mockito.when(bandDao.createBand(admin)).thenReturn(OptionalInt.empty());
 
         assertThrows(FailedToCreateBandException.class,
-                () -> adminService.createBand(admin));
+                () -> bandService.createBand(admin));
     }
     @Test
     void createBand_shouldThrowSqlException_whenDaoThrowsSqlException() throws SQLException {
         Mockito.when(bandDao.createBand(admin)).thenThrow(SQLException.class);
 
-        assertThrows(SQLException.class, () -> adminService.createBand(admin));
+        assertThrows(SQLException.class, () -> bandService.createBand(admin));
     }
 }
 
