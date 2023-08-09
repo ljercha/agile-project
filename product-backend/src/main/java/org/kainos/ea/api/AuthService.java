@@ -1,11 +1,17 @@
 package org.kainos.ea.api;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import org.kainos.ea.cli.Login;
 import org.kainos.ea.cli.RequestUser;
-import org.kainos.ea.client.FailedToCreateNewUserException;
-import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
+import org.kainos.ea.cli.Token;
+import org.kainos.ea.cli.User;
+import org.kainos.ea.client.*;
 import org.kainos.ea.db.AuthDao;
+import org.kainos.ea.utils.PasswordHasher;
 import org.kainos.ea.validator.RegisterValidator;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 import java.sql.SQLException;
@@ -32,5 +38,35 @@ public class AuthService {
             logger.severe(e.getMessage());
             throw new FailedToCreateNewUserException();
         }
+    }
+
+    public String login(Login ClientCredentials) throws FailedToLoginException,
+            FailedToGetUserException, FailedToInsertTokenException {
+        User userDb = authDao.getUser(ClientCredentials.getEmail());
+        String providedPassword = ClientCredentials.getPassword();
+        String hashedPasswordFromDB = userDb.getPassword();
+
+        PasswordHasher passwordHasher = new PasswordHasher();
+        boolean authResult = passwordHasher.authenticateUser(providedPassword, hashedPasswordFromDB);
+
+        if (authResult) {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            long now = System.currentTimeMillis();
+            long expiry = now + 3_600_000;
+            String jwtToken = JWT.create()
+                    .withSubject(userDb.getEmail())
+                    .withClaim("user_id", userDb.getId())
+                    .withClaim("user_email", userDb.getEmail())
+                    .withClaim("user_role", userDb.getRole())
+                    .withIssuedAt(new Date(now))
+                    .withExpiresAt(new Date(expiry))
+                    .sign(algorithm);
+
+            authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
+            return jwtToken;
+        } else {
+            throw new FailedToLoginException();
+        }
+
     }
 }

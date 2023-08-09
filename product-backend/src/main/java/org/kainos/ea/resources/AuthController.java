@@ -5,15 +5,17 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.kainos.ea.api.AuthService;
+import org.kainos.ea.cli.Login;
 import org.kainos.ea.cli.RequestUser;
-import org.kainos.ea.client.FailedToCreateNewUserException;
-import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
+import org.kainos.ea.client.*;
 import org.kainos.ea.db.AuthDao;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
@@ -39,15 +41,35 @@ public class AuthController {
         try {
             authService.createNewUser(user);
             return Response.ok().build();
-        } catch (FaliedToCreateUserWrongInputException e) {
-            logger.severe(e.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        catch (FailedToCreateNewUserException e) {
+        } catch (FaliedToCreateUserWrongInputException | FailedToCreateNewUserException e) {
             logger.severe(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
 
+    @POST
+    @Path("/auth/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Sign in to existing account")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successfully signed in"),
+        @ApiResponse(code = 400, message = "Wrong email address or password"),
+        @ApiResponse(code = 500, message = "Failed to connect with the database")
+    })
+    public Response login (Login login){
+        try {
+            String jwtToken = authService.login(login);
+            NewCookie jwtCookie = new NewCookie("jwtToken", jwtToken);
+            return Response.ok("JWT token").cookie(jwtCookie).build();
 
+        } catch (FailedToLoginException e) {
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+
+        } catch (FailedToInsertTokenException | FailedToGetUserException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+
+        }
+    }
 }
