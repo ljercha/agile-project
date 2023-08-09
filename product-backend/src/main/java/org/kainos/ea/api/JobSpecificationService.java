@@ -10,7 +10,6 @@ import org.kainos.ea.exception.RoleNotExistException;
 import org.kainos.ea.exception.DatabaseConnectionException;
 public class JobSpecificationService {
     JobSpecificationDao jobSpecificationDao = new JobSpecificationDao();
-    public DatabaseConnector databaseConnector;
 
     public JobSpecificationService(JobSpecificationDao jobSpecificationDao, DatabaseConnector databaseConnector) {
         this.jobSpecificationDao = jobSpecificationDao;
