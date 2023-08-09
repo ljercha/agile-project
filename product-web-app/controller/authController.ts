@@ -4,7 +4,7 @@ import AuthService from '../service/authService.js';
 
 function authController(app: Application) {
   app.get('/auth/register', async (req, res) => {
-    res.render('auth/register', { title: 'Register' });
+    res.render('auth/register');
   });
 
   app.post('/auth/register', async (req, res) => {
