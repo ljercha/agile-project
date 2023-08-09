@@ -4,7 +4,7 @@ import AuthService from '../service/authService.js';
 
 function authController(app: Application) {
   app.get('/auth/register', async (req, res) => {
-    res.render('auth/register');
+    res.render('auth/register', { title: 'Register' });
   });
 
   app.post('/auth/register', async (req, res) => {
@@ -14,7 +14,7 @@ function authController(app: Application) {
     try {
       const authService = new AuthService();
       await authService.register(data);
-      res.redirect('auth/login');
+      res.redirect('/login');
     } catch (error) {
       res.locals.errormessage = error instanceof Error ? error.message : String(error);
       if (req.body.email.endsWith('@kainos.com')) {

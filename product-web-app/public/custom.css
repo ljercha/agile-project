@@ -8,8 +8,12 @@ main.content {
   flex: 1;
 }
 
+header.header {
+  background-color: #293582;
+}
+
 footer.footer {
-  background-color: #f8f9fa;
+  background-color: #293582;
   padding: 20px;
   text-align: center;
 }
@@ -27,24 +31,24 @@ span.toggle-password {
 }
 
 button.btn-custom-primary {
-  background-color: #343a40;
-  border-color: #343a40;
+  background-color: #293582;
+  border-color: #293582;
   color: white;
 }
 
 button.btn-custom-primary:hover,
 button.btn-custom-primary:focus {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #34B34C;
+  border-color: #34B34C;
   color: white;
 }
 
 a[href='login'] {
-  color: #343a40;
+  color: #293582;
 }
 
 a[href='login']:hover,
 a[href='login']:focus {
-  color: #007bff;
+  color: #34B34C;
   text-decoration: none;
 }
