@@ -1,4 +1,4 @@
--- US001
+-- US001: view job roles
 insert into JobRoles(job_role_title) values 
     ('Engineering'), 
     ('Engineering, Strategy and Planning'), 
