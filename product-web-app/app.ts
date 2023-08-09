@@ -2,7 +2,6 @@ import express, { Application } from 'express';
 
 import * as url from 'url';
 import path from 'path';
-import express from 'express';
 import 'dotenv/config';
 import session from 'express-session';
 import nunjucks from 'nunjucks';
