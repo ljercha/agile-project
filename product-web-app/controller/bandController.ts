@@ -4,8 +4,8 @@ import BandService from '../service/bandService.js';
 
 export default class BandController {
   initializeRoutes(app: Application) {
-    app.get('/band/add-band', this.renderAddBandPage);
-    app.post('/band/add-band', this.addBand);
+    app.get('/admin/add-band', this.renderAddBandPage);
+    app.post('/admin/add-band', this.addBand);
   }
 
   async renderAddBandPage(req: Request, res: Response) {

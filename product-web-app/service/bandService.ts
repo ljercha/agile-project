@@ -10,7 +10,7 @@ export default class BandService {
 
   async addBand(band: Band): Promise<Number> {
     try {
-      const response = await axios.post(`${this.BASE_URL}/band/band`, band);
+      const response = await axios.post(`${this.BASE_URL}/admin/band`, band);
       return response.status;
     } catch (e) {
       throw new Error('Could not create band');
