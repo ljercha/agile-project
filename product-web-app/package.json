@@ -1,15 +1,16 @@
 {
-  "name": "TEAMB",
+  "name": "sons_of_rejection",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "prestart": "npm run compile && cp -R views dist",
+    "prestart": "npm run compile && cp -R views dist && cp -R public dist",
     "compile": "tsc",
     "lint": "npx eslint . --fix  --ext .ts && prettier --write \"**/*.+(ts)\"",
-    "start": "node dist/app.js",
-    "test": "ts-mocha"
+    "start": "npm run prestart && node dist/app.js",
+    "test": "ts-mocha",
+    "dev": "nodemon --watch . --ext ts --exec \"npm run start\""
   },
   "dependencies": {
     "axios": "^1.4.0",
@@ -35,6 +36,7 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "mocha": "10.2.0",
+    "nodemon": "^3.0.1",
     "prettier": "3.0.0",
     "ts-mocha": "10.0.0",
     "ts-node": "10.9.1",

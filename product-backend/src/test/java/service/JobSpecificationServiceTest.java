@@ -4,7 +4,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.kainos.ea.api.JobSpecificationService;
 import org.kainos.ea.cli.JobSpecification;
 import org.kainos.ea.exception.DatabaseConnectionException;
-import org.kainos.ea.exception.FailedToJobSpecificationException;
 import org.kainos.ea.db.DatabaseConnector;
 import org.kainos.ea.db.JobSpecificationDao;
 import org.kainos.ea.exception.RoleNotExistException;
@@ -14,14 +13,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class JobSpecificationServiceTest {
     JobSpecificationDao jobSpecificationDao = Mockito.mock(JobSpecificationDao.class);
@@ -37,7 +34,7 @@ public class JobSpecificationServiceTest {
         JobSpecification specification_list = new JobSpecification(1,"test","test","test");
 
         Mockito.when(jobSpecificationDao.getJobSpecification(conn, roleId)).thenReturn(Optional.of(specification_list));
-        Optional<JobSpecification> specification = jobSpecificationService.getJobSpecification(roleId);
+        Optional<JobSpecification> specification = Optional.ofNullable(jobSpecificationService.getJobSpecification(roleId));
         assertEquals(specification, specification_list);
 
     }
