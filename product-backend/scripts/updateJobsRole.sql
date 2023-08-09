@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS JobRoles (
 );
 
 -- Create Specification table
-CREATE TABLE Specifications (
+CREATE TABLE IF NOT EXISTS Specifications (
     id INT PRIMARY KEY AUTO_INCREMENT,
     role_id INT,
     summary VARCHAR(255),
