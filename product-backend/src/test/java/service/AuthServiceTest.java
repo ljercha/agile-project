@@ -49,16 +49,7 @@ public class AuthServiceTest {
             "$2a$12$LbyUXUPiq6bgjz.WKzWV0eIzzbHg5jW4ug8neL7QhxIj8AW6YnGE.",
             "Admin"
     );
-    private Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET");
 
-    private String jwtToken = JWT.create()
-            .withSubject(clientCredentials.getEmail())
-            .withClaim("user_id", user.getId())
-            .withClaim("user_email", clientCredentials.getEmail())
-            .withClaim("user_role", user.getRole())
-            .withIssuedAt(new Date(System.currentTimeMillis()))
-            .withExpiresAt(new Date(System.currentTimeMillis() + 3_600_000))
-            .sign(algorithm);
 
 
     @Test
@@ -111,6 +102,16 @@ public class AuthServiceTest {
                    FailedToInsertTokenException,
                    FailedToGetUserException,
                    WrongPasswordException {
+        Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET");
+
+        String jwtToken = JWT.create()
+                .withSubject(clientCredentials.getEmail())
+                .withClaim("user_id", user.getId())
+                .withClaim("user_email", user.getEmail())
+                .withClaim("user_role", user.getRole())
+                .withIssuedAt(new Date(System.currentTimeMillis()))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 3_600_000))
+                .sign(algorithm);
         Mockito.when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(user);
 
         String result = authService.login(clientCredentials);
