@@ -31,18 +31,15 @@ function authController(app: Application) {
 
   app.post('/auth/login', async (req, res) => {
     const loginData: Login = req.body;
-    
+
     try {
       const authService = new AuthService();
-      // await authService.login(loginData);
-      const token:string = await authService.login(loginData);
-      console.log(token)
-      res.cookie('JWT', token, { 
-        maxAge: 3600000  // TODO: maxAge vs expire
-      })
+      const token: string = await authService.login(loginData);
+      res.cookie('JWT', token, {
+        maxAge: 3600000,
+      });
 
       res.redirect('/home');
-    
     } catch (error) {
       res.locals.errormessage = error instanceof Error ? error.message : String(error);
       res.render('auth/login', req.body);
@@ -52,7 +49,6 @@ function authController(app: Application) {
   app.get('/home', async (req, res) => {
     res.render('home');
   });
-
 }
 
 export default authController;
