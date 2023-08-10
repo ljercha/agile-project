@@ -2,9 +2,9 @@ name: AWS DEPLOYMENT
 
 on:
   push:
-    branches: ["develop", "master"]
+    branches: ["dev"]
   pull_request:
-    branches: ["develop", "master"]
+    branches: ["dev"]
 
 jobs:
   build:
