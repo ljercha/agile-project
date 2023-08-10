@@ -29,10 +29,10 @@
                         <th scope="col">Specification Link</th>
                     </tr>
                     <tr>
-                        <td>{{ jobSpecification.roleId }}</td>
+                        <td style="display: none;">{{ jobSpecification.roleId }}</td>
                         <td><textarea readonly>{{ jobSpecification.summary }}</textarea></td>
                         <td>{{ jobSpecification.description }}</td>
-                        <td><a href="{{ jobSpecification.specificationLink }}">{{ jobSpecification.specificationLink }}</a></td>
+                        <td><a href="{{ jobSpecification.specificationLink }}" target="_blank">{{ jobSpecification.specificationLink }}</a></td>
                     </tr>
                 </tbody>
             </table>
