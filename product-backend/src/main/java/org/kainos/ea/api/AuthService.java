@@ -6,9 +6,8 @@ import org.kainos.ea.client.FaliedToCreateUserWrongInputException;
 import org.kainos.ea.db.AuthDao;
 import org.kainos.ea.validator.RegisterValidator;
 
-import java.util.logging.Logger;
-
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class AuthService {
 
