@@ -10,7 +10,6 @@ export default class JobSpecificationController {
       try {
         data = await jobSpecificationService.getJobSpecification(parseInt(req.params.id, 10));
       } catch (e) {
-        console.log(e);
         res.redirect('/job-roles');
       }
       res.render('job-specification', { jobSpecification: data });
