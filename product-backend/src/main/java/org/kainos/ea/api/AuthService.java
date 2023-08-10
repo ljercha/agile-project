@@ -70,7 +70,7 @@ public class AuthService {
                     .withExpiresAt(new Date(expiry))
                     .sign(algorithm);
 
-            authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
+//            authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
             return jwtToken;
         } else {
             throw new WrongPasswordException();
