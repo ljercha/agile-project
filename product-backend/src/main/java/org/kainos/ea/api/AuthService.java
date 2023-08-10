@@ -57,28 +57,22 @@ public class AuthService {
 
         PasswordHasher passwordHasher = new PasswordHasher();
         boolean authResult = passwordHasher.authenticateUser(providedPassword, hashedPasswordFromDB);
-
-        if (authResult) {
-            Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET"); // TODO: change to asynchronous algorithm
-
-            long now = dateService.getCurrentTime();
-            long expiry = now + 3_600_000;
-            String jwtToken = JWT.create()
-                    .withSubject(userDb.getEmail())
-                    .withClaim("user_id", userDb.getId())
-                    .withClaim("user_email", userDb.getEmail())
-                    .withClaim("user_role", userDb.getRole())
-                    .withIssuedAt(new Date(now))
-                    .withExpiresAt(new Date(expiry))
-                    .sign(algorithm);
-
-            authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
-            return jwtToken;
-        } else {
+        if (!authResult) {
             throw new WrongPasswordException();
         }
+
+        Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET"); // TODO: change to asynchronous algorithm
+        long now = dateService.getCurrentTime();
+        long expiry = now + 3_600_000;
+        String jwtToken = JWT.create()
+                .withSubject(userDb.getEmail())
+                .withClaim("user_id", userDb.getId())
+                .withClaim("user_email", userDb.getEmail())
+                .withClaim("user_role", userDb.getRole())
+                .withIssuedAt(new Date(now))
+                .withExpiresAt(new Date(expiry))
+                .sign(algorithm);
+        authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
+        return jwtToken;
     }
-
-
-
 }
