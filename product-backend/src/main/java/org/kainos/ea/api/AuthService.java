@@ -18,14 +18,15 @@ import java.sql.SQLException;
 
 public class AuthService {
 
-    public AuthService(AuthDao authDao, RegisterValidator registerValidator) {
+    public AuthService(AuthDao authDao, RegisterValidator registerValidator, DateService dateService) {
         this.authDao = authDao;
         this.registerValidator = registerValidator;
+        this.dateService = dateService;
     }
 
     private final AuthDao authDao;
     private RegisterValidator registerValidator;
-
+    private DateService dateService;
     public int createNewUser(RequestUser input) throws FailedToCreateNewUserException,
             FaliedToCreateUserWrongInputException {
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -59,7 +60,8 @@ public class AuthService {
 
         if (authResult) {
             Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET"); // TODO: change to asynchronous algorithm
-            long now = System.currentTimeMillis();
+
+            long now = dateService.getCurrentTime();
             long expiry = now + 3_600_000;
             String jwtToken = JWT.create()
                     .withSubject(userDb.getEmail())
@@ -70,11 +72,13 @@ public class AuthService {
                     .withExpiresAt(new Date(expiry))
                     .sign(algorithm);
 
-//            authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
+            authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
             return jwtToken;
         } else {
             throw new WrongPasswordException();
         }
-
     }
+
+
+
 }

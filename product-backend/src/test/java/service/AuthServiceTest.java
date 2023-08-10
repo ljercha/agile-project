@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.kainos.ea.api.AuthService;
+import org.kainos.ea.api.DateService;
 import org.kainos.ea.cli.Login;
 import org.kainos.ea.cli.RequestUser;
 import org.kainos.ea.cli.User;
@@ -14,20 +16,22 @@ import org.kainos.ea.validator.RegisterValidator;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
 import java.sql.SQLException;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceTest {
     AuthDao authDaoMock = Mockito.mock(AuthDao.class);
     RegisterValidator registerValidatorMock = Mockito.mock(RegisterValidator.class);
-    AuthService authService = new AuthService(authDaoMock, registerValidatorMock);
+    DateService dateServiceMock = Mockito.mock(DateService.class);
+    AuthService authService = new AuthService(authDaoMock, registerValidatorMock, dateServiceMock);
 
     private RequestUser userRequest = new RequestUser(
 
@@ -57,8 +61,8 @@ public class AuthServiceTest {
             FaliedToCreateUserWrongInputException, SQLException {
         int NEW_USER_ID = 356;
 
-        Mockito.when(authDaoMock.createNewUser(userRequest)).thenReturn(NEW_USER_ID);
-        Mockito.when(registerValidatorMock.validate(userRequest)).thenReturn(true);
+        when(authDaoMock.createNewUser(userRequest)).thenReturn(NEW_USER_ID);
+        when(registerValidatorMock.validate(userRequest)).thenReturn(true);
 
         int result = authService.createNewUser(userRequest);
 
@@ -72,7 +76,7 @@ public class AuthServiceTest {
     void createUser_shouldThrowException_whenDoesNotPassValidation() throws FailedToCreateNewUserException,
             FaliedToCreateUserWrongInputException {
 
-        Mockito.when(registerValidatorMock.validate(userRequest)).thenThrow(new FaliedToCreateUserWrongInputException("Correct role should be specified."));
+        when(registerValidatorMock.validate(userRequest)).thenThrow(new FaliedToCreateUserWrongInputException("Correct role should be specified."));
 
         assertThatThrownBy(() -> authService.createNewUser(userRequest))
                 .isInstanceOf(FaliedToCreateUserWrongInputException.class);
@@ -88,8 +92,8 @@ public class AuthServiceTest {
                 "Employee"
         );
 
-        Mockito.when(authDaoMock.createNewUser(user)).thenThrow(new SQLException("Duplicated entry"));
-        Mockito.when(registerValidatorMock.validate(user)).thenReturn(true);
+        when(authDaoMock.createNewUser(user)).thenThrow(new SQLException("Duplicated entry"));
+        when(registerValidatorMock.validate(user)).thenReturn(true);
 
         assertThatThrownBy(() -> authService.createNewUser(user))
                 .isInstanceOf(FailedToCreateNewUserException.class).hasMessage("Failed to create new employee");
@@ -102,25 +106,30 @@ public class AuthServiceTest {
                    FailedToInsertTokenException,
                    FailedToGetUserException,
                    WrongPasswordException {
-        Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET");
 
+        long currentTime = System.currentTimeMillis();
+        Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET");
         String jwtToken = JWT.create()
                 .withSubject(clientCredentials.getEmail())
                 .withClaim("user_id", user.getId())
                 .withClaim("user_email", user.getEmail())
                 .withClaim("user_role", user.getRole())
-                .withIssuedAt(new Date(System.currentTimeMillis()))
-                .withExpiresAt(new Date(System.currentTimeMillis() + 3_600_000))
+                .withIssuedAt(new Date(currentTime))
+                .withExpiresAt(new Date(currentTime + 3_600_000))
                 .sign(algorithm);
-        Mockito.when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(user);
+
+        when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(user);
+        when(dateServiceMock.getCurrentTime()).thenReturn(currentTime);
 
         String result = authService.login(clientCredentials);
+        verify(authDaoMock).insertToken(anyString(), anyString(), anyLong());
+
         assertEquals(result, jwtToken);
     }
 
     @Test
     void login_shouldThrowWrongEmailException_whenClientEmailIncorrect() throws FailedToGetUserException {
-        Mockito.when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(null);
+        when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(null);
 
         assertThatThrownBy(() -> authService.login(clientCredentials))
                 .isInstanceOf(WrongEmailException.class);
@@ -128,7 +137,7 @@ public class AuthServiceTest {
 
     @Test
     void login_shouldThrowWrongPasswordException_whenClientPasswordIncorrect() throws FailedToGetUserException {
-        Mockito.when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(user);
+        when(authDaoMock.getUser(clientCredentials.getEmail())).thenReturn(user);
 
         assertThatThrownBy(() -> authService.login(clientCredentialsWrongPassword))
                 .isInstanceOf(WrongPasswordException.class);

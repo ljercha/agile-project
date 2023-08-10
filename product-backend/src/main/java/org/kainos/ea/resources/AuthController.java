@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.kainos.ea.api.AuthService;
+import org.kainos.ea.api.DateService;
 import org.kainos.ea.cli.Login;
 import org.kainos.ea.cli.RequestUser;
 import org.kainos.ea.client.*;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 @Path("/api")
 public class AuthController {
     private static final String CREATE = "/auth/register";
-    private final AuthService authService = new AuthService(new AuthDao(), new RegisterValidator());
+    private final AuthService authService = new AuthService(new AuthDao(), new RegisterValidator(), new DateService());
     Logger logger = Logger.getLogger(this.getClass().getName());
 
 
