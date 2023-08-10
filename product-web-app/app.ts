@@ -37,13 +37,11 @@ app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 6000000 } })
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
-
 const bandController = new BandController();
 bandController.initializeRoutes(app);
 
 const jobRolesController = new JobRolesController();
 jobRolesController.init(app);
-
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console

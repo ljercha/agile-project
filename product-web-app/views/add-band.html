@@ -23,11 +23,16 @@
         <section id="form" class="bg-light py-3">
             <div class="container">
                 <h2>Enter Band details</h2>
-                {% if errormessage %} 
-                <script>alert("{{ errormessage }}")</script>
-                {% else %}
-                <script>alert("Band has been added succesfully")</script>
+
+                {% if successmessage %}
+                <div class="alert alert-success" role="alert">{{successmessage}}</div>
                 {% endif %}
+
+
+                {% if errormessage %}
+                <div class="alert alert-danger" role="alert">{{errormessage}}</div>
+                {% endif %}
+            
                 <form action="/admin/add-band" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>

@@ -17,10 +17,16 @@ export default class BandController {
     const bandService = new BandService();
 
     try {
-      await bandService.addBand(data);
+      if (data.level !== undefined && data.level >= 1 && data.level <= 9) {
+        await bandService.addBand(data);
+        res.locals.successmessage = 'You added band!';
+      } else {
+        res.locals.errormessage = 'failed to add band';
+      }
     } catch (e) {
       res.locals.errormessage = 'Failed to add band';
     }
+
     res.render('add-band');
   }
 }
