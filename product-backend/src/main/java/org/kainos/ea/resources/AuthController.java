@@ -40,7 +40,7 @@ public class AuthController {
         try {
             authService.createNewUser(user);
             return Response.ok().build();
-        } catch (FaliedToCreateUserWrongInputException |  FailedToCreateNewUserException e) {
+        } catch (FaliedToCreateUserWrongInputException | FailedToCreateNewUserException e) {
             logger.severe(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
