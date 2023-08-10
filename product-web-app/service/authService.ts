@@ -30,7 +30,7 @@ class AuthService {
       const cookies = response.headers['set-cookie'];
 
       if (!cookies) {
-        throw new Error('Login failed! Please try again. ');
+        throw new Error('Login failed! Please try again.');
       }
       const tokenString = cookies[0];
       const tokenValueStart = tokenString.indexOf('=') + 1;
@@ -38,7 +38,7 @@ class AuthService {
       const tokenValue = tokenString.substring(tokenValueStart, tokenValueEnd);
       return tokenValue;
     } catch (error) {
-      throw new Error('Login failed! Please try again. ');
+      throw new Error('Login failed! Please try again.');
     }
   }
 }

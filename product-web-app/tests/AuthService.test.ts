@@ -4,6 +4,7 @@ import chai from 'chai';
 import AuthService from '../service/authService.js';
 import User from '../model/register.js';
 import Login from '../model/login.js';
+import { response } from 'express';
 
 const { expect } = chai;
 
@@ -18,10 +19,10 @@ const user: User = {
 };
 const login: Login = {
   email: 'test@kainos.com',
-  password: 'Test123!',
+  password: 'Test1234!',
 }
+
 const tokenValue: string = 'NOT_HARDCODED_TOKEN_VALUE'; 
-const cookie: string = 'access_token=NOT_HARDCODED_TOKEN_VALUE;Version=69'; 
 
 describe('AuthService', () => {
   describe('registerUser', () => {
@@ -46,13 +47,54 @@ describe('AuthService', () => {
         expect(errorMessage).to.equal('Registration failed! Please try again.');
       }
     });
+  });
+  describe('loginUser', () => {
+    it('should return error when pass wrong email', async () => {
+      const mock = new MockAdapter(axios);
+      mock.onPost('http://localhost:8080/api/auth/login', user).reply(400);
+
+      try {
+        await authService.login(login)
+      } catch (error) {
+        const errorMessage: string = error instanceof Error ? error.message : String(error);
+        expect(errorMessage).to.equal('Login failed! Please try again.');
+      }
+    });
+
+    it('should return error when pass wrong password', async () => {
+      const mock = new MockAdapter(axios);
+      mock.onPost('http://localhost:8080/api/auth/login', user).reply(400);
+
+      try {
+        await authService.login(login)
+      } catch (error) {
+        const errorMessage: string = error instanceof Error ? error.message : String(error);
+        expect(errorMessage).to.equal('Login failed! Please try again.');
+      }
+    });
+
+    it('should return error when database crashed', async () => {
+      const mock = new MockAdapter(axios);
+      mock.onPost('http://localhost:8080/api/auth/login', user).reply(500);
+
+      try {
+        await authService.login(login)
+      } catch (error) {
+        const errorMessage: string = error instanceof Error ? error.message : String(error);
+        expect(errorMessage).to.equal('Login failed! Please try again.');
+      }
+    });
 
     it('should return JWT token when correct credential provided', async () => {
       const mock = new MockAdapter(axios);
-      mock.onPost('http://localhost:8080/api/auth/login', login).reply(200, cookie);
-      console.log('cookie: ', cookie)
+      mock.onPost('http://localhost:8080/api/auth/login', login).reply(200, {
+          message: "Mocked response",  
+        }, { 
+           "set-cookie": ["access_token=NOT_HARDCODED_TOKEN_VALUE; Version=69"],
+        }
+        );
+
       const response = await authService.login(login);
-      console.log('cookie: ', response)
       expect(response).to.equal(tokenValue);
     })
 
