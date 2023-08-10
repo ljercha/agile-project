@@ -24,7 +24,7 @@ public class JobSpecificationServiceTest {
     JobSpecificationDao jobSpecificationDao = Mockito.mock(JobSpecificationDao.class);
     DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
 
-    JobSpecificationService jobSpecificationService = new JobSpecificationService(jobSpecificationDao,databaseConnector);
+    JobSpecificationService jobSpecificationService = new JobSpecificationService(jobSpecificationDao);
     Connection conn;
 
 
@@ -39,7 +39,7 @@ public class JobSpecificationServiceTest {
 
     }
     @Test
-    void getJobSpecification_shouldThrowException_whenDaoThrowsException() throws SQLException, DatabaseConnectionException, IOException, RoleNotExistException {
+    void getJobSpecification_shouldThrowException_whenDaoThrowsException() throws SQLException,  IOException, RoleNotExistException {
         int roleId = 1;
         Mockito.when(jobSpecificationDao.getJobSpecification(roleId)).thenThrow(SQLException.class);
         assertThrows(SQLException.class, () -> jobSpecificationService.getJobSpecification(roleId));

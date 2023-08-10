@@ -3,7 +3,6 @@ package org.kainos.ea.resources;
 import io.swagger.annotations.Api;
 import org.eclipse.jetty.http.HttpStatus;
 import org.kainos.ea.api.JobSpecificationService;
-import org.kainos.ea.db.DatabaseConnector;
 import org.kainos.ea.db.JobSpecificationDao;
 import org.kainos.ea.exception.DatabaseConnectionException;
 import org.kainos.ea.exception.RoleNotExistException;
@@ -18,7 +17,7 @@ import javax.ws.rs.core.Response;
 @Api("Job Roles API")
 @Path("/api")
 public class JobSpecificationController {
-    private  JobSpecificationService jobSpecificationService = new JobSpecificationService(new JobSpecificationDao(), new DatabaseConnector());
+    private  JobSpecificationService jobSpecificationService = new JobSpecificationService(new JobSpecificationDao());
 
     @GET
     @Path("/job-specification/{id}")
@@ -27,7 +26,7 @@ public class JobSpecificationController {
         try {
             return Response.status(HttpStatus.OK_200).entity(jobSpecificationService.getJobSpecification(role_id)).build();
         } catch (DatabaseConnectionException | Exception | RoleNotExistException e) {
-            return Response.status(HttpStatus.NOT_FOUND_404, e.getMessage()).build();
+            return Response.status(HttpStatus.NOT_FOUND_404).entity(e.getMessage()).build();
         }
     }
 }
