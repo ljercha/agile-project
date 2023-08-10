@@ -6,7 +6,6 @@ import org.kainos.ea.cli.User;
 import org.kainos.ea.client.FailedToGetTokenException;
 import org.kainos.ea.client.FailedToGetUserException;
 import org.kainos.ea.client.FailedToInsertTokenException;
-import org.kainos.ea.client.FailedToLoginException;
 import org.kainos.ea.utils.PasswordHasher;
 
 import java.sql.*;

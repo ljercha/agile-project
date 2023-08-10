@@ -40,9 +40,15 @@ public class AuthService {
         }
     }
 
-    public String login(Login ClientCredentials) throws FailedToLoginException,
-            FailedToGetUserException, FailedToInsertTokenException {
+    public String login(Login ClientCredentials)
+            throws  FailedToGetUserException,
+                    FailedToInsertTokenException,
+                    WrongPasswordException,
+                    WrongEmailException {
         User userDb = authDao.getUser(ClientCredentials.getEmail());
+        if (userDb == null){
+            throw new WrongEmailException();
+        }
         String providedPassword = ClientCredentials.getPassword();
         String hashedPasswordFromDB = userDb.getPassword();
 
@@ -50,7 +56,7 @@ public class AuthService {
         boolean authResult = passwordHasher.authenticateUser(providedPassword, hashedPasswordFromDB);
 
         if (authResult) {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET"); // TODO: change to asynchronous algorithm
             long now = System.currentTimeMillis();
             long expiry = now + 3_600_000;
             String jwtToken = JWT.create()
@@ -65,7 +71,7 @@ public class AuthService {
             authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
             return jwtToken;
         } else {
-            throw new FailedToLoginException();
+            throw new WrongPasswordException();
         }
 
     }

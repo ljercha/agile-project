@@ -32,8 +32,7 @@ public class AuthController {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Creates new employee/admin")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successfully added new employee/admin to the " +
-                    "database"),
+            @ApiResponse(code = 201, message = "Successfully added new employee/admin to the database"),
             @ApiResponse(code = 400, message = "Failed to add new employee/admin to the database"),
             @ApiResponse(code = 500, message = "Failed to connect with the database")
     })
@@ -53,9 +52,9 @@ public class AuthController {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Sign in to existing account")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Successfully signed in"),
-        @ApiResponse(code = 400, message = "Wrong email address or password"),
-        @ApiResponse(code = 500, message = "Failed to connect with the database")
+        @ApiResponse(code = 200, message = "Successfully signed in."),
+        @ApiResponse(code = 400, message = "Wrong email address or password."),
+        @ApiResponse(code = 500, message = "Failed to connect with the database.")
     })
     public Response login (Login login){
         try {
@@ -63,12 +62,15 @@ public class AuthController {
             NewCookie jwtCookie = new NewCookie("access_token", jwtToken);
             return Response.ok("JWT token").cookie(jwtCookie).build();
 
-        } catch (FailedToLoginException e) {
+        } catch (WrongPasswordException | WrongEmailException e) {
+            logger.severe(e.getMessage());
             System.err.println(e.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST).build();
 
-        } catch (FailedToInsertTokenException | FailedToGetUserException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (FailedToInsertTokenException | FailedToGetUserException e)  {
+            logger.severe(e.getMessage());
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
         }
     }

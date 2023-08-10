@@ -25,7 +25,9 @@ nunjucks.configure(appViews, nunjucksConfig);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 6000000 } }));
+app.use(session({ 
+  secret: 'NOT_HARDCODED_SECRET', 
+  cookie: { maxAge: 3_600_000 } }));
 
 declare module 'express-session' {
   interface SessionData {
