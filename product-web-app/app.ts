@@ -52,7 +52,7 @@ app.listen(3000, () => {
 //   if (!req.session.token || req.session.token.length === 0) {
 //     res.redirect('auth/login');
 //   } else {
-//     res.render('index', { title: 'Main page' });
+//     res.render('job-roles', { title: 'Job roles' });
 //   }
 // });
 
