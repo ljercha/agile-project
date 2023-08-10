@@ -7,7 +7,7 @@ public class RegisterValidator {
         // Minimum password length (you can adjust this as needed)
         private static final int minLength = 8;
 
-        public static boolean validate (RequestUser input) throws FaliedToCreateUserWrongInputException {
+        public boolean validate (RequestUser input) throws FaliedToCreateUserWrongInputException {
             String email = input.getEmail();
             String password = input.getPassword();
             String role = input.getRole();

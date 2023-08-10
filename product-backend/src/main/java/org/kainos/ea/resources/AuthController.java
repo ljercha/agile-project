@@ -9,6 +9,7 @@ import org.kainos.ea.cli.Login;
 import org.kainos.ea.cli.RequestUser;
 import org.kainos.ea.client.*;
 import org.kainos.ea.db.AuthDao;
+import org.kainos.ea.validator.RegisterValidator;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 @Path("/api")
 public class AuthController {
     private static final String CREATE = "/auth/register";
-    private final AuthService authService = new AuthService(new AuthDao());
+    private final AuthService authService = new AuthService(new AuthDao(), new RegisterValidator());
     Logger logger = Logger.getLogger(this.getClass().getName());
 
 
@@ -66,12 +67,11 @@ public class AuthController {
             logger.severe(e.getMessage());
             System.err.println(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).build();
-
+        
         } catch (FailedToInsertTokenException | FailedToGetUserException e)  {
             logger.severe(e.getMessage());
             System.err.println(e.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-
         }
     }
 }
