@@ -17,24 +17,30 @@
         </div>
     </header>
     <main class="container mt-4">
-        <section id="jobSpec" class="mt-4" maxlength="500">
+        <section id="jobSpec" class="mt-4">
             <h2>Summary</h2>
             {% if jobSpecification %}
-            <tbody>
-                <tr><td>{{jobSpecification.id}}</td>
-                    <td>{{jobSpecification.roleId}}</td>
-                    <td>{{jobSpecification.summary}}</td>
-                    <td>{{jobSpecification.description}}</td>
-                    <td>{{jobSpecification.specificationLink}}</td>
-                </tr>
-            </tbody>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="col">Role ID</th>
+                        <th scope="col">Summary</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Specification Link</th>
+                    </tr>
+                    <tr>
+                        <td>{{ jobSpecification.roleId }}</td>
+                        <td><textarea readonly>{{ jobSpecification.summary }}</textarea></td>
+                        <td>{{ jobSpecification.description }}</td>
+                        <td><a href="{{ jobSpecification.specificationLink }}">{{ jobSpecification.specificationLink }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
             {% else %}
             <div class="alert alert-danger" role="alert">
                 There are no job-specs
             </div>
-        {% endif %}
-            
-               
+            {% endif %}
         </section>
     </main>
 </body>

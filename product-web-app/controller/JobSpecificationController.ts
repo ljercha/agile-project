@@ -11,7 +11,7 @@ export default class JobSpecificationController {
         data = await jobSpecificationService.getJobSpecification(parseInt(req.params.id, 10));
       } catch (e) {
         console.log(e);
-        res.status(404).send('Error JobSpecification');
+        res.redirect('/job-roles');
       }
       res.render('job-specification', { jobSpecification: data });
     });
