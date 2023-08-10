@@ -7,9 +7,8 @@ export default class JobSpecificationService {
   constructor() {
     this.API_URL = process.env.API_URL || '';
   }
-  this: any;
-  // eslint-disable-next-line class-methods-use-this
-  async getJobSpecification(this: any, id: number): Promise<JobSpecification> {
+
+  async getJobSpecification(id: number): Promise<JobSpecification> {
     try {
       const response = await axios.get(`${this.API_URL}/job-specification/${id}`);
       return response.data;

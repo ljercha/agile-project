@@ -6,7 +6,7 @@ import session from 'express-session';
 import nunjucks from 'nunjucks';
 import axios from 'axios';
 import JobSpecificationController from './controller/JobSpecificationController.js';
-
+import JobRolesController from './controller/JobRolesController.js';
 import authController from './controller/authController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -42,6 +42,7 @@ declare module 'express-session' {
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 new JobSpecificationController().init(app);
+new JobRolesController().init(app);
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console

@@ -11,12 +11,12 @@ import java.sql.SQLException;
 public class JobSpecificationService {
     private final JobSpecificationDao jobSpecificationDao;
 
-    public JobSpecificationService(JobSpecificationDao jobSpecificationDao, DatabaseConnector databaseConnector) {
+    public JobSpecificationService(JobSpecificationDao jobSpecificationDao) {
         this.jobSpecificationDao = jobSpecificationDao;
     }
 
-    public JobSpecification getJobSpecification(int role_id) throws SQLException, DatabaseConnectionException, RoleNotExistException {
-        return jobSpecificationDao.getJobSpecification(role_id).orElseThrow(() -> new RoleNotExistException());
+    public JobSpecification getJobSpecification(int roleId) throws SQLException, DatabaseConnectionException, RoleNotExistException {
+        return jobSpecificationDao.getJobSpecification(roleId).orElseThrow(RoleNotExistException::new);
     }
 }
 
