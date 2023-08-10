@@ -3,42 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobSpec</title>
+    <title>JobSpec List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            color: #4a4d50; 
+            font-size: large;
+        }
+        .list-group{
+            text-align: left; 
+            font-size: larger;
+        }
+    </style>
 </head>
 <body>
     <header class="bg-dark text-light">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>redirect job-spec</h1>
+                    <h1 class="text-center">JobSpec List</h1>
                 </div>
             </div>
         </div>
     </header>
     <main class="container mt-4">
         <section id="jobSpec" class="mt-4">
-            <h2>Summary</h2>
+            <h2 class="center">Job Specifications List</h2>
             {% if jobSpecification %}
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th scope="col">Role ID</th>
-                        <th scope="col">Summary</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Specification Link</th>
-                    </tr>
-                    <tr>
-                        <td style="display: none;">{{ jobSpecification.roleId }}</td>
-                        <td><textarea readonly>{{ jobSpecification.summary }}</textarea></td>
-                        <td>{{ jobSpecification.description }}</td>
-                        <td><a href="{{ jobSpecification.specificationLink }}" target="_blank">{{ jobSpecification.specificationLink }}</a></td>
-                    </tr>
-                </tbody>
-            </table>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{ jobSpecification.summary }}</p>
+                            {% if jobSpecification.description.length > 500 %}
+                                <p class="text-danger">Description is too long ({{ jobSpecification.description.length }} characters)</p>
+                            {% else %}
+                                <p>{{ jobSpecification.description }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {% if jobSpecification.specificationLink.length > 1000 %}
+                                <p class="text-danger">Specification Link is too long ({{ jobSpecification.specificationLink.length }} characters)</p>
+                            {% else %}
+                                <p><a href="{{ jobSpecification.specificationLink }}" target="_blank" class="btn btn-primary">LINK TO SHAREPOINT</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+            </ul>
             {% else %}
             <div class="alert alert-danger" role="alert">
-                There are no job-specs
+                There are no job specifications available.
             </div>
             {% endif %}
         </section>
