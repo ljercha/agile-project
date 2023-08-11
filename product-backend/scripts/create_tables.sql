@@ -1,6 +1,3 @@
-DROP DATABASE TeamA_{{USERNAME}};
-CREATE DATABASE TeamA_{{USERNAME}};
-use TeamA_{{USERNAME}};
 
 -- US001 view job roles
 create table IF NOT EXISTS JobRoles (
