@@ -48,12 +48,12 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
-// app.get('/', async (req, res) => {
-//   if (!req.session.token || req.session.token.length === 0) {
-//     res.redirect('auth/login');
-//   } else {
-//     res.render('job-roles', { title: 'Job roles' });
-//   }
-// });
+app.get('/', async (req, res) => {
+  // if (!req.session.token || req.session.token.length === 0) {
+  //   res.redirect('auth/login');
+  // } else {
+    res.redirect('/job-roles');
+  // }
+});
 
 authController(app);
