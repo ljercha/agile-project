@@ -1,9 +1,12 @@
+import express from 'express';
+
 import * as url from 'url';
 import path from 'path';
-import express from 'express';
 import 'dotenv/config';
 import session from 'express-session';
 import nunjucks from 'nunjucks';
+import BandController from './controller/bandController.js';
+
 import JobRolesController from './controller/JobRolesController.js';
 
 import authController from './controller/authController.js';
@@ -31,14 +34,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 6000000 } }));
 
-declare module 'express-session' {
-  interface SessionData {
-    token: string;
-  }
-}
-
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
+
+const bandController = new BandController();
+bandController.initializeRoutes(app);
 
 const jobRolesController = new JobRolesController();
 jobRolesController.init(app);
@@ -49,11 +49,11 @@ app.listen(3000, () => {
 });
 
 app.get('/', async (req, res) => {
-  if (!req.session.token || req.session.token.length === 0) {
-    res.redirect('auth/register');
-  } else {
-    res.render('index', { title: 'Main page' });
-  }
+  // if (!req.session.token || req.session.token.length === 0) {
+  //   res.redirect('auth/login');
+  // } else {
+    res.redirect('/job-roles');
+  // }
 });
 
 authController(app);
