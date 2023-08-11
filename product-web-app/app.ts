@@ -4,15 +4,18 @@ import express from 'express';
 import 'dotenv/config';
 import session from 'express-session';
 import nunjucks from 'nunjucks';
+import axios from 'axios';
+
+import JobSpecificationController from './controller/JobSpecificationController.js';
 import BandController from './controller/bandController.js';
-
 import JobRolesController from './controller/JobRolesController.js';
-
 import authController from './controller/authController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const app = express();
+
+axios.defaults.baseURL = process.env.API_URL;
 
 const appViews = path.join(dirname, '/views/');
 
@@ -38,6 +41,13 @@ app.use(
   }),
 );
 
+
+declare module 'express-session' {
+  interface SessionData {
+    token: string;
+  }
+}
+
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
@@ -47,9 +57,11 @@ bandController.initializeRoutes(app);
 const jobRolesController = new JobRolesController();
 jobRolesController.init(app);
 
+new JobSpecificationController().init(app);
+
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
-  console.log('Server listening on port 3000');
+  
 });
 
 app.get('/', async (req, res) => {
