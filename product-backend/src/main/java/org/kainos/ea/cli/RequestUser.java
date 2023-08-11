@@ -32,7 +32,6 @@ public class RequestUser {
         this.role = role;
     }
 
-
     @JsonCreator
     public RequestUser(
             @JsonProperty("email") String email,
