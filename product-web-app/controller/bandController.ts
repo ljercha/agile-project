@@ -9,7 +9,7 @@ export default class BandController {
   }
 
   async renderAddBandPage(req: Request, res: Response) {
-    res.render('add-band');
+    res.render('add-band', { title: 'Add band' });
   }
 
   async addBand(req: Request, res: Response) {
