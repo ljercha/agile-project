@@ -44,8 +44,6 @@ declare module 'express-session' {
 }
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
-new JobSpecificationController().init(app);
-new JobRolesController().init(app);
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
@@ -55,6 +53,7 @@ bandController.initializeRoutes(app);
 const jobRolesController = new JobRolesController();
 jobRolesController.init(app);
 
+new JobSpecificationController().init(app);
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
