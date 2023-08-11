@@ -4,7 +4,6 @@ import chai from 'chai';
 import AuthService from '../service/authService.js';
 import User from '../model/register.js';
 import Login from '../model/login.js';
-import { response } from 'express';
 
 const { expect } = chai;
 
@@ -20,9 +19,9 @@ const user: User = {
 const login: Login = {
   email: 'test@kainos.com',
   password: 'Test1234!',
-}
+};
 
-const tokenValue: string = 'NOT_HARDCODED_TOKEN_VALUE'; 
+const tokenValue: string = 'NOT_HARDCODED_TOKEN_VALUE';
 
 describe('AuthService', () => {
   describe('registerUser', () => {
@@ -54,7 +53,7 @@ describe('AuthService', () => {
       mock.onPost('http://localhost:8080/api/auth/login', user).reply(400);
 
       try {
-        await authService.login(login)
+        await authService.login(login);
       } catch (error) {
         const errorMessage: string = error instanceof Error ? error.message : String(error);
         expect(errorMessage).to.equal('Login failed! Please try again.');
@@ -66,7 +65,7 @@ describe('AuthService', () => {
       mock.onPost('http://localhost:8080/api/auth/login', user).reply(400);
 
       try {
-        await authService.login(login)
+        await authService.login(login);
       } catch (error) {
         const errorMessage: string = error instanceof Error ? error.message : String(error);
         expect(errorMessage).to.equal('Login failed! Please try again.');
@@ -78,7 +77,7 @@ describe('AuthService', () => {
       mock.onPost('http://localhost:8080/api/auth/login', user).reply(500);
 
       try {
-        await authService.login(login)
+        await authService.login(login);
       } catch (error) {
         const errorMessage: string = error instanceof Error ? error.message : String(error);
         expect(errorMessage).to.equal('Login failed! Please try again.');
@@ -91,7 +90,6 @@ describe('AuthService', () => {
 
       const response = await authService.login(login);
       expect(response).to.equal(tokenValue);
-    })
-
+    });
   });
 });

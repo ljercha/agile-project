@@ -27,7 +27,6 @@ class AuthService {
   async login(login: Login): Promise<string> {
     try {
       const response = await axios.post(`${this.API_URL}/auth/login`, login);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       throw new Error('Login failed! Please try again.');
