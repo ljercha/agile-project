@@ -87,12 +87,7 @@ describe('AuthService', () => {
 
     it('should return JWT token when correct credential provided', async () => {
       const mock = new MockAdapter(axios);
-      mock.onPost('http://localhost:8080/api/auth/login', login).reply(200, {
-          message: "Mocked response",  
-        }, { 
-           "set-cookie": ["access_token=NOT_HARDCODED_TOKEN_VALUE; Version=69"],
-        }
-        );
+      mock.onPost('http://localhost:8080/api/auth/login', login).reply(200, tokenValue);
 
       const response = await authService.login(login);
       expect(response).to.equal(tokenValue);

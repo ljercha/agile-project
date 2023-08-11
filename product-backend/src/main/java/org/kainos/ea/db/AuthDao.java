@@ -32,18 +32,6 @@ public class AuthDao extends DatabaseConnector {
         return -1;
     }
 
-    public void insertToken(String jwtToken, String email, long expiry) throws FailedToInsertTokenException {
-        try (Connection con = DatabaseConnector.getConnection()) {
-            String insertStatement = "INSERT INTO Tokens (email, token, expiry) VALUES (?, ?, ?);";
-            PreparedStatement st = con.prepareStatement(insertStatement);
-            st.setString(1, email);
-            st.setString(2, jwtToken);
-            st.setTimestamp(3, new Timestamp(expiry));
-            st.executeUpdate();
-        } catch (SQLException e) {
-            throw new FailedToInsertTokenException();
-        }
-    }
 
     // WILL BE USED WITH AUTHORISATION TICKET //
     public Token getToken(String email) throws FailedToGetTokenException {

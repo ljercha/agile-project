@@ -122,7 +122,6 @@ public class AuthServiceTest {
         when(dateServiceMock.getCurrentTime()).thenReturn(currentTime);
 
         String result = authService.login(clientCredentials);
-        verify(authDaoMock).insertToken(anyString(), anyString(), anyLong());
 
         assertEquals(result, jwtToken);
     }

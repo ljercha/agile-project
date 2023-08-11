@@ -16,12 +16,4 @@ CREATE TABLE IF NOT EXISTS `User` (
     role varchar(64) NOT NULL
 );
 
--- US040: login system, will be required in authorisation system
-CREATE TABLE IF NOT EXISTS Tokens (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    email varchar(125),
-    token varchar(1000) NOT NULL,
-    expiry DATETIME NOT NULL,
-    FOREIGN KEY (email) REFERENCES `User`(email)
-);
 

@@ -60,9 +60,7 @@ public class AuthController {
     })
     public Response login (Login login){
         try {
-            String jwtToken = authService.login(login);
-            NewCookie jwtCookie = new NewCookie("access_token", jwtToken);
-            return Response.ok("JWT token").cookie(jwtCookie).build();
+            return Response.ok(authService.login(login)).build();
 
         } catch (WrongPasswordException | WrongEmailException e) {
             logger.severe(e.getMessage());

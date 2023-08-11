@@ -27,16 +27,8 @@ class AuthService {
   async login(login: Login): Promise<string> {
     try {
       const response = await axios.post(`${this.API_URL}/auth/login`, login);
-      const cookies = response.headers['set-cookie'];
-
-      if (!cookies) {
-        throw new Error('Login failed! Please try again.');
-      }
-      const tokenString = cookies[0];
-      const tokenValueStart = tokenString.indexOf('=') + 1;
-      const tokenValueEnd = tokenString.indexOf(';');
-      const tokenValue = tokenString.substring(tokenValueStart, tokenValueEnd);
-      return tokenValue;
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       throw new Error('Login failed! Please try again.');
     }

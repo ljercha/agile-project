@@ -27,6 +27,7 @@ public class AuthService {
     private final AuthDao authDao;
     private RegisterValidator registerValidator;
     private DateService dateService;
+
     public int createNewUser(RequestUser input) throws FailedToCreateNewUserException,
             FaliedToCreateUserWrongInputException {
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -48,19 +49,19 @@ public class AuthService {
                     FailedToInsertTokenException,
                     WrongPasswordException,
                     WrongEmailException {
+        
         User userDb = authDao.getUser(ClientCredentials.getEmail());
-        if (userDb == null){
+        if (userDb == null) {
             throw new WrongEmailException();
         }
         String providedPassword = ClientCredentials.getPassword();
         String hashedPasswordFromDB = userDb.getPassword();
-
         PasswordHasher passwordHasher = new PasswordHasher();
         boolean authResult = passwordHasher.authenticateUser(providedPassword, hashedPasswordFromDB);
+
         if (!authResult) {
             throw new WrongPasswordException();
         }
-
         Algorithm algorithm = Algorithm.HMAC256("NOT_HARDCODED_SECRET"); // TODO: change to asynchronous algorithm
         long now = dateService.getCurrentTime();
         long expiry = now + 3_600_000;
@@ -72,7 +73,6 @@ public class AuthService {
                 .withIssuedAt(new Date(now))
                 .withExpiresAt(new Date(expiry))
                 .sign(algorithm);
-        authDao.insertToken(jwtToken, userDb.getEmail(), expiry);
         return jwtToken;
     }
 }
