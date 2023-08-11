@@ -15,7 +15,7 @@ function authController(app: Application) {
     try {
       const authService = new AuthService();
       await authService.register(data);
-      res.redirect('auth/register');
+      res.redirect('auth/login');
     } catch (error) {
       res.locals.errormessage = error instanceof Error ? error.message : String(error);
       if (req.body.email.endsWith('@kainos.com')) {
