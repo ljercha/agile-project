@@ -13,7 +13,6 @@ import org.kainos.ea.validator.RegisterValidator;
 
 import java.util.Date;
 import java.util.logging.Logger;
-
 import java.sql.SQLException;
 
 public class AuthService {

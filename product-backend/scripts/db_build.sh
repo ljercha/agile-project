@@ -12,6 +12,7 @@ echo "************* connection opened *************"
 
 mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USERNAME} -p${DB_PASSWORD} < create_db_exe.sql
 mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USERNAME} -p${DB_PASSWORD} ${db_name} < example_data_exe.sql
+mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USERNAME} -p${DB_PASSWORD} ${db_name} < band.sql
 
 echo "************* connection closed *************"
 
