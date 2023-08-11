@@ -31,7 +31,9 @@ public class DropwizardWebServiceApplication extends Application<DropwizardWebSe
     @Override
     public void run(final DropwizardWebServiceConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
         environment.jersey().register(new BandController());
+        environment.jersey().register(new AuthController());
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new JobRoleController());
     }
 }
