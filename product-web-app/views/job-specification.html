@@ -34,11 +34,11 @@
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-6">
-                            <p>{{ jobSpecification.summary }}</p>
-                            {% if jobSpecification.description.length > 500 %}
-                                <p class="text-danger">Description is too long ({{ jobSpecification.description.length }} characters)</p>
+                            <p>{{ jobSpecification.roleTitle}}</p>
+                            {% if jobSpecification.summary.length > 500 %}
+                                <p class="text-danger">summary is too long ({{ jobSpecification.summary.length }} characters)</p>
                             {% else %}
-                                <p>{{ jobSpecification.description }}</p>
+                                <p>{{ jobSpecification.summary }}</p>
                             {% endif %}
                         </div>
                         <div class="col-md-6">
