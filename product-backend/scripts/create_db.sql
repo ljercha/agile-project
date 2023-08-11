@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS Specifications (
     id INT PRIMARY KEY AUTO_INCREMENT,
     role_id INT,
     summary VARCHAR(500),
-    description TEXT,
     sharepoint_link VARCHAR(500),
     FOREIGN KEY (role_id) REFERENCES JobRoles(job_role_id)
 )

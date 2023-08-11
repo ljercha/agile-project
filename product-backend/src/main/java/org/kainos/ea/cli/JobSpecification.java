@@ -2,16 +2,9 @@ package org.kainos.ea.cli;
 
 public class JobSpecification {
     private int RoleId;
+    private String roleTitle;
     private String Summary;
-    private String Description;
     private String SpecificationLink;
-
-    public JobSpecification(int roleId, String summary, String description, String specificationLink) {
-        RoleId = roleId;
-        Summary = summary;
-        Description = description;
-        SpecificationLink = specificationLink;
-    }
 
     public int getRoleId() {
         return RoleId;
@@ -19,6 +12,14 @@ public class JobSpecification {
 
     public void setRoleId(int roleId) {
         RoleId = roleId;
+    }
+
+    public String getRoleTitle() {
+        return roleTitle;
+    }
+
+    public void setRoleTitle(String roleTitle) {
+        this.roleTitle = roleTitle;
     }
 
     public String getSummary() {
@@ -29,19 +30,18 @@ public class JobSpecification {
         Summary = summary;
     }
 
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
     public String getSpecificationLink() {
         return SpecificationLink;
     }
 
     public void setSpecificationLink(String specificationLink) {
+        SpecificationLink = specificationLink;
+    }
+
+    public JobSpecification(int roleId, String roleTitle, String summary, String specificationLink) {
+        RoleId = roleId;
+        this.roleTitle = roleTitle;
+        Summary = summary;
         SpecificationLink = specificationLink;
     }
 }

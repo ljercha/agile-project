@@ -15,14 +15,14 @@ public class JobSpecificationDao {
     public Optional<JobSpecification> getJobSpecification(int role_id) throws SQLException {
         Connection c = databaseConnector.getConnection();
         Statement st = c.createStatement();
-        ResultSet rs = st.executeQuery("SELECT role_id, summary, description, sharepoint_link FROM Specifications Where id =" + role_id);
+        ResultSet rs = st.executeQuery("SELECT role_id, summary, sharepoint_link, job_role_title FROM Specifications INNER JOIN JobRoles ON role_id = job_role_id  Where id =" + role_id);
 
 
         if (rs.next()) {
             return Optional.of(new JobSpecification(
                     rs.getInt("role_id"),
+                    rs.getString("job_role_title"),
                     rs.getString("summary"),
-                    rs.getString("description"),
                     rs.getString("sharepoint_link")));
         }
         return Optional.empty();
