@@ -51,11 +51,13 @@ describe('AuthService', () => {
     it('should return error when pass wrong email', async () => {
       const mock = new MockAdapter(axios);
       mock.onPost('http://localhost:8080/api/auth/login', user).reply(400);
+      let errorMessage: string = '';
 
       try {
         await authService.login(login);
       } catch (error) {
-        const errorMessage: string = error instanceof Error ? error.message : String(error);
+        errorMessage = error instanceof Error ? error.message : String(error);
+      } finally {
         expect(errorMessage).to.equal('Login failed! Please try again.');
       }
     });
@@ -63,11 +65,13 @@ describe('AuthService', () => {
     it('should return error when pass wrong password', async () => {
       const mock = new MockAdapter(axios);
       mock.onPost('http://localhost:8080/api/auth/login', user).reply(400);
+      let errorMessage: string = '';
 
       try {
         await authService.login(login);
       } catch (error) {
-        const errorMessage: string = error instanceof Error ? error.message : String(error);
+        errorMessage = error instanceof Error ? error.message : String(error);
+      } finally {
         expect(errorMessage).to.equal('Login failed! Please try again.');
       }
     });
@@ -75,11 +79,13 @@ describe('AuthService', () => {
     it('should return error when database crashed', async () => {
       const mock = new MockAdapter(axios);
       mock.onPost('http://localhost:8080/api/auth/login', user).reply(500);
+      let errorMessage: string = '';
 
       try {
         await authService.login(login);
       } catch (error) {
-        const errorMessage: string = error instanceof Error ? error.message : String(error);
+        errorMessage = error instanceof Error ? error.message : String(error);
+      } finally {
         expect(errorMessage).to.equal('Login failed! Please try again.');
       }
     });
