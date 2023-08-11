@@ -6,6 +6,7 @@ import 'dotenv/config';
 import session from 'express-session';
 import nunjucks from 'nunjucks';
 import axios from 'axios';
+
 import JobSpecificationController from './controller/JobSpecificationController.js';
 import BandController from './controller/bandController.js';
 import JobRolesController from './controller/JobRolesController.js';
@@ -42,8 +43,7 @@ declare module 'express-session' {
     token: string;
   }
 }
-app.set('view engine', 'html');
-app.use('/public', express.static(path.join(dirname, 'public')));
+
 app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
