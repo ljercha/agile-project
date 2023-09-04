@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { validateProduct } from './productValidator.js';
+import { validateProduct } from '../service/productValidator.js';
 import Product from '../model/product.js';
 
 describe('Product validator', () => {
