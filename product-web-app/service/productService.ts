@@ -1,41 +1,49 @@
 import axios from 'axios';
-import { validateProduct } from './productValidator.js';
+import ProductValidator from './productValidator.js';
 import Product from '../model/product.js';
 
 const apiUrl = `http://${process.env.API_URL}`;
 
-export async function getProducts(): Promise<Product[]> {
-  try {
-    const response = await axios.get(`${apiUrl}/api/products`);
+export default class ProductService {
+  private productValidator: ProductValidator;
 
-    return response.data;
-  } catch (e) {
-    throw new Error('Could not get products');
-  }
-}
-
-export async function createProduct(product: Product): Promise<number> {
-  const validateError = validateProduct(product);
-  if (validateError) {
-    console.log(`VALIDATION ERROR: ${validateError}`);
-    throw new Error(validateError);
+  constructor(productValidator: ProductValidator) {
+    this.productValidator = productValidator;
   }
 
-  try {
-    const response = await axios.post(`${apiUrl}/api/products`, product);
+  async getProducts(): Promise<Product[]> {
+    try {
+      const response = await axios.get(`${apiUrl}/api/products`);
 
-    return response.data;
-  } catch (e) {
-    throw new Error('Could not create product');
+      return response.data;
+    } catch (e) {
+      throw new Error('Could not get products');
+    }
   }
-}
 
-export async function getProductById(id: number): Promise<Product> {
-  try {
-    const response = await axios.get(`${apiUrl}/api/products/${id}`);
+  async createProduct(product: Product): Promise<number> {
+    const validateError = this.productValidator.validateProduct(product);
+    if (validateError) {
+      console.log(`VALIDATION ERROR: ${validateError}`);
+      throw new Error(validateError);
+    }
 
-    return response.data;
-  } catch (e) {
-    throw new Error('Could not get products');
+    try {
+      const response = await axios.post(`${apiUrl}/api/products`, product);
+
+      return response.data;
+    } catch (e) {
+      throw new Error('Could not create product');
+    }
+  }
+
+  async getProductById(id: number): Promise<Product> {
+    try {
+      const response = await axios.get(`${apiUrl}/api/products/${id}`);
+
+      return response.data;
+    } catch (e) {
+      throw new Error('Could not get products');
+    }
   }
 }
