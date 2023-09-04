@@ -2,10 +2,11 @@ import axios from 'axios';
 import ProductValidator from './productValidator.js';
 import Product from '../model/product.js';
 
-const apiUrl = `http://${process.env.API_URL}`;
 
 export default class ProductService {
   private productValidator: ProductValidator;
+
+  public apiUrl = `${process.env.API_URL}`;
 
   constructor(productValidator: ProductValidator) {
     this.productValidator = productValidator;
@@ -13,7 +14,7 @@ export default class ProductService {
 
   async getProducts(): Promise<Product[]> {
     try {
-      const response = await axios.get(`${apiUrl}/api/products`);
+      const response = await axios.get(`${this.apiUrl}/api/products`);
 
       return response.data;
     } catch (e) {
@@ -29,7 +30,7 @@ export default class ProductService {
     }
 
     try {
-      const response = await axios.post(`${apiUrl}/api/products`, product);
+      const response = await axios.post(`${this.apiUrl}/api/products`, product);
 
       return response.data;
     } catch (e) {
@@ -39,7 +40,7 @@ export default class ProductService {
 
   async getProductById(id: number): Promise<Product> {
     try {
-      const response = await axios.get(`${apiUrl}/api/products/${id}`);
+      const response = await axios.get(`${this.apiUrl}/api/products/${id}`);
 
       return response.data;
     } catch (e) {
