@@ -2,7 +2,6 @@ import axios from 'axios';
 import ProductValidator from './productValidator.js';
 import Product from '../model/product.js';
 
-
 export default class ProductService {
   private productValidator: ProductValidator;
 
@@ -22,7 +21,7 @@ export default class ProductService {
     }
   }
 
-  async createProduct(product: Product): Promise<number> {
+  async createProduct(product: Product): Promise<Product> {
     const validateError = this.productValidator.validateProduct(product);
     if (validateError) {
       console.log(`VALIDATION ERROR: ${validateError}`);
@@ -44,7 +43,7 @@ export default class ProductService {
 
       return response.data;
     } catch (e) {
-      throw new Error('Could not get products');
+      throw new Error('Product not found');
     }
   }
 }
