@@ -15,7 +15,7 @@ describe('Product validator', () => {
       expect(productValidator.validateProduct(product as Product)).to.be.equal('Name greater than 50 characters');
     });
 
-    it('expect no errrors', () => {
+    it('expect no errors', () => {
       const product: Product = {
         name: 'Macbook 14 Pro 2021',
         productId: 53,

@@ -8,12 +8,13 @@ import org.kainos.ea.db.ProductDao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductService {
     private ProductDao productDao = new ProductDao();
     private ProductValidator productValidator = new ProductValidator();
 
-    public int createProduct(ProductRequest product) throws FailedToCreateProductException, InvalidProductException {
+    public Product createProduct(ProductRequest product) throws FailedToCreateProductException, InvalidProductException {
         try {
             String validation = productValidator.isValidProduct(product);
 
@@ -21,13 +22,9 @@ public class ProductService {
                 throw new InvalidProductException(validation);
             }
 
-            int id = productDao.createProduct(product);
+            Optional<Product> createdProduct = productDao.createProduct(product);
 
-            if (id == -1) {
-                throw new FailedToCreateProductException();
-            }
-
-            return id;
+            return createdProduct.orElseThrow(FailedToCreateProductException::new);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
 

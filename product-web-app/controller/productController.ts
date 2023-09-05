@@ -37,11 +37,10 @@ export default class ProductController {
 
     app.post('/add-product', async (req: Request, res: Response) => {
       const data: Product = req.body;
-      let id: number;
 
       try {
-        id = await this.productService.createProduct(data);
-        res.redirect(`/products/${id}`);
+        const newProduct = await this.productService.createProduct(data);
+        res.redirect(`/products/${newProduct.productId}`);
       } catch (e: any) {
         console.error(e);
         res.locals.errormessage = e.message;
@@ -81,12 +80,11 @@ export default class ProductController {
     });
     app.post('/add-product-confirmation', async (req: Request, res: Response) => {
       const data: Partial<Product> | undefined = req.session.product;
-      let id: number;
 
       try {
-        id = await this.productService.createProduct(data as Product);
+        const newProduct = await this.productService.createProduct(data as Product);
         req.session.product = undefined;
-        res.redirect(`/products/${id}`);
+        res.redirect(`/products/${newProduct.productId}`);
       } catch (e: any) {
         console.error(e);
         res.locals.errormessage = e.message;
