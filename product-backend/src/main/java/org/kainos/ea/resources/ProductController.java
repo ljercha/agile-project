@@ -58,7 +58,7 @@ public class ProductController {
         } catch (InvalidProductException e) {
             System.err.println(e.getMessage());
 
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseMessage(e.getMessage())).build();
         }
     }
 

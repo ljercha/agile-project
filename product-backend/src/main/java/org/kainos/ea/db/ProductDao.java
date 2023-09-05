@@ -6,6 +6,7 @@ import org.kainos.ea.cli.ProductRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductDao {
     private DatabaseConnector databaseConnector = new DatabaseConnector();
@@ -54,7 +55,7 @@ public class ProductDao {
         return null;
     }
 
-    public int createProduct(ProductRequest product) throws SQLException {
+    public Optional<Product> createProduct(ProductRequest product) throws SQLException {
         Connection c = databaseConnector.getConnection();
 
         String insertStatement = "INSERT INTO Product (Name, Description, Price) VALUES (?,?,?)";
@@ -70,10 +71,12 @@ public class ProductDao {
         ResultSet rs = st.getGeneratedKeys();
 
         if (rs.next()) {
-            return rs.getInt(1);
+            return Optional.of(new Product(rs.getInt(1),
+                    product.getName(),
+                    product.getDescription(),
+                    product.getPrice()));
         }
-
-        return -1;
+        return Optional.empty();
     }
 
     public void updateProduct(int id, ProductRequest product) throws SQLException {

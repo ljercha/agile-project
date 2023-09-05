@@ -45,6 +45,12 @@ public class Product implements Comparable<Product> {
         this.price = price;
     }
 
+    public Product(String name, String description, double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     @Override
     public int compareTo(Product product) {
         return Double.compare(this.getPrice(), product.getPrice());
