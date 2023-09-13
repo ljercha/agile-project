@@ -51,7 +51,7 @@ docker-compose up -d
 
 Stoping environment
 ```bash
-docker-compose up
+docker-compose down
 ```
 
 

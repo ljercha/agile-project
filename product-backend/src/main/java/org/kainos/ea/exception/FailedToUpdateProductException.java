@@ -1,4 +1,4 @@
-package org.kainos.ea.client;
+package org.kainos.ea.exception;
 
 public class FailedToUpdateProductException extends Throwable {
     @Override
