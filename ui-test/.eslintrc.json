@@ -1,4 +1,6 @@
 {
+    "root": true,
+    "ignorePatterns": ["wdio.conf.ts"],
     "env": {
         "browser": true,
         "es2021": true,
@@ -39,7 +41,6 @@
                 "@typescript-eslint/no-unused-expressions": "off"
           }
         }
-        
     ]
 }
 

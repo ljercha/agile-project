@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kainos.ea.cli.ProductRequest;
-import org.kainos.ea.core.ProductValidator;
+import org.kainos.ea.model.ProductRequest;
+import org.kainos.ea.service.ProductValidator;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 

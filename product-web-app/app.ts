@@ -6,7 +6,7 @@ import path from 'path';
 import nunjucks from 'nunjucks';
 
 import Product from './model/product.js';
-import productController from './controller/productController.js';
+import ProductController from './controller/productController.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -30,7 +30,6 @@ app.use(session({ secret: 'NOT_HARDCODED_SECRET', cookie: { maxAge: 60000 } }));
 declare module 'express-session' {
   interface SessionData {
     product: Partial<Product>;
-    token: string;
   }
 }
 
@@ -41,10 +40,12 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
+const productController = new ProductController();
+
 // Routing
 
 app.get('/', (eq: Request, res: Response) => {
   res.redirect('/products');
 });
 
-productController(app);
+productController.appRoutes(app);

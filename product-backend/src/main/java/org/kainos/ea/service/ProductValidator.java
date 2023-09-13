@@ -1,6 +1,6 @@
-package org.kainos.ea.core;
+package org.kainos.ea.service;
 
-import org.kainos.ea.cli.ProductRequest;
+import org.kainos.ea.model.ProductRequest;
 
 public class ProductValidator {
     public String isValidProduct(ProductRequest product) {

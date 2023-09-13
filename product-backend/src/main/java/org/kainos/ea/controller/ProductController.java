@@ -1,9 +1,9 @@
-package org.kainos.ea.resources;
+package org.kainos.ea.controller;
 
 import io.swagger.annotations.Api;
-import org.kainos.ea.api.ProductService;
-import org.kainos.ea.cli.ProductRequest;
-import org.kainos.ea.client.*;
+import org.kainos.ea.exception.*;
+import org.kainos.ea.service.ProductService;
+import org.kainos.ea.model.ProductRequest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -58,7 +58,7 @@ public class ProductController {
         } catch (InvalidProductException e) {
             System.err.println(e.getMessage());
 
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseMessage(e.getMessage())).build();
         }
     }
 

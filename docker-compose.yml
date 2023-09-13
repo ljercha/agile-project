@@ -4,7 +4,7 @@ services:
     container_name: product-web-app
     hostname: product-app
     environment:
-      - API_URL=product-api:8080
+      - API_URL=http://product-api:8080
     ports:
       - "3000:3000"
     image: product-web-app
@@ -16,7 +16,7 @@ services:
     environment:
       - DB_USERNAME=$DB_USERNAME
       - DB_PASSWORD=$DB_PASSWORD
-      - DB_HOST=$DB_HOST
+      - DB_HOST=mysqldb
       - DB_NAME=$DB_NAME
     ports:
       - "8080:8080"

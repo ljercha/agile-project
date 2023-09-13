@@ -1,4 +1,4 @@
-package org.kainos.ea.cli;
+package org.kainos.ea.model;
 
 public class Product implements Comparable<Product> {
     private int productId;
@@ -40,6 +40,12 @@ public class Product implements Comparable<Product> {
 
     public Product(int productId, String name, String description, double price) {
         this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    public Product(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.price = price;
