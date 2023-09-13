@@ -1,4 +1,4 @@
-package org.kainos.ea.cli;
+package org.kainos.ea.model;
 
 public class Product implements Comparable<Product> {
     private int productId;

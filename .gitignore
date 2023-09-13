@@ -25,3 +25,13 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+##############################
+## IntelliJ
+##############################
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws

@@ -3,8 +3,8 @@ package integration;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kainos.ea.cli.Product;
-import org.kainos.ea.cli.ProductRequest;
+import org.kainos.ea.model.Product;
+import org.kainos.ea.model.ProductRequest;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 

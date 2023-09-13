@@ -1,7 +1,7 @@
 package org.kainos.ea.db;
 
-import org.kainos.ea.cli.Product;
-import org.kainos.ea.cli.ProductRequest;
+import org.kainos.ea.model.Product;
+import org.kainos.ea.model.ProductRequest;
 
 import java.sql.*;
 import java.util.ArrayList;

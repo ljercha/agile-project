@@ -1,9 +1,8 @@
-package org.kainos.ea.api;
+package org.kainos.ea.service;
 
-import org.kainos.ea.cli.Product;
-import org.kainos.ea.cli.ProductRequest;
-import org.kainos.ea.client.*;
-import org.kainos.ea.core.ProductValidator;
+import org.kainos.ea.exception.*;
+import org.kainos.ea.model.Product;
+import org.kainos.ea.model.ProductRequest;
 import org.kainos.ea.db.ProductDao;
 
 import java.sql.SQLException;
