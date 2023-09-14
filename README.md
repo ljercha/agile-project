@@ -62,10 +62,22 @@ docker-compose down
 mvn test
 ```
 
-#### Integration tests
+#### Integration tests 
+
+Start the applications
+```bash
+docker-compose up -d
+```
+
+Run tests
 ```bash
 cd product/backend
 mvn verify
+```
+
+Stop applications
+```bash
+docker-compose down
 ```
 
 #### E2E/UI Tests
