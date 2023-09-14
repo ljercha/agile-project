@@ -29,7 +29,7 @@ jobs:
         cache-dependency-path: 'product-web-app/package-lock.json'
     - run: npm install
       working-directory: './product-web-app'
-    - run: npm run compile
+    - run: npm run build
       working-directory: './product-web-app'
     - run: npm run lint
       working-directory: './product-web-app'
