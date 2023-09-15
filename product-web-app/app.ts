@@ -7,6 +7,7 @@ import nunjucks from 'nunjucks';
 
 import Product from './model/product.js';
 import ProductController from './controller/productController.js';
+import logger from './service/logger.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -37,7 +38,7 @@ app.set('view engine', 'html');
 app.use('/public', express.static(path.join(dirname, 'public')));
 
 app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+  logger.info('Server listening on port 3000');
 });
 
 const productController = new ProductController();

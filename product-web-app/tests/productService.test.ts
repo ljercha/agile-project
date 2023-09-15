@@ -5,6 +5,7 @@ import MockAdapter from 'axios-mock-adapter';
 import ProductValidator from '../service/productValidator.js';
 import Product from '../model/product.js';
 import ProductService from '../service/productService.js';
+import logger from '../service/logger.js';
 
 // This sets the mock adapter on the default instance
 const mockAxios = new MockAdapter(axios);
@@ -27,6 +28,14 @@ const productDell: Product = {
 const productService = new ProductService(productValidatorStub);
 
 describe('Product service', () => {
+  before(() => {
+    logger.silent();
+  });
+
+  after(() => {
+    logger.unsilent();
+  });
+
   before(() => {
     // mock service base url
     productService.apiUrl = mockedApiUrl;

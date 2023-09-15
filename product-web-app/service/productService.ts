@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ProductValidator from './productValidator.js';
 import Product from '../model/product.js';
+import logger from './logger.js';
 
 export default class ProductService {
   private productValidator: ProductValidator;
@@ -17,6 +18,7 @@ export default class ProductService {
 
       return response.data;
     } catch (e) {
+      logger.error('Could not get products');
       throw new Error('Could not get products');
     }
   }
@@ -24,7 +26,7 @@ export default class ProductService {
   async createProduct(product: Product): Promise<Product> {
     const validateError = this.productValidator.validateProduct(product);
     if (validateError) {
-      console.log(`VALIDATION ERROR: ${validateError}`);
+      logger.warn(`VALIDATION ERROR: ${validateError}`);
       throw new Error(validateError);
     }
 
@@ -33,6 +35,7 @@ export default class ProductService {
 
       return response.data;
     } catch (e) {
+      logger.error('Could not get products');
       throw new Error('Could not create product');
     }
   }
@@ -43,6 +46,7 @@ export default class ProductService {
 
       return response.data;
     } catch (e) {
+      logger.error('Product not found');
       throw new Error('Product not found');
     }
   }

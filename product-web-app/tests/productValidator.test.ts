@@ -2,10 +2,19 @@ import { expect } from 'chai';
 
 import ProductValidator from '../service/productValidator.js';
 import Product from '../model/product.js';
+import logger from '../service/logger.js';
 
 const productValidator = new ProductValidator();
 
 describe('Product validator', () => {
+  before(() => {
+    logger.silent();
+  });
+
+  after(() => {
+    logger.unsilent();
+  });
+
   describe('validateProduct', () => {
     it('expect too long length message', () => {
       const product: Partial<Product> = {
