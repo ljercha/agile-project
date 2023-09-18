@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express';
 import ProductService from '../service/productService.js';
 import Product from '../model/product.js';
 import ProductValidator from '../service/productValidator.js';
+import logger from '../service/logger.js';
 
 export default class ProductController {
   private productService = new ProductService(new ProductValidator());
@@ -13,7 +14,7 @@ export default class ProductController {
       try {
         data = await this.productService.getProducts();
       } catch (e) {
-        console.error(e);
+        logger.error(`Couldnt get products! Error: ${e}`);
       }
 
       res.render('list-products', { products: data });
@@ -25,7 +26,7 @@ export default class ProductController {
       try {
         data = await this.productService.getProductById(Number.parseInt(req.params.id, 10));
       } catch (e) {
-        console.error(e);
+        logger.error(`Couldnt get product! Error: ${e}`);
       }
 
       res.render('view-product', { product: data });
@@ -42,7 +43,7 @@ export default class ProductController {
         const newProduct = await this.productService.createProduct(data);
         res.redirect(`/products/${newProduct.productId}`);
       } catch (e: any) {
-        console.error(e);
+        logger.error(e);
         res.locals.errormessage = e.message;
         res.render('add-product', req.body);
       }
