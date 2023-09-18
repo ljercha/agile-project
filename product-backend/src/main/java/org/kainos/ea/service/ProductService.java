@@ -4,14 +4,18 @@ import org.kainos.ea.exception.*;
 import org.kainos.ea.model.Product;
 import org.kainos.ea.model.ProductRequest;
 import org.kainos.ea.db.ProductDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class ProductService {
-    private ProductDao productDao = new ProductDao();
-    private ProductValidator productValidator = new ProductValidator();
+    private final ProductDao productDao = new ProductDao();
+    private final ProductValidator productValidator = new ProductValidator();
+
+    private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     public Product createProduct(ProductRequest product) throws FailedToCreateProductException, InvalidProductException {
         try {
@@ -25,47 +29,9 @@ public class ProductService {
 
             return createdProduct.orElseThrow(FailedToCreateProductException::new);
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            logger.error("SQL exception! Error: {}", e.getMessage());
 
             throw new FailedToCreateProductException();
-        }
-    }
-
-    public void updateProduct(int id, ProductRequest product) throws InvalidProductException, ProductDoesNotExistException, FailedToUpdateProductException {
-        try {
-            String validation = productValidator.isValidProduct(product);
-
-            if (validation != null) {
-                throw new InvalidProductException(validation);
-            }
-
-            Product productToUpdate = productDao.getProductById(id);
-
-            if (productToUpdate == null) {
-                throw new ProductDoesNotExistException();
-            }
-
-            productDao.updateProduct(id, product);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-
-            throw new FailedToUpdateProductException();
-        }
-    }
-
-    public void deleteProduct(int id) throws ProductDoesNotExistException, FailedToDeleteProductException {
-        try {
-            Product productToDelete = productDao.getProductById(id);
-
-            if (productToDelete == null) {
-                throw new ProductDoesNotExistException();
-            }
-
-            productDao.deleteProduct(id);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-
-            throw new FailedToDeleteProductException();
         }
     }
 
@@ -75,7 +41,7 @@ public class ProductService {
 
             return productList;
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            logger.error("SQL exception! Error: {}", e.getMessage());
 
             throw new FailedToGetProductsException();
         }
@@ -91,7 +57,7 @@ public class ProductService {
 
             return product;
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            logger.error("SQL exception! Error: {}", e.getMessage());
 
             throw new FailedToGetProductException();
         }

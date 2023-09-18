@@ -5,12 +5,12 @@ import MockAdapter from 'axios-mock-adapter';
 import ProductValidator from '../service/productValidator.js';
 import Product from '../model/product.js';
 import ProductService from '../service/productService.js';
+import logger from '../service/logger.js';
 
 // This sets the mock adapter on the default instance
 const mockAxios = new MockAdapter(axios);
 const productValidatorStub = sinon.stub(new ProductValidator());
 
-const mockedApiUrl = 'http://super-product-app.com';
 const productMacBook: Product = {
   productId: 5,
   name: 'Mac Book',
@@ -28,13 +28,16 @@ const productService = new ProductService(productValidatorStub);
 
 describe('Product service', () => {
   before(() => {
-    // mock service base url
-    productService.apiUrl = mockedApiUrl;
+    logger.silent();
+  });
+
+  after(() => {
+    logger.unsilent();
   });
 
   describe('getProducts', () => {
     it('when API is online expect products to be returned', async () => {
-      mockAxios.onGet(`${mockedApiUrl}/api/products`).reply(200, [productMacBook, productDell]);
+      mockAxios.onGet('/api/products').reply(200, [productMacBook, productDell]);
 
       const responseBody = await productService.getProducts();
 
@@ -43,7 +46,7 @@ describe('Product service', () => {
     });
 
     it('when API is down expect exception to be thrown', async () => {
-      mockAxios.onGet(`${mockedApiUrl}/api/products`).reply(500);
+      mockAxios.onGet('/api/products').reply(500);
 
       let exception: any;
       try {
@@ -60,7 +63,7 @@ describe('Product service', () => {
     it('when API is online expect products to be created', async () => {
       productValidatorStub.validateProduct.returns(null);
 
-      mockAxios.onPost(`${mockedApiUrl}/api/products`).reply(200, productDell);
+      mockAxios.onPost('/api/products').reply(200, productDell);
 
       const responseBody = await productService.createProduct(productDell);
 
@@ -71,7 +74,7 @@ describe('Product service', () => {
     it('when product have invalid fields expect exception to be thrown', async () => {
       const validationError = 'Name greater than 50 characters';
       productValidatorStub.validateProduct.returns(validationError);
-      mockAxios.onPost(`${mockedApiUrl}/api/products`).reply(200, productDell);
+      mockAxios.onPost('mockedApiUrl}/api/products').reply(200, productDell);
 
       let exception: any;
       try {
@@ -85,7 +88,7 @@ describe('Product service', () => {
 
     it('when API is down expect exception to be thrown', async () => {
       productValidatorStub.validateProduct.returns(null);
-      mockAxios.onPost(`${mockedApiUrl}/api/products`).reply(500);
+      mockAxios.onPost('/api/products').reply(500);
 
       let exception: any;
       try {
@@ -100,7 +103,7 @@ describe('Product service', () => {
 
   describe('getProductById', () => {
     it('when API is online expect product to be returned', async () => {
-      mockAxios.onGet(`${mockedApiUrl}/api/products/${productMacBook.productId}`).reply(200, productMacBook);
+      mockAxios.onGet(`/api/products/${productMacBook.productId}`).reply(200, productMacBook);
 
       const responseBody = await productService.getProductById(productMacBook.productId);
 
@@ -110,7 +113,7 @@ describe('Product service', () => {
     it('when API is down expect exception to be thrown', async () => {
       const productId = 5;
 
-      mockAxios.onGet(`${mockedApiUrl}/api/products/${productId}`).reply(404);
+      mockAxios.onGet(`/api/products/${productId}`).reply(404);
 
       let exception: any;
       try {
