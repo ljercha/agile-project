@@ -12,10 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductService {
-    private final ProductDao productDao = new ProductDao();
-    private final ProductValidator productValidator = new ProductValidator();
+    private final ProductDao productDao;
+    private final ProductValidator productValidator;
 
     private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
+
+    public ProductService(ProductDao productDao, ProductValidator productValidator) {
+        this.productDao = productDao;
+        this.productValidator = productValidator;
+    }
 
     public Product createProduct(ProductRequest product) throws FailedToCreateProductException, InvalidProductException {
         try {
@@ -25,9 +30,7 @@ public class ProductService {
                 throw new InvalidProductException(validation);
             }
 
-            Optional<Product> createdProduct = productDao.createProduct(product);
-
-            return createdProduct.orElseThrow(FailedToCreateProductException::new);
+            return productDao.createProduct(product);
         } catch (SQLException e) {
             logger.error("SQL exception! Error: {}", e.getMessage());
 

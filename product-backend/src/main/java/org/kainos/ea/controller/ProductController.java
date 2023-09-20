@@ -1,9 +1,11 @@
 package org.kainos.ea.controller;
 
 import io.swagger.annotations.Api;
+import org.kainos.ea.db.ProductDao;
 import org.kainos.ea.exception.*;
 import org.kainos.ea.model.ProductRequest;
 import org.kainos.ea.service.ProductService;
+import org.kainos.ea.service.ProductValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +16,7 @@ import javax.ws.rs.core.Response;
 @Api("Engineering Academy Dropwizard Product API")
 @Path("/api")
 public class ProductController {
-    private ProductService productService = new ProductService();
+    private final ProductService productService = new ProductService(new ProductDao(), new ProductValidator());
 
     private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
 

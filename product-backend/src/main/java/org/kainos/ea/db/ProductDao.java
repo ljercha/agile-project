@@ -1,5 +1,6 @@
 package org.kainos.ea.db;
 
+import org.kainos.ea.exception.FailedToCreateProductException;
 import org.kainos.ea.model.Product;
 import org.kainos.ea.model.ProductRequest;
 
@@ -54,7 +55,7 @@ public class ProductDao {
         return Optional.empty();
     }
 
-    public Optional<Product> createProduct(ProductRequest product) throws SQLException {
+    public Product createProduct(ProductRequest product) throws SQLException, FailedToCreateProductException {
         Connection c = DatabaseConnector.getConnection();
 
         String insertStatement = "INSERT INTO Product (Name, Description, Price) VALUES (?,?,?)";
@@ -70,11 +71,11 @@ public class ProductDao {
         ResultSet rs = st.getGeneratedKeys();
 
         if (rs.next()) {
-            return Optional.of(new Product(rs.getInt(1),
+            throw new FailedToCreateProductException("No product id have been returned");
+        }
+            return new Product(rs.getInt(1),
                     product.getName(),
                     product.getDescription(),
-                    product.getPrice()));
-        }
-        return Optional.empty();
+                    product.getPrice());
     }
 }
