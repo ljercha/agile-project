@@ -37,9 +37,7 @@ public class ProductService {
 
     public List<Product> getAllProducts() throws FailedToGetProductsException {
         try {
-            List<Product> productList = productDao.getAllProducts();
-
-            return productList;
+            return productDao.getAllProducts();
         } catch (SQLException e) {
             logger.error("SQL exception! Error: {}", e.getMessage());
 
@@ -49,13 +47,9 @@ public class ProductService {
 
     public Product getProductById(int id) throws FailedToGetProductException, ProductDoesNotExistException {
         try {
-            Product product = productDao.getProductById(id);
+            Optional<Product> product = productDao.getProductById(id);
 
-            if (product == null) {
-                throw new ProductDoesNotExistException();
-            }
-
-            return product;
+            return product.orElseThrow(ProductDoesNotExistException::new);
         } catch (SQLException e) {
             logger.error("SQL exception! Error: {}", e.getMessage());
 

@@ -61,7 +61,7 @@ public class ProductController {
         } catch (InvalidProductException e) {
             logger.error("Invalid Product data! Error: {}", e.getMessage());
 
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseMessage(e.getMessage())).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorResponse(e.getMessage())).build();
         }
     }
 }

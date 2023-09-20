@@ -5,11 +5,9 @@ import org.kainos.ea.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class DatabaseConnector {
     private static Connection conn;
@@ -35,10 +33,9 @@ public class DatabaseConnector {
             conn = DriverManager.getConnection("jdbc:mysql://" + host + "/" + name + "?allowPublicKeyRetrieval=true&useSSL=false", user, password);
             return conn;
 
-        } catch (Exception e) {
-            logger.error("Couldn't connect to the database! Error: {}", e.getMessage());
+        } catch (SQLException exception) {
+            logger.error("Couldn't connect to the database! Error: {}", exception.getMessage());
+            throw exception;
         }
-
-        return null;
     }
 }

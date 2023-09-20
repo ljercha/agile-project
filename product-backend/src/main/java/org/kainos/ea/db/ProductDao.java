@@ -9,10 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductDao {
-    private DatabaseConnector databaseConnector = new DatabaseConnector();
 
     public List<Product> getAllProducts() throws SQLException {
-        Connection c = databaseConnector.getConnection();
+        Connection c = DatabaseConnector.getConnection();
 
         Statement st = c.createStatement();
 
@@ -34,8 +33,8 @@ public class ProductDao {
         return productList;
     }
 
-    public Product getProductById(int id) throws SQLException {
-        Connection c = databaseConnector.getConnection();
+    public Optional<Product> getProductById(int id) throws SQLException {
+        Connection c = DatabaseConnector.getConnection();
 
         Statement st = c.createStatement();
 
@@ -43,20 +42,20 @@ public class ProductDao {
                 " FROM Product where ProductID=" + id);
 
         while (rs.next()) {
-            return new Product(
+            return Optional.of(new Product(
                     rs.getInt("ProductID"),
                     rs.getString("Name"),
                     rs.getString("Description"),
                     rs.getDouble("Price")
-            );
+            ));
 
         }
 
-        return null;
+        return Optional.empty();
     }
 
     public Optional<Product> createProduct(ProductRequest product) throws SQLException {
-        Connection c = databaseConnector.getConnection();
+        Connection c = DatabaseConnector.getConnection();
 
         String insertStatement = "INSERT INTO Product (Name, Description, Price) VALUES (?,?,?)";
 
@@ -77,32 +76,5 @@ public class ProductDao {
                     product.getPrice()));
         }
         return Optional.empty();
-    }
-
-    public void updateProduct(int id, ProductRequest product) throws SQLException {
-        Connection c = databaseConnector.getConnection();
-
-        String updateStatement = "UPDATE Product SET Name = ?, Description = ?, Price = ? WHERE ProductID = ?";
-
-        PreparedStatement st = c.prepareStatement(updateStatement);
-
-        st.setString(1, product.getName());
-        st.setString(2, product.getDescription());
-        st.setDouble(3, product.getPrice());
-        st.setInt(4, id);
-
-        st.executeUpdate();
-    }
-
-    public void deleteProduct(int id) throws SQLException {
-        Connection c = databaseConnector.getConnection();
-
-        String deleteStatement = "DELETE FROM Product WHERE ProductID = ?";
-
-        PreparedStatement st = c.prepareStatement(deleteStatement);
-
-        st.setInt(1, id);
-
-        st.executeUpdate();
     }
 }
