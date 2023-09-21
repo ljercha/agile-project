@@ -74,7 +74,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    void createProduct_When_ThereIsValidationError_Expect_InvalidProductExceptionExceptionToBeThrown() {
+    void createProduct_When_ThereIsValidationError_Expect_InvalidProductExceptionToBeThrown() {
         ProductRequest mockedProductRequest = new ProductRequest("Dell", "Fast computer", 999);
         String mockedValidationError = "Name greater than 75 characters";
         when(productValidatorMock.isValidProduct(mockedProductRequest)).thenReturn(mockedValidationError);

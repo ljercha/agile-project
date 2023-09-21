@@ -1,13 +1,11 @@
 package org.kainos.ea;
 
-import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.dropwizard.Configuration;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
-import io.federecio.dropwizard.swagger.SwaggerOAuth2Configuration;
-import io.federecio.dropwizard.swagger.SwaggerViewConfiguration;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 
 
 public class DropwizardWebServiceConfiguration extends Configuration {
