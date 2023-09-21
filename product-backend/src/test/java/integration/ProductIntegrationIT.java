@@ -4,8 +4,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.kainos.ea.model.Product;
-import org.kainos.ea.model.ProductRequest;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static io.restassured.RestAssured.given;
@@ -15,10 +13,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class
 ProductIntegrationIT {
 
-    @Mock
-    private ProductRequest product;
-
-    private Product badProductData = new Product(
+    private final Product badProductData = new Product(
             "very long description very long description very long description very long description very long description very long description",
             "bad product",
             159);
