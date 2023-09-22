@@ -10,14 +10,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-    private static Connection conn;
-
     private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
+    private static Connection conn;
 
     public static Connection getConnection() throws SQLException {
         String user, password, host, name;
 
-        if (conn != null && !conn.isClosed()) { return conn; }
+        if (conn != null && !conn.isClosed()) {
+            return conn;
+        }
 
         try {
             Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();

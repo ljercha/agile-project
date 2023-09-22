@@ -1,9 +1,9 @@
 package org.kainos.ea.service;
 
+import org.kainos.ea.db.ProductDao;
 import org.kainos.ea.exception.*;
 import org.kainos.ea.model.Product;
 import org.kainos.ea.model.ProductRequest;
-import org.kainos.ea.db.ProductDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductService {
+    private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
     private final ProductDao productDao;
     private final ProductValidator productValidator;
-
-    private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     public ProductService(ProductDao productDao, ProductValidator productValidator) {
         this.productDao = productDao;

@@ -1,8 +1,8 @@
 package org.kainos.ea;
 
-import io.dropwizard.Application;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.kainos.ea.controller.ProductController;
@@ -19,7 +19,7 @@ public class DropwizardWebServiceApplication extends Application<DropwizardWebSe
     }
 
     @Override
-    public void initialize(final Bootstrap<DropwizardWebServiceConfiguration> bootstrap) {
+    public void initialize(final Bootstrap bootstrap) {
         bootstrap.addBundle(new SwaggerBundle<DropwizardWebServiceConfiguration>() {
             @Override
             protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(DropwizardWebServiceConfiguration configuration) {
@@ -29,8 +29,7 @@ public class DropwizardWebServiceApplication extends Application<DropwizardWebSe
     }
 
     @Override
-    public void run(final DropwizardWebServiceConfiguration configuration,
-                    final Environment environment) {
+    public void run(DropwizardWebServiceConfiguration dropwizardWebServiceConfiguration, Environment environment) throws Exception {
         environment.jersey().register(new ProductController());
     }
 

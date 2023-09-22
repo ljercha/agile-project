@@ -1,6 +1,9 @@
 package org.kainos.ea.controller;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.kainos.ea.db.ProductDao;
 import org.kainos.ea.exception.*;
 import org.kainos.ea.model.ProductRequest;
@@ -9,16 +12,12 @@ import org.kainos.ea.service.ProductValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-@Api("Engineering Academy Dropwizard Product API")
+@Tag(name = "Engineering Academy Dropwizard Product API")
 @Path("/api")
 public class ProductController {
-    private final ProductService productService = new ProductService(new ProductDao(), new ProductValidator());
-
     private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
+    private final ProductService productService = new ProductService(new ProductDao(), new ProductValidator());
 
     @GET
     @Path("/products")
@@ -52,14 +51,15 @@ public class ProductController {
 
     @POST
     @Path("/products")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createProduct(ProductRequest product, @QueryParam("token") String token) {
+    public Response createProduct(ProductRequest product) {
         try {
             return Response.ok(productService.createProduct(product)).build();
         } catch (FailedToCreateProductException e) {
             logger.error("Failed to create Product! Error: {}", e.getMessage());
 
-            return Response.serverError().build();
+            return Response.serverError().entity(new ErrorResponse(e.getMessage())).build();
         } catch (InvalidProductException e) {
             logger.error("Invalid Product data! Error: {}", e.getMessage());
 
