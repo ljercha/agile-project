@@ -16,9 +16,8 @@ import org.slf4j.LoggerFactory;
 @Tag(name = "Engineering Academy Dropwizard Product API")
 @Path("/api")
 public class ProductController {
-    private final ProductService productService = new ProductService(new ProductDao(), new ProductValidator());
-
     private final static Logger logger = LoggerFactory.getLogger(ProductService.class);
+    private final ProductService productService = new ProductService(new ProductDao(), new ProductValidator());
 
     @GET
     @Path("/products")
@@ -60,7 +59,7 @@ public class ProductController {
         } catch (FailedToCreateProductException e) {
             logger.error("Failed to create Product! Error: {}", e.getMessage());
 
-            return Response.serverError().build();
+            return Response.serverError().entity(new ErrorResponse(e.getMessage())).build();
         } catch (InvalidProductException e) {
             logger.error("Invalid Product data! Error: {}", e.getMessage());
 

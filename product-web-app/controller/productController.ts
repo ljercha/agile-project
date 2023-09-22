@@ -43,7 +43,7 @@ export default class ProductController {
         const newProduct = await this.productService.createProduct(data);
         res.redirect(`/products/${newProduct.productId}`);
       } catch (e: any) {
-        logger.error(e);
+        logger.warn(e.message);
         res.locals.errormessage = e.message;
         res.render('add-product', req.body);
       }

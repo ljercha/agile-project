@@ -70,7 +70,7 @@ public class ProductDao {
 
         ResultSet rs = st.getGeneratedKeys();
 
-        if (rs.next()) {
+        if (!rs.next()) {
             throw new FailedToCreateProductException("No product id have been returned");
         }
         return new Product(rs.getInt(1),
